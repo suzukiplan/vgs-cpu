@@ -111,15 +111,15 @@ int vgscpu_run(void* ctx)
                 break;
             case VGSCPU_OP_INC_A:
                 c->r.a++;
-                c->s.z = (0 == a); 
+                c->f.z = (0 == c->r.a) ? 1 : 0; 
                 break;
             case VGSCPU_OP_DEC_A:
                 c->r.a--;
-                c->s.z = (0 == a); 
+                c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
             case VGSCPU_OP_NOT_A:
                 c->r.a = !(c->r.a);
-                c->s.z = (0 == a); 
+                c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
             default:
                 sprintf(c->error, "UNKNOWN INSTRUCTION(%02X)", (int)c->p[c->r.p]);

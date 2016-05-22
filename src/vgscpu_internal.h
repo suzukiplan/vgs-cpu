@@ -234,7 +234,7 @@ struct vgscpu_status_flag {
 
 struct vgscpu_context {
     char error[1024];                       /* error info */
-    struct vgs_register r;                  /* register */
+    struct vgscpu_register r;               /* register */
     struct vgscpu_status_flag f;            /* flag */
     unsigned char m[VGSCPU_MEMORY_SIZE];    /* main memory */
     unsigned char s[VGSCPU_STACK_SIZE];     /* stack */
