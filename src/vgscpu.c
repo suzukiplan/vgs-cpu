@@ -6,10 +6,16 @@
 
 void* vgscpu_create_context()
 {
+    struct vgscpu_context* result;
+    result = (struct vgscpu_context*)malloc(sizeof(struct vgscpu_context));
+    if (NULL == result) return NULL;
+    memset(result, 0, sizeof(struct vgscpu_context));
+    return result;
 }
 
 void vgscpu_release_context(void* ctx)
 {
+    free(ctx);
 }
 
 void vgscpu_load_program(void* ctx, void* pg, size_t size)
