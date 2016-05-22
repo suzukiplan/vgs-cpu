@@ -52,6 +52,7 @@
   - `255` : decimal number
   - `$FF` : hexadecimal number
   - `0377` : octal
+  - `B11111111` : binary
 - `[n]` : address
   - `[n]` : 通常, アドレスが指す 32bit の領域を意味する
   - `[n]H` : 通常, アドレスが指す 16bit の領域を意味する
