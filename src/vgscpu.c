@@ -67,8 +67,9 @@ int vgscpu_run(void* ctx)
                 break;
             case VGSCPU_OP_POP_A4:
                 c->r.p++;
-                c->r.s -= 2;
-                memcpy(&s, &c->s[c->r.s], 2);
+                c->r.s -= 4;
+                memcpy(&i, &c->s[c->r.s], 4);
+                c->r.a = i;
                 break;
             case VGSCPU_OP_LD_A1:
                 c->r.p++;
