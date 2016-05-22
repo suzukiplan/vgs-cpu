@@ -71,6 +71,23 @@ int vgscpu_run(void* ctx)
                 memcpy(&i, &c->s[c->r.s], 4);
                 c->r.a = i;
                 break;
+            case VGSCPU_OP_LD_A_1:
+                c->r.p++;
+                c->r.a = c->p[c->r.p];
+                c->r.p++;
+                break;
+            case VGSCPU_OP_LD_A_2:
+                c->r.p++;
+                memcpy(&s, &c->p[c->r.p], 2);
+                c->r.a = s;
+                c->r.p += 2;
+                break;
+            case VGSCPU_OP_LD_A_4:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.a = i;
+                c->r.p += 4;
+                break;
             case VGSCPU_OP_LD_A_M1:
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
