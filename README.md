@@ -1,11 +1,11 @@
 # [WIP] VGS CPU
-SUZUKI PLAN - Video Game System - Central Processing Unit
+- SUZUKI PLAN - Video Game System - Central Processing Unit
+- VGS-CPU is a 32bit cpu that spacialized for creating games of VGS.
 
 ## Developmental status
 - version alpha (いろいろ作りかけ)
 
 ## About VGS-CPU
-- VGS-CPU は VGS のゲームが快適に開発できること _のみ_ を目標として設計中の 32bit CPU です
 - 将来的には Cコンパイラ も作りたいと思っていますが __32bit CPUなのに6502並にフルアセンブリ言語でもコーディングしやすい石__ として, 嘗て私がフルアセでコードを書いていたことを色々思い出しながら設計しています _(単にCコンパイラを作るのは大変だからという説もある)_
 - VGSの推奨言語を今まで「C言語」としてきた伏線がようやくここで回収される訳です（ゲーム本体は普通にC++で書いた方が楽ですが、C++コンパイラを作るのは私には荷が重すぎるので... _Cなら標準関数を除けば多分作れる_）
 

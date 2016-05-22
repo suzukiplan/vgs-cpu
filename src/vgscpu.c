@@ -71,40 +71,40 @@ int vgscpu_run(void* ctx)
                 memcpy(&i, &c->s[c->r.s], 4);
                 c->r.a = i;
                 break;
-            case VGSCPU_OP_LD_A1:
+            case VGSCPU_OP_LD_A_M1:
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 c->r.a = c->m[i];
                 break;
-            case VGSCPU_OP_LD_A2:
+            case VGSCPU_OP_LD_A_M2:
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 memcpy(&s, &c->m[i], 2);
                 c->r.a = s;
                 break;
-            case VGSCPU_OP_LD_A4:
+            case VGSCPU_OP_LD_A_M4:
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 memcpy(&i, &c->m[i], 4);
                 c->r.a = i;
                 break;
-            case VGSCPU_OP_ST_A1:
+            case VGSCPU_OP_ST_A_M1:
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 c->m[i] = (unsigned char)(c->r.a & 0xff);
                 break;
-            case VGSCPU_OP_ST_A2:
+            case VGSCPU_OP_ST_A_M2:
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 s = (unsigned short)(c->r.a & 0xffff);
                 memcpy(&c->m[i], &s, 2);
                 break;
-            case VGSCPU_OP_ST_A4:
+            case VGSCPU_OP_ST_A_M4:
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;

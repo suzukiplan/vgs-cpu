@@ -11,212 +11,221 @@
 #define VGSCPU_OP_POP_A1 0x04   /* pop: stack -> a (1byte) */
 #define VGSCPU_OP_POP_A2 0x05   /* pop: stack -> a (2byte) */
 #define VGSCPU_OP_POP_A4 0x06   /* pop: stack -> a (4byte) */
-#define VGSCPU_OP_LD_A1 0x07    /* load: memory -> a (1byte) */
-#define VGSCPU_OP_LD_A2 0x08    /* load: memory -> a (2byte) */
-#define VGSCPU_OP_LD_A4 0x09    /* load: memory -> a (4byte) */
-#define VGSCPU_OP_ST_A1 0x0A    /* store: a -> memory (1byte) */
-#define VGSCPU_OP_ST_A2 0x0B    /* store: a -> memory (2byte) */
-#define VGSCPU_OP_ST_A4 0x0C    /* store: a -> memory (4byte) */
-#define VGSCPU_OP_INC_A 0x0D    /* increment: a++ */
-#define VGSCPU_OP_DEC_A 0x0E    /* decrement: a-- */
-#define VGSCPU_OP_NOT_A 0x0F    /* not: a = !a */
+#define VGSCPU_OP_LD_A_1 0x07   /* load: n -> a (1byte) */
+#define VGSCPU_OP_LD_A_2 0x08   /* load: n -> a (2byte) */
+#define VGSCPU_OP_LD_A_4 0x09   /* load: n -> a (4byte) */
+#define VGSCPU_OP_LD_A_B 0x0a   /* load: b -> a */
+#define VGSCPU_OP_LD_A_C 0x0b   /* load: c -> a */
+#define VGSCPU_OP_LD_A_D 0x0c   /* load: d -> a */
+#define VGSCPU_OP_LD_A_M1 0x0d  /* load: &memory[ptr](1byte) -> a */
+#define VGSCPU_OP_LD_A_M2 0x0e  /* load: &memory[ptr](1byte) -> a */
+#define VGSCPU_OP_LD_A_M4 0x0f  /* load: &memory[ptr](1byte) -> a */
+#define VGSCPU_OP_ST_A_M1 0x10  /* store: a -> &memory[ptr](1byte) */
+#define VGSCPU_OP_ST_A_M2 0x11  /* store: a -> &memory[ptr](2byte) */
+#define VGSCPU_OP_ST_A_M4 0x12  /* store: a -> &memory[ptr](4byte) */
+#define VGSCPU_OP_INC_A 0x13    /* increment: a++ */
+#define VGSCPU_OP_DEC_A 0x14    /* decrement: a-- */
+#define VGSCPU_OP_NOT_A 0x15    /* not: a = !a */
 
 /* stack and load/store (b) */
-#define VGSCPU_OP_PUSH_B1 0x11  /* push: b -> stack (1byte) */
-#define VGSCPU_OP_PUSH_B2 0x12  /* push: b -> stack (2byte) */
-#define VGSCPU_OP_PUSH_B4 0x13  /* push: b -> stack (4byte) */
-#define VGSCPU_OP_POP_B1 0x14   /* pop: stack -> b (1byte) */
-#define VGSCPU_OP_POP_B2 0x15   /* pop: stack -> b (2byte) */
-#define VGSCPU_OP_POP_B4 0x16   /* pop: stack -> b (4byte) */
-#define VGSCPU_OP_LD_B1 0x17    /* load: memory -> b (1byte) */
-#define VGSCPU_OP_LD_B2 0x18    /* load: memory -> b (2byte) */
-#define VGSCPU_OP_LD_B4 0x19    /* load: memory -> b (4byte) */
-#define VGSCPU_OP_ST_B1 0x1A    /* store: b -> memory (1byte) */
-#define VGSCPU_OP_ST_B2 0x1B    /* store: b -> memory (2byte) */
-#define VGSCPU_OP_ST_B4 0x1C    /* store: b -> memory (4byte) */
-#define VGSCPU_OP_INC_B 0x1D    /* increment: b++ */
-#define VGSCPU_OP_DEC_B 0x1E    /* decrement: b-- */
-#define VGSCPU_OP_NOT_B 0x1F    /* not: b = !b */
+#define VGSCPU_OP_PUSH_B1 0x16  /* push: b -> stack (1byte) */
+#define VGSCPU_OP_PUSH_B2 0x17  /* push: b -> stack (2byte) */
+#define VGSCPU_OP_PUSH_B4 0x18  /* push: b -> stack (4byte) */
+#define VGSCPU_OP_POP_B1 0x19   /* pop: stack -> b (1byte) */
+#define VGSCPU_OP_POP_B2 0x1a   /* pop: stack -> b (2byte) */
+#define VGSCPU_OP_POP_B4 0x1b   /* pop: stack -> b (4byte) */
+#define VGSCPU_OP_LD_B_1 0x1c   /* load: n -> b (1byte) */
+#define VGSCPU_OP_LD_B_2 0x1d   /* load: n -> b (2byte) */
+#define VGSCPU_OP_LD_B_4 0x1e   /* load: n -> b (4byte) */
+#define VGSCPU_OP_LD_B_A 0x1f   /* load: a -> b */
+#define VGSCPU_OP_LD_B_C 0x20   /* load: c -> b */
+#define VGSCPU_OP_LD_B_D 0x21   /* load: d -> b */
+#define VGSCPU_OP_LD_B_M1 0x22  /* load: &memory[ptr](1byte) -> b */
+#define VGSCPU_OP_LD_B_M2 0x23  /* load: &memory[ptr](1byte) -> b */
+#define VGSCPU_OP_LD_B_M4 0x24  /* load: &memory[ptr](1byte) -> b */
+#define VGSCPU_OP_ST_B_M1 0x25  /* store: b -> &memory[ptr](1byte) */
+#define VGSCPU_OP_ST_B_M2 0x26  /* store: b -> &memory[ptr](2byte) */
+#define VGSCPU_OP_ST_B_M4 0x27  /* store: b -> &memory[ptr](4byte) */
+#define VGSCPU_OP_INC_B 0x28    /* increment: b++ */
+#define VGSCPU_OP_DEC_B 0x29    /* decrement: b-- */
+#define VGSCPU_OP_NOT_B 0x2a    /* not: b = !b */
 
 /* stack and load/store (c) */
-#define VGSCPU_OP_PUSH_C1 0x21  /* push: c -> stack (1byte) */
-#define VGSCPU_OP_PUSH_C2 0x22  /* push: c -> stack (2byte) */
-#define VGSCPU_OP_PUSH_C4 0x23  /* push: c -> stack (4byte) */
-#define VGSCPU_OP_POP_C1 0x24   /* pop: stack -> c (1byte) */
-#define VGSCPU_OP_POP_C2 0x25   /* pop: stack -> c (2byte) */
-#define VGSCPU_OP_POP_C4 0x26   /* pop: stack -> c (4byte) */
-#define VGSCPU_OP_LD_C1 0x27    /* load: memory -> c (1byte) */
-#define VGSCPU_OP_LD_C2 0x28    /* load: memory -> c (2byte) */
-#define VGSCPU_OP_LD_C4 0x29    /* load: memory -> c (4byte) */
-#define VGSCPU_OP_ST_C1 0x2A    /* store: c -> memory (1byte) */
-#define VGSCPU_OP_ST_C2 0x2B    /* store: c -> memory (2byte) */
-#define VGSCPU_OP_ST_C4 0x2C    /* store: c -> memory (4byte) */
-#define VGSCPU_OP_INC_C 0x2D    /* increment: c++ */
-#define VGSCPU_OP_DEC_C 0x2E    /* decrement: c-- */
-#define VGSCPU_OP_NOT_C 0x2F    /* not: c = !c */
+#define VGSCPU_OP_PUSH_C1 0x2b  /* push: c -> stack (1byte) */
+#define VGSCPU_OP_PUSH_C2 0x2c  /* push: c -> stack (2byte) */
+#define VGSCPU_OP_PUSH_C4 0x2d  /* push: c -> stack (4byte) */
+#define VGSCPU_OP_POP_C1 0x2e   /* pop: stack -> c (1byte) */
+#define VGSCPU_OP_POP_C2 0x2f   /* pop: stack -> c (2byte) */
+#define VGSCPU_OP_POP_C4 0x30   /* pop: stack -> c (4byte) */
+#define VGSCPU_OP_LD_C_1 0x31   /* load: n -> c (1byte) */
+#define VGSCPU_OP_LD_C_2 0x32   /* load: n -> c (2byte) */
+#define VGSCPU_OP_LD_C_4 0x33   /* load: n -> c (4byte) */
+#define VGSCPU_OP_LD_C_A 0x34   /* load: a -> c */
+#define VGSCPU_OP_LD_C_B 0x35   /* load: b -> c */
+#define VGSCPU_OP_LD_C_D 0x36   /* load: d -> c */
+#define VGSCPU_OP_LD_C_M1 0x37  /* load: &memory[ptr](1byte) -> c */
+#define VGSCPU_OP_LD_C_M2 0x38  /* load: &memory[ptr](1byte) -> c */
+#define VGSCPU_OP_LD_C_M4 0x39  /* load: &memory[ptr](1byte) -> c */
+#define VGSCPU_OP_ST_C_M1 0x3a  /* store: c -> &memory[ptr](1byte) */
+#define VGSCPU_OP_ST_C_M2 0x3b  /* store: c -> &memory[ptr](2byte) */
+#define VGSCPU_OP_ST_C_M4 0x3c  /* store: c -> &memory[ptr](4byte) */
+#define VGSCPU_OP_INC_C 0x3d    /* increment: c++ */
+#define VGSCPU_OP_DEC_C 0x3e    /* decrement: c-- */
+#define VGSCPU_OP_NOT_C 0x3f    /* not: c = !c */
 
 /* stack and load/store (d) */
-#define VGSCPU_OP_PUSH_D1 0x31  /* push: d -> stack (1byte) */
-#define VGSCPU_OP_PUSH_D2 0x32  /* push: d -> stack (2byte) */
-#define VGSCPU_OP_PUSH_D4 0x33  /* push: d -> stack (4byte) */
-#define VGSCPU_OP_POP_D1 0x34   /* pop: stack -> d (1byte) */
-#define VGSCPU_OP_POP_D2 0x35   /* pop: stack -> d (2byte) */
-#define VGSCPU_OP_POP_D4 0x36   /* pop: stack -> d (4byte) */
-#define VGSCPU_OP_LD_D1 0x37    /* load: memory -> d (1byte) */
-#define VGSCPU_OP_LD_D2 0x38    /* load: memory -> d (2byte) */
-#define VGSCPU_OP_LD_D4 0x39    /* load: memory -> d (4byte) */
-#define VGSCPU_OP_ST_D1 0x3A    /* store: d -> memory (1byte) */
-#define VGSCPU_OP_ST_D2 0x3B    /* store: d -> memory (2byte) */
-#define VGSCPU_OP_ST_D4 0x3C    /* store: d -> memory (4byte) */
-#define VGSCPU_OP_INC_D 0x3D    /* increment: d++ */
-#define VGSCPU_OP_DEC_D 0x3E    /* decrement: d-- */
-#define VGSCPU_OP_NOT_D 0x3F    /* not: d = !d */
-
-/* load reg & and */
-#define VGSCPU_OP_LD_AB 0x40    /* load: b -> a */
-#define VGSCPU_OP_LD_AC 0x41    /* load: c -> a */
-#define VGSCPU_OP_LD_AD 0x42    /* load: d -> a */
-#define VGSCPU_OP_LD_BA 0x43    /* load: a -> b */
-#define VGSCPU_OP_LD_BC 0x44    /* load: c -> b */
-#define VGSCPU_OP_LD_BD 0x45    /* load: d -> b */
-#define VGSCPU_OP_LD_CA 0x46    /* load: a -> c */
-#define VGSCPU_OP_LD_CB 0x47    /* load: b -> c */
-#define VGSCPU_OP_LD_CD 0x48    /* load: d -> c */
-#define VGSCPU_OP_LD_DA 0x49    /* load: a -> d */
-#define VGSCPU_OP_LD_DB 0x4A    /* load: b -> d */
-#define VGSCPU_OP_LD_DC 0x4B    /* load: c -> d */
+#define VGSCPU_OP_PUSH_D1 0x40  /* push: d -> stack (1byte) */
+#define VGSCPU_OP_PUSH_D2 0x41  /* push: d -> stack (2byte) */
+#define VGSCPU_OP_PUSH_D4 0x42  /* push: d -> stack (4byte) */
+#define VGSCPU_OP_POP_D1 0x43   /* pop: stack -> d (1byte) */
+#define VGSCPU_OP_POP_D2 0x44   /* pop: stack -> d (2byte) */
+#define VGSCPU_OP_POP_D4 0x45   /* pop: stack -> d (4byte) */
+#define VGSCPU_OP_LD_D_1 0x46   /* load: n -> d (1byte) */
+#define VGSCPU_OP_LD_D_2 0x47   /* load: n -> d (2byte) */
+#define VGSCPU_OP_LD_D_4 0x48   /* load: n -> d (4byte) */
+#define VGSCPU_OP_LD_D_A 0x49   /* load: a -> d */
+#define VGSCPU_OP_LD_D_B 0x4a   /* load: b -> d */
+#define VGSCPU_OP_LD_D_D 0x4b   /* load: d -> d */
+#define VGSCPU_OP_LD_D_M1 0x4c  /* load: &memory[ptr](1byte) -> d */
+#define VGSCPU_OP_LD_D_M2 0x4d  /* load: &memory[ptr](1byte) -> d */
+#define VGSCPU_OP_LD_D_M4 0x4e  /* load: &memory[ptr](1byte) -> d */
+#define VGSCPU_OP_ST_D_M1 0x4f  /* store: d -> &memory[ptr](1byte) */
+#define VGSCPU_OP_ST_D_M2 0x50  /* store: d -> &memory[ptr](2byte) */
+#define VGSCPU_OP_ST_D_M4 0x51  /* store: d -> &memory[ptr](4byte) */
+#define VGSCPU_OP_INC_D 0x52    /* increment: d++ */
+#define VGSCPU_OP_DEC_D 0x53    /* decrement: d-- */
+#define VGSCPU_OP_NOT_D 0x54    /* not: d = !d */
 
 /* shift */
-#define VGSCPU_OP_SHL_A 0x4C    /* left-shift: a */
-#define VGSCPU_OP_SHL_B 0x4D    /* left-shift: b */
-#define VGSCPU_OP_SHL_C 0x4E    /* left-shift: c */
-#define VGSCPU_OP_SHL_D 0x4F    /* left-shift: d */
-#define VGSCPU_OP_SHR_A 0x50    /* right-shift: a */
-#define VGSCPU_OP_SHR_B 0x51    /* right-shift: b */
-#define VGSCPU_OP_SHR_C 0x52    /* right-shift: c */
-#define VGSCPU_OP_SHR_D 0x53    /* right-shift: d */
+#define VGSCPU_OP_SHL_A 0x55   /* left-shift: a */
+#define VGSCPU_OP_SHL_B 0x56    /* left-shift: b */
+#define VGSCPU_OP_SHL_C 0x57    /* left-shift: c */
+#define VGSCPU_OP_SHL_D 0x58    /* left-shift: d */
+#define VGSCPU_OP_SHR_B 0x59    /* right-shift: b */
+#define VGSCPU_OP_SHR_C 0x5a    /* right-shift: c */
+#define VGSCPU_OP_SHR_D 0x5b    /* right-shift: d */
 
 /* add */
-#define VGSCPU_OP_ADD_A_1 0x54  /* add: a = a + literal(1byte) */
-#define VGSCPU_OP_ADD_A_2 0x55  /* add: a = a + literal(2byte) */
-#define VGSCPU_OP_ADD_A_4 0x56  /* add: a = a + literal(4byte) */
-#define VGSCPU_OP_ADD_A_B 0x57  /* add: a = a + b */
-#define VGSCPU_OP_ADD_A_C 0x58  /* add: a = a + c */
-#define VGSCPU_OP_ADD_A_D 0x59  /* add: a = a + d */
-#define VGSCPU_OP_ADD_A_M1 0x5A /* add: a = a + &memory[ptr](1byte) */
-#define VGSCPU_OP_ADD_A_M2 0x5B /* add: a = a + &memory[ptr](2byte) */
-#define VGSCPU_OP_ADD_A_M3 0x5C /* add: a = a + &memory[ptr](2byte) */
+#define VGSCPU_OP_ADD_A_1 0x5c  /* add: a = a + literal(1byte) */
+#define VGSCPU_OP_ADD_A_2 0x5d  /* add: a = a + literal(2byte) */
+#define VGSCPU_OP_ADD_A_4 0x5e  /* add: a = a + literal(4byte) */
+#define VGSCPU_OP_ADD_A_B 0x5f  /* add: a = a + b */
+#define VGSCPU_OP_ADD_A_C 0x60  /* add: a = a + c */
+#define VGSCPU_OP_ADD_A_D 0x61  /* add: a = a + d */
+#define VGSCPU_OP_ADD_A_M1 0x62 /* add: a = a + &memory[ptr](1byte) */
+#define VGSCPU_OP_ADD_A_M2 0x63 /* add: a = a + &memory[ptr](2byte) */
+#define VGSCPU_OP_ADD_A_M3 0x64 /* add: a = a + &memory[ptr](2byte) */
 
 /* sub */
-#define VGSCPU_OP_SUB_A_1 0x5D  /* sub: a = a - literal(1byte) */
-#define VGSCPU_OP_SUB_A_2 0x5E  /* sub: a = a - literal(2byte) */
-#define VGSCPU_OP_SUB_A_4 0x5F  /* sub: a = a - literal(4byte) */
-#define VGSCPU_OP_SUB_A_B 0x60  /* sub: a = a - b */
-#define VGSCPU_OP_SUB_A_C 0x61  /* sub: a = a - c */
-#define VGSCPU_OP_SUB_A_D 0x62  /* sub: a = a - d */
-#define VGSCPU_OP_SUB_A_M1 0x63 /* sub: a = a - &memory[ptr](1byte) */
-#define VGSCPU_OP_SUB_A_M2 0x64 /* sub: a = a - &memory[ptr](2byte) */
-#define VGSCPU_OP_SUB_A_M3 0x65 /* sub: a = a - &memory[ptr](4byte) */
+#define VGSCPU_OP_SUB_A_1 0x65  /* sub: a = a - literal(1byte) */
+#define VGSCPU_OP_SUB_A_2 0x66  /* sub: a = a - literal(2byte) */
+#define VGSCPU_OP_SUB_A_4 0x67  /* sub: a = a - literal(4byte) */
+#define VGSCPU_OP_SUB_A_B 0x68  /* sub: a = a - b */
+#define VGSCPU_OP_SUB_A_C 0x69  /* sub: a = a - c */
+#define VGSCPU_OP_SUB_A_D 0x6a  /* sub: a = a - d */
+#define VGSCPU_OP_SUB_A_M1 0x6b /* sub: a = a - &memory[ptr](1byte) */
+#define VGSCPU_OP_SUB_A_M2 0x6c /* sub: a = a - &memory[ptr](2byte) */
+#define VGSCPU_OP_SUB_A_M3 0x6d /* sub: a = a - &memory[ptr](4byte) */
 
 /* mul */
-#define VGSCPU_OP_MUL_A_1 0x66  /* mul: a = a * literal(1byte) */
-#define VGSCPU_OP_MUL_A_2 0x67  /* mul: a = a * literal(2byte) */
-#define VGSCPU_OP_MUL_A_4 0x68  /* mul: a = a * literal(4byte) */
-#define VGSCPU_OP_MUL_A_B 0x69  /* mul: a = a * b */
-#define VGSCPU_OP_MUL_A_C 0x6A  /* mul: a = a * c */
-#define VGSCPU_OP_MUL_A_D 0x6B  /* mul: a = a * d */
-#define VGSCPU_OP_MUL_A_M1 0x6C /* mul: a = a * &memory[ptr](1byte) */
-#define VGSCPU_OP_MUL_A_M2 0x6D /* mul: a = a * &memory[ptr](2byte) */
-#define VGSCPU_OP_MUL_A_M3 0x6E /* mul: a = a * &memory[ptr](4byte) */
+#define VGSCPU_OP_MUL_A_1 0x6e  /* mul: a = a * literal(1byte) */
+#define VGSCPU_OP_MUL_A_2 0x6f  /* mul: a = a * literal(2byte) */
+#define VGSCPU_OP_MUL_A_4 0x70  /* mul: a = a * literal(4byte) */
+#define VGSCPU_OP_MUL_A_B 0x71  /* mul: a = a * b */
+#define VGSCPU_OP_MUL_A_C 0x72  /* mul: a = a * c */
+#define VGSCPU_OP_MUL_A_D 0x73  /* mul: a = a * d */
+#define VGSCPU_OP_MUL_A_M1 0x74 /* mul: a = a * &memory[ptr](1byte) */
+#define VGSCPU_OP_MUL_A_M2 0x75 /* mul: a = a * &memory[ptr](2byte) */
+#define VGSCPU_OP_MUL_A_M3 0x76 /* mul: a = a * &memory[ptr](4byte) */
 
 /* div */
-#define VGSCPU_OP_DIV_A_1 0x6F  /* div: a = a / literal(1byte) */
-#define VGSCPU_OP_DIV_A_2 0x70  /* div: a = a / literal(2byte) */
-#define VGSCPU_OP_DIV_A_4 0x71  /* div: a = a / literal(4byte) */
-#define VGSCPU_OP_DIV_A_B 0x72  /* div: a = a / b */
-#define VGSCPU_OP_DIV_A_C 0x73  /* div: a = a / c */
-#define VGSCPU_OP_DIV_A_D 0x74  /* div: a = a / d */
-#define VGSCPU_OP_DIV_A_M1 0x75 /* div: a = a / &memory[ptr](1byte) */
-#define VGSCPU_OP_DIV_A_M2 0x76 /* div: a = a / &memory[ptr](2byte) */
-#define VGSCPU_OP_DIV_A_M3 0x77 /* div: a = a / &memory[ptr](4byte) */
+#define VGSCPU_OP_DIV_A_1 0x77  /* div: a = a / literal(1byte) */
+#define VGSCPU_OP_DIV_A_2 0x78  /* div: a = a / literal(2byte) */
+#define VGSCPU_OP_DIV_A_4 0x79  /* div: a = a / literal(4byte) */
+#define VGSCPU_OP_DIV_A_B 0x7a  /* div: a = a / b */
+#define VGSCPU_OP_DIV_A_C 0x7b  /* div: a = a / c */
+#define VGSCPU_OP_DIV_A_D 0x7c  /* div: a = a / d */
+#define VGSCPU_OP_DIV_A_M1 0x7d /* div: a = a / &memory[ptr](1byte) */
+#define VGSCPU_OP_DIV_A_M2 0x7e /* div: a = a / &memory[ptr](2byte) */
+#define VGSCPU_OP_DIV_A_M3 0x7f /* div: a = a / &memory[ptr](4byte) */
 
 /* and */
-#define VGSCPU_OP_AND_A_1 0x78  /* and: a = a & literal(1byte) */
-#define VGSCPU_OP_AND_A_2 0x79  /* and: a = a & literal(2byte) */
-#define VGSCPU_OP_AND_A_4 0x7A  /* and: a = a & literal(4byte) */
-#define VGSCPU_OP_AND_A_B 0x7B  /* and: a = a & b */
-#define VGSCPU_OP_AND_A_C 0x7C  /* and: a = a & c */
-#define VGSCPU_OP_AND_A_D 0x7D  /* and: a = a & d */
-#define VGSCPU_OP_AND_A_M1 0x7E /* and: a = a & &memory[ptr](1byte) */
-#define VGSCPU_OP_AND_A_M2 0x7F /* and: a = a & &memory[ptr](2byte) */
-#define VGSCPU_OP_AND_A_M3 0x80 /* and: a = a & &memory[ptr](4byte) */
+#define VGSCPU_OP_AND_A_1 0x80  /* and: a = a & literal(1byte) */
+#define VGSCPU_OP_AND_A_2 0x81  /* and: a = a & literal(2byte) */
+#define VGSCPU_OP_AND_A_4 0x82  /* and: a = a & literal(4byte) */
+#define VGSCPU_OP_AND_A_B 0x83  /* and: a = a & b */
+#define VGSCPU_OP_AND_A_C 0x84  /* and: a = a & c */
+#define VGSCPU_OP_AND_A_D 0x85  /* and: a = a & d */
+#define VGSCPU_OP_AND_A_M1 0x86 /* and: a = a & &memory[ptr](1byte) */
+#define VGSCPU_OP_AND_A_M2 0x87 /* and: a = a & &memory[ptr](2byte) */
+#define VGSCPU_OP_AND_A_M3 0x88 /* and: a = a & &memory[ptr](4byte) */
 
 /* or */
-#define VGSCPU_OP_OR_A_1 0x81   /* or: a = a | literal(1byte) */
-#define VGSCPU_OP_OR_A_2 0x82   /* or: a = a | literal(2byte) */
-#define VGSCPU_OP_OR_A_4 0x83   /* or: a = a | literal(4byte) */
-#define VGSCPU_OP_OR_A_B 0x84   /* or: a = a | b */
-#define VGSCPU_OP_OR_A_C 0x85   /* or: a = a | c */
-#define VGSCPU_OP_OR_A_D 0x86   /* or: a = a | d */
-#define VGSCPU_OP_OR_A_M1 0x87  /* or: a = a | &memory[ptr](1byte) */
-#define VGSCPU_OP_OR_A_M2 0x88  /* or: a = a | &memory[ptr](2byte) */
-#define VGSCPU_OP_OR_A_M3 0x89  /* or: a = a | &memory[ptr](4byte) */
+#define VGSCPU_OP_OR_A_1 0x89   /* or: a = a | literal(1byte) */
+#define VGSCPU_OP_OR_A_2 0x8a   /* or: a = a | literal(2byte) */
+#define VGSCPU_OP_OR_A_4 0x8b   /* or: a = a | literal(4byte) */
+#define VGSCPU_OP_OR_A_B 0x8c   /* or: a = a | b */
+#define VGSCPU_OP_OR_A_C 0x8d   /* or: a = a | c */
+#define VGSCPU_OP_OR_A_D 0x8e   /* or: a = a | d */
+#define VGSCPU_OP_OR_A_M1 0x8f  /* or: a = a | &memory[ptr](1byte) */
+#define VGSCPU_OP_OR_A_M2 0x90  /* or: a = a | &memory[ptr](2byte) */
+#define VGSCPU_OP_OR_A_M3 0x91  /* or: a = a | &memory[ptr](4byte) */
 
 /* xor */
-#define VGSCPU_OP_XOR_A_1 0x8A  /* xor: a = a ^ literal(1byte) */
-#define VGSCPU_OP_XOR_A_2 0x8B  /* xor: a = a ^ literal(2byte) */
-#define VGSCPU_OP_XOR_A_4 0x8C  /* xor: a = a ^ literal(4byte) */
-#define VGSCPU_OP_XOR_A_B 0x8D  /* xor: a = a ^ b */
-#define VGSCPU_OP_XOR_A_C 0x8E  /* xor: a = a ^ c */
-#define VGSCPU_OP_XOR_A_D 0x8F  /* xor: a = a ^ d */
-#define VGSCPU_OP_XOR_A_M1 0x90 /* xor: a = a ^ &memory[ptr](1byte) */
-#define VGSCPU_OP_XOR_A_M2 0x91 /* xor: a = a ^ &memory[ptr](2byte) */
-#define VGSCPU_OP_XOR_A_M3 0x92 /* xor: a = a ^ &memory[ptr](4byte) */
+#define VGSCPU_OP_XOR_A_1 0x92  /* xor: a = a ^ literal(1byte) */
+#define VGSCPU_OP_XOR_A_2 0x93  /* xor: a = a ^ literal(2byte) */
+#define VGSCPU_OP_XOR_A_4 0x94  /* xor: a = a ^ literal(4byte) */
+#define VGSCPU_OP_XOR_A_B 0x95  /* xor: a = a ^ b */
+#define VGSCPU_OP_XOR_A_C 0x96  /* xor: a = a ^ c */
+#define VGSCPU_OP_XOR_A_D 0x97  /* xor: a = a ^ d */
+#define VGSCPU_OP_XOR_A_M1 0x98 /* xor: a = a ^ &memory[ptr](1byte) */
+#define VGSCPU_OP_XOR_A_M2 0x99 /* xor: a = a ^ &memory[ptr](2byte) */
+#define VGSCPU_OP_XOR_A_M3 0x9a /* xor: a = a ^ &memory[ptr](4byte) */
 
 /* compare (result: vgscpu_status_flag.eq) */
-#define VGSCPU_CMP_A_1 0x93     /* cmp: a and literal(1byte) */
-#define VGSCPU_CMP_A_2 0x94     /* cmp: a and literal(2byte) */
-#define VGSCPU_CMP_A_4 0x95     /* cmp: a and literal(4byte) */
-#define VGSCPU_CMP_A_B 0x96     /* cmp: a and b */
-#define VGSCPU_CMP_A_C 0x97     /* cmp: a and c */
-#define VGSCPU_CMP_A_D 0x98     /* cmp: a and d */
-#define VGSCPU_CMP_A_M1 0x99    /* cmp: a and &memory[ptr](1byte) */
-#define VGSCPU_CMP_A_M2 0x9A    /* cmp: a and &memory[ptr](2byte) */
-#define VGSCPU_CMP_A_M3 0x9B    /* cmp: a and &memory[ptr](4byte) */
+#define VGSCPU_CMP_A_1 0x9b     /* cmp: a and literal(1byte) */
+#define VGSCPU_CMP_A_2 0x9c     /* cmp: a and literal(2byte) */
+#define VGSCPU_CMP_A_4 0x9d     /* cmp: a and literal(4byte) */
+#define VGSCPU_CMP_A_B 0x9e     /* cmp: a and b */
+#define VGSCPU_CMP_A_C 0x9f     /* cmp: a and c */
+#define VGSCPU_CMP_A_D 0xa0     /* cmp: a and d */
+#define VGSCPU_CMP_A_M1 0xa1    /* cmp: a and &memory[ptr](1byte) */
+#define VGSCPU_CMP_A_M2 0xa2    /* cmp: a and &memory[ptr](2byte) */
+#define VGSCPU_CMP_A_M3 0xa3    /* cmp: a and &memory[ptr](4byte) */
 
 /* branch */
-#define VGSCPU_OP_JMP 0x9C      /* jump to specific address */
-#define VGSCPU_OP_JMP_1 0x9D    /* jump to current address + literal(1byte) */
-#define VGSCPU_OP_JMP_2 0x9E    /* jump to current address + literal(2byte) */
-#define VGSCPU_OP_JZ 0x9F       /* jump when zero flag set */
-#define VGSCPU_OP_JZ_1 0xA0     /* jump when zero flag set */
-#define VGSCPU_OP_JZ_2 0xA1     /* jump when zero flag set */
-#define VGSCPU_OP_JNZ 0xA2      /* jump when zero flag reset */
-#define VGSCPU_OP_JNZ_1 0xA3    /* jump when zero flag reset */
-#define VGSCPU_OP_JNZ_2 0xA4    /* jump when zero flag reset */
-#define VGSCPU_OP_JE 0xA5       /* jump when equal flag = 0 */
-#define VGSCPU_OP_JE_1 0xA6     /* jump when equal flag = 0 */
-#define VGSCPU_OP_JE_2 0xA7     /* jump when equal flag = 0 */
-#define VGSCPU_OP_JNE 0xA8      /* jump when equal flag != 0 */
-#define VGSCPU_OP_JNE_1 0xA9    /* jump when equal flag != 0 */
-#define VGSCPU_OP_JNE_2 0xAA    /* jump when equal flag != 0 */
-#define VGSCPU_OP_JN 0xAB       /* jump when equal flag = -1 */
-#define VGSCPU_OP_JN_1 0xAC     /* jump when equal flag = -1 */
-#define VGSCPU_OP_JN_2 0xAD     /* jump when equal flag = -1 */
-#define VGSCPU_OP_JNN 0xAE      /* jump when equal flag != -1 */
-#define VGSCPU_OP_JNN_1 0xAF    /* jump when equal flag != -1 */
-#define VGSCPU_OP_JNN_2 0xB0    /* jump when equal flag != -1 */
-#define VGSCPU_OP_JP 0xB1       /* jump when equal flag = 1 */
-#define VGSCPU_OP_JP_1 0xB2     /* jump when equal flag = 1 */
-#define VGSCPU_OP_JP_2 0xB3     /* jump when equal flag = 1 */
-#define VGSCPU_OP_JNP 0xB4      /* jump when equal flag != 1 */
-#define VGSCPU_OP_JNP_1 0xB5    /* jump when equal flag != 1 */
-#define VGSCPU_OP_JNP_2 0xB6    /* jump when equal flag != 1 */
-#define VGSCPU_OP_CAL 0xB7      /* call to specific address */
-#define VGSCPU_OP_CAL_1 0xB8    /* call to current address + literal(1byte) */
-#define VGSCPU_OP_CAL_2 0xB9    /* call to current address + literal(2byte) */
-#define VGSCPU_OP_RET 0xBA      /* return to called */
-#define VGSCPU_OP_VGS 0xBB      /* execute VGS-API */
+#define VGSCPU_OP_JMP 0xe0      /* jump to specific address */
+#define VGSCPU_OP_JMP_1 0xe1    /* jump to current address + literal(1byte) */
+#define VGSCPU_OP_JMP_2 0xe2    /* jump to current address + literal(2byte) */
+#define VGSCPU_OP_JZ 0xe3       /* jump when zero flag set */
+#define VGSCPU_OP_JZ_1 0xe4     /* jump when zero flag set */
+#define VGSCPU_OP_JZ_2 0xe5     /* jump when zero flag set */
+#define VGSCPU_OP_JNZ 0xe6      /* jump when zero flag reset */
+#define VGSCPU_OP_JNZ_1 0xe7    /* jump when zero flag reset */
+#define VGSCPU_OP_JNZ_2 0xe8    /* jump when zero flag reset */
+#define VGSCPU_OP_JE 0xe9       /* jump when equal flag = 0 */
+#define VGSCPU_OP_JE_1 0xea     /* jump when equal flag = 0 */
+#define VGSCPU_OP_JE_2 0xeb     /* jump when equal flag = 0 */
+#define VGSCPU_OP_JNE 0xec      /* jump when equal flag != 0 */
+#define VGSCPU_OP_JNE_1 0xed    /* jump when equal flag != 0 */
+#define VGSCPU_OP_JNE_2 0xee    /* jump when equal flag != 0 */
+#define VGSCPU_OP_JN 0xef       /* jump when equal flag = -1 */
+#define VGSCPU_OP_JN_1 0xf0     /* jump when equal flag = -1 */
+#define VGSCPU_OP_JN_2 0xf1     /* jump when equal flag = -1 */
+#define VGSCPU_OP_JNN 0xf2      /* jump when equal flag != -1 */
+#define VGSCPU_OP_JNN_1 0xf3    /* jump when equal flag != -1 */
+#define VGSCPU_OP_JNN_2 0xf4    /* jump when equal flag != -1 */
+#define VGSCPU_OP_JP 0xf5       /* jump when equal flag = 1 */
+#define VGSCPU_OP_JP_1 0xf6     /* jump when equal flag = 1 */
+#define VGSCPU_OP_JP_2 0xf7     /* jump when equal flag = 1 */
+#define VGSCPU_OP_JNP 0xf8      /* jump when equal flag != 1 */
+#define VGSCPU_OP_JNP_1 0xf9    /* jump when equal flag != 1 */
+#define VGSCPU_OP_JNP_2 0xfa    /* jump when equal flag != 1 */
+#define VGSCPU_OP_CAL 0xfb      /* call to specific address */
+#define VGSCPU_OP_CAL_1 0xfc    /* call to current address + literal(1byte) */
+#define VGSCPU_OP_CAL_2 0xfd    /* call to current address + literal(2byte) */
+#define VGSCPU_OP_RET 0xfe      /* return to called */
+#define VGSCPU_OP_VGS 0xff      /* execute VGS-API */
 
 struct vgscpu_register {
     unsigned int a; /* accumulator */
