@@ -5,7 +5,7 @@
 #define FAILED(F,L) {printf("test-failed: function=%s, line=%d\n", F,L); return -1;}
 
 int test_push(struct vgscpu_context* c) {
-    const char* TAG = "text_push";
+    const char* TAG = "test_push";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {
@@ -30,7 +30,7 @@ int test_push(struct vgscpu_context* c) {
 }
 
 int test_pop1(struct vgscpu_context* c) {
-    const char* TAG = "text_pop1";
+    const char* TAG = "test_pop1";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {
@@ -49,7 +49,7 @@ int test_pop1(struct vgscpu_context* c) {
 }
 
 int test_pop2(struct vgscpu_context* c) {
-    const char* TAG = "text_pop2";
+    const char* TAG = "test_pop2";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {
@@ -68,7 +68,7 @@ int test_pop2(struct vgscpu_context* c) {
 }
 
 int test_pop4(struct vgscpu_context* c) {
-    const char* TAG = "text_pop4";
+    const char* TAG = "test_pop4";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {
