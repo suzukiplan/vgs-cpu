@@ -4,6 +4,7 @@ vgscpu.o
 tp_stack_a
 tp_ldst_a
 tp_ldst_b
+tp_ldst_c
 tp_inc
 tp_dec
 tp_not
