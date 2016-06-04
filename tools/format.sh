@@ -5,3 +5,4 @@ if [ $? -eq 1 ]
 then
 	cat .work > $1
 fi
+\rm -f .work
