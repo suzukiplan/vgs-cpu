@@ -33,6 +33,16 @@ int test_not_a(struct vgscpu_context* c)
     vgscpu_run(c);
     if (c->r.a != 0xf0f0f0f0) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
+
+    c->r.a = 0x12345678;
+    vgscpu_run(c);
+    if (c->r.a != 0xedcba987) FAILED(TAG, __LINE__);
+    if (c->f.z != 0) FAILED(TAG, __LINE__);
+
+    c->r.a = 0xedcba987;
+    vgscpu_run(c);
+    if (c->r.a != 0x12345678) FAILED(TAG, __LINE__);
+    if (c->f.z != 0) FAILED(TAG, __LINE__);
     return 0;
 }
 
