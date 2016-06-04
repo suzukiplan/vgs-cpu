@@ -159,6 +159,127 @@ int vgscpu_run(void* ctx)
                 c->r.a = ~c->r.a;
                 c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
+            /*
+             *----------------------------------------------------------------
+             * stack and load/store (b)
+             *----------------------------------------------------------------
+             */
+            case VGSCPU_OP_PUSH_B1:
+                c->r.p++;
+                c->s[c->r.s] = (unsigned char)(c->r.b & 0xff);
+                c->r.s++;
+                break;
+            case VGSCPU_OP_PUSH_B2:
+                c->r.p++;
+                s = (unsigned short)(c->r.b & 0xffff);
+                memcpy(&c->s[c->r.s], &s, 2);
+                c->r.s += 2;
+                break;
+            case VGSCPU_OP_PUSH_B4:
+                c->r.p++;
+                memcpy(&c->s[c->r.s], &c->r.b, 4);
+                c->r.s += 4;
+                break;
+            case VGSCPU_OP_POP_B1:
+                c->r.p++;
+                c->r.s--;
+                c->r.b = c->s[c->r.s];
+                break;
+            case VGSCPU_OP_POP_B2:
+                c->r.p++;
+                c->r.s -= 2;
+                memcpy(&s, &c->s[c->r.s], 2);
+                c->r.b = s;
+                break;
+            case VGSCPU_OP_POP_B4:
+                c->r.p++;
+                c->r.s -= 4;
+                memcpy(&i, &c->s[c->r.s], 4);
+                c->r.b = i;
+                break;
+            case VGSCPU_OP_LD_B_1:
+                c->r.p++;
+                c->r.b = c->p[c->r.p];
+                c->r.p++;
+                break;
+            case VGSCPU_OP_LD_B_2:
+                c->r.p++;
+                memcpy(&s, &c->p[c->r.p], 2);
+                c->r.b = s;
+                c->r.p += 2;
+                break;
+            case VGSCPU_OP_LD_B_4:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.b = i;
+                c->r.p += 4;
+                break;
+            case VGSCPU_OP_LD_B_A:
+                c->r.p++;
+                c->r.b = c->r.a;
+                break;
+            case VGSCPU_OP_LD_B_C:
+                c->r.p++;
+                c->r.b = c->r.c;
+                break;
+            case VGSCPU_OP_LD_B_D:
+                c->r.p++;
+                c->r.b = c->r.d;
+                break;
+            case VGSCPU_OP_LD_B_M1:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.p += 4;
+                c->r.b = c->m[i];
+                break;
+            case VGSCPU_OP_LD_B_M2:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.p += 4;
+                memcpy(&s, &c->m[i], 2);
+                c->r.b = s;
+                break;
+            case VGSCPU_OP_LD_B_M4:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.p += 4;
+                memcpy(&i, &c->m[i], 4);
+                c->r.b = i;
+                break;
+            case VGSCPU_OP_ST_B_M1:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.p += 4;
+                c->m[i] = (unsigned char)(c->r.b & 0xff);
+                break;
+            case VGSCPU_OP_ST_B_M2:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.p += 4;
+                s = (unsigned short)(c->r.b & 0xffff);
+                memcpy(&c->m[i], &s, 2);
+                break;
+            case VGSCPU_OP_ST_B_M4:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.p += 4;
+                memcpy(&c->m[i], &c->r.b, 4);
+                break;
+            case VGSCPU_OP_INC_B:
+                c->r.p++;
+                c->r.b++;
+                c->f.z = (0 == c->r.b) ? 1 : 0;
+                break;
+            case VGSCPU_OP_DEC_B:
+                c->r.p++;
+                c->r.b--;
+                c->f.z = (0 == c->r.b) ? 1 : 0;
+                break;
+            case VGSCPU_OP_NOT_B:
+                c->r.p++;
+                c->r.b = ~c->r.b;
+                c->f.z = (0 == c->r.b) ? 1 : 0;
+                break;
             default:
                 sprintf(c->error, "UNKNOWN INSTRUCTION(%02X)", (int)c->p[c->r.p]);
                 loop_flag = 0;
