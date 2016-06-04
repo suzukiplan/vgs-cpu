@@ -141,7 +141,7 @@ int vgscpu_run(void* ctx)
                 break;
             case VGSCPU_OP_INC_A:
                 c->r.a++;
-                c->f.z = (0 == c->r.a) ? 1 : 0; 
+                c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
             case VGSCPU_OP_DEC_A:
                 c->r.a--;
@@ -156,6 +156,6 @@ int vgscpu_run(void* ctx)
                 loop_flag = 0;
                 ret = -1;
         }
-    } while(loop_flag);
+    } while (loop_flag);
     return ret;
 }

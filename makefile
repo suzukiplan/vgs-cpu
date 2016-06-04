@@ -1,4 +1,14 @@
-all: run-test
+all: format run-test
+
+format:
+	@make exec-format SRC=src/vgscpu.c 
+	@make exec-format SRC=src/vgscpu.h
+	@make exec-format SRC=src/vgscpu_internal.h
+	@make exec-format SRC=test/tp_ldst_a.c
+	@make exec-format SRC=test/tp_stack_a.c
+
+exec-format:
+	clang-format -assume-filename=.clang-format < $(SRC) >.work; cat .work > $(SRC)
 
 run-test:
 	gcc -I./src src/vgscpu.c test/tp_stack_a.c -o tp_stack_a

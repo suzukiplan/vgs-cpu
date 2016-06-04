@@ -2,18 +2,18 @@
 #include <string.h>
 #include "vgscpu.h"
 #include "vgscpu_internal.h"
-#define FAILED(F,L) {printf("test-failed: function=%s, line=%d\n", F,L); return -1;}
+#define FAILED(F, L)                                         \
+    {                                                        \
+        printf("test-failed: function=%s, line=%d\n", F, L); \
+        return -1;                                           \
+    }
 
-int test_push(struct vgscpu_context* c) {
+int test_push(struct vgscpu_context* c)
+{
     const char* TAG = "test_push";
     unsigned short s;
     unsigned int i;
-    unsigned char op[] = {
-        VGSCPU_OP_PUSH_A1,
-        VGSCPU_OP_PUSH_A2,
-        VGSCPU_OP_PUSH_A4,
-        VGSCPU_OP_BRK
-    };
+    unsigned char op[] = {VGSCPU_OP_PUSH_A1, VGSCPU_OP_PUSH_A2, VGSCPU_OP_PUSH_A4, VGSCPU_OP_BRK};
 
     c->r.a = 0x12345678;
     vgscpu_load_program(c, op, sizeof(op));
@@ -29,15 +29,12 @@ int test_push(struct vgscpu_context* c) {
     return 0;
 }
 
-int test_pop1(struct vgscpu_context* c) {
+int test_pop1(struct vgscpu_context* c)
+{
     const char* TAG = "test_pop1";
     unsigned short s;
     unsigned int i;
-    unsigned char op[] = {
-        VGSCPU_OP_PUSH_A1,
-        VGSCPU_OP_POP_A1,
-        VGSCPU_OP_BRK
-    };
+    unsigned char op[] = {VGSCPU_OP_PUSH_A1, VGSCPU_OP_POP_A1, VGSCPU_OP_BRK};
 
     c->r.a = 0x12345678;
     vgscpu_load_program(c, op, sizeof(op));
@@ -48,15 +45,12 @@ int test_pop1(struct vgscpu_context* c) {
     return 0;
 }
 
-int test_pop2(struct vgscpu_context* c) {
+int test_pop2(struct vgscpu_context* c)
+{
     const char* TAG = "test_pop2";
     unsigned short s;
     unsigned int i;
-    unsigned char op[] = {
-        VGSCPU_OP_PUSH_A2,
-        VGSCPU_OP_POP_A2,
-        VGSCPU_OP_BRK
-    };
+    unsigned char op[] = {VGSCPU_OP_PUSH_A2, VGSCPU_OP_POP_A2, VGSCPU_OP_BRK};
 
     c->r.a = 0x12345678;
     vgscpu_load_program(c, op, sizeof(op));
@@ -67,15 +61,12 @@ int test_pop2(struct vgscpu_context* c) {
     return 0;
 }
 
-int test_pop4(struct vgscpu_context* c) {
+int test_pop4(struct vgscpu_context* c)
+{
     const char* TAG = "test_pop4";
     unsigned short s;
     unsigned int i;
-    unsigned char op[] = {
-        VGSCPU_OP_PUSH_A4,
-        VGSCPU_OP_POP_A4,
-        VGSCPU_OP_BRK
-    };
+    unsigned char op[] = {VGSCPU_OP_PUSH_A4, VGSCPU_OP_POP_A4, VGSCPU_OP_BRK};
 
     c->r.a = 0x12345678;
     vgscpu_load_program(c, op, sizeof(op));
@@ -86,7 +77,8 @@ int test_pop4(struct vgscpu_context* c) {
     return 0;
 }
 
-int main() {
+int main()
+{
     struct vgscpu_context* c = (struct vgscpu_context*)vgscpu_create_context();
     if (!c) return -1;
     int result = -1;
