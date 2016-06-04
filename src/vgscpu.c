@@ -151,7 +151,7 @@ int vgscpu_run(void* ctx)
                 break;
             case VGSCPU_OP_NOT_A:
                 c->r.p++;
-                c->r.a = !(c->r.a);
+                c->r.a = ~c->r.a;
                 c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
             default:
