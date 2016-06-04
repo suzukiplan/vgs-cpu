@@ -9,12 +9,14 @@ format:
 	@sh tools/format.sh test/tp_ldst_c.c
 	@sh tools/format.sh test/tp_ldst_d.c
 	@sh tools/format.sh test/tp_stack_a.c
+	@sh tools/format.sh test/tp_stack_b.c
 	@sh tools/format.sh test/tp_inc.c
 	@sh tools/format.sh test/tp_dec.c
 	@sh tools/format.sh test/tp_not.c
 
 run-test: vgscpu.o
 	gcc -I./src vgscpu.o test/tp_stack_a.c -o tp_stack_a && ./tp_stack_a
+	gcc -I./src vgscpu.o test/tp_stack_b.c -o tp_stack_b && ./tp_stack_b
 	gcc -I./src vgscpu.o test/tp_ldst_a.c -o tp_ldst_a && ./tp_ldst_a
 	gcc -I./src vgscpu.o test/tp_ldst_b.c -o tp_ldst_b && ./tp_ldst_b
 	gcc -I./src vgscpu.o test/tp_ldst_c.c -o tp_ldst_c && ./tp_ldst_c

@@ -2,6 +2,9 @@
 .vscode
 vgscpu.o
 tp_stack_a
+tp_stack_b
+tp_stack_c
+tp_stack_d
 tp_ldst_a
 tp_ldst_b
 tp_ldst_c
