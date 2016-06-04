@@ -85,7 +85,7 @@
 #define VGSCPU_OP_LD_D_4 0x48  /* load: n -> d (4byte) */
 #define VGSCPU_OP_LD_D_A 0x49  /* load: a -> d */
 #define VGSCPU_OP_LD_D_B 0x4a  /* load: b -> d */
-#define VGSCPU_OP_LD_D_D 0x4b  /* load: d -> d */
+#define VGSCPU_OP_LD_D_C 0x4b  /* load: c -> d */
 #define VGSCPU_OP_LD_D_M1 0x4c /* load: &memory[ptr](1byte) -> d */
 #define VGSCPU_OP_LD_D_M2 0x4d /* load: &memory[ptr](1byte) -> d */
 #define VGSCPU_OP_LD_D_M4 0x4e /* load: &memory[ptr](1byte) -> d */
