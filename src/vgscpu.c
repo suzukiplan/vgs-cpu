@@ -38,6 +38,11 @@ int vgscpu_run(void* ctx)
             case VGSCPU_OP_BRK:
                 loop_flag = 0;
                 break;
+            /*
+             *----------------------------------------------------------------
+             * stack and load/store (a)
+             *----------------------------------------------------------------
+             */
             case VGSCPU_OP_PUSH_A1:
                 c->r.p++;
                 c->s[c->r.s] = (unsigned char)(c->r.a & 0xff);
