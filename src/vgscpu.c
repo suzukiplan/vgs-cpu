@@ -140,14 +140,17 @@ int vgscpu_run(void* ctx)
                 memcpy(&c->m[i], &c->r.a, 4);
                 break;
             case VGSCPU_OP_INC_A:
+                c->r.p++;
                 c->r.a++;
                 c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
             case VGSCPU_OP_DEC_A:
+                c->r.p++;
                 c->r.a--;
                 c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
             case VGSCPU_OP_NOT_A:
+                c->r.p++;
                 c->r.a = !(c->r.a);
                 c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
