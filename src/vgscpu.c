@@ -4,29 +4,29 @@
 #include "vgscpu.h"
 #include "vgscpu_internal.h"
 
-void* vgscpu_create_context()
+void *vgscpu_create_context()
 {
-    struct vgscpu_context* result;
-    result = (struct vgscpu_context*)malloc(sizeof(struct vgscpu_context));
+    struct vgscpu_context *result;
+    result = (struct vgscpu_context *)malloc(sizeof(struct vgscpu_context));
     if (NULL == result) return NULL;
     memset(result, 0, sizeof(struct vgscpu_context));
     return result;
 }
 
-void vgscpu_release_context(void* ctx)
+void vgscpu_release_context(void *ctx)
 {
     free(ctx);
 }
 
-void vgscpu_load_program(void* ctx, void* pg, size_t size)
+void vgscpu_load_program(void *ctx, void *pg, size_t size)
 {
-    struct vgscpu_context* c = (struct vgscpu_context*)ctx;
+    struct vgscpu_context *c = (struct vgscpu_context *)ctx;
     memcpy(c->p, pg, size);
 }
 
-int vgscpu_run(void* ctx)
+int vgscpu_run(void *ctx)
 {
-    struct vgscpu_context* c = (struct vgscpu_context*)ctx;
+    struct vgscpu_context *c = (struct vgscpu_context *)ctx;
     int loop_flag = 1;
     int ret = 0;
     unsigned short s;

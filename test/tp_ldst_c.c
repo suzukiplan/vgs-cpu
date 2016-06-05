@@ -8,9 +8,9 @@
         return -1;                                           \
     }
 
-int test_ld_c_literal(struct vgscpu_context* c)
+int test_ld_c_literal(struct vgscpu_context *c)
 {
-    const char* TAG = "test_ld_c_literal";
+    const char *TAG = "test_ld_c_literal";
     unsigned short s;
     unsigned int i;
     unsigned char op1[] = {VGSCPU_OP_LD_C_1, 0xCD, VGSCPU_OP_BRK};
@@ -31,9 +31,9 @@ int test_ld_c_literal(struct vgscpu_context* c)
     return 0;
 }
 
-int test_ld_c_registry(struct vgscpu_context* c)
+int test_ld_c_registry(struct vgscpu_context *c)
 {
-    const char* TAG = "test_ld_c_registry";
+    const char *TAG = "test_ld_c_registry";
     unsigned char op1[] = {VGSCPU_OP_LD_C_A, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_C_B, VGSCPU_OP_BRK};
     unsigned char op3[] = {VGSCPU_OP_LD_C_D, VGSCPU_OP_BRK};
@@ -61,9 +61,9 @@ int test_ld_c_registry(struct vgscpu_context* c)
     return 0;
 }
 
-int test_ld_c_memory(struct vgscpu_context* c)
+int test_ld_c_memory(struct vgscpu_context *c)
 {
-    const char* TAG = "test_ld_c_memory";
+    const char *TAG = "test_ld_c_memory";
     const unsigned char m[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f};
     unsigned char op1[] = {VGSCPU_OP_LD_C_M1, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_C_M2, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
@@ -86,9 +86,9 @@ int test_ld_c_memory(struct vgscpu_context* c)
     return 0;
 }
 
-int test_st_c(struct vgscpu_context* c)
+int test_st_c(struct vgscpu_context *c)
 {
-    const char* TAG = "test_st_c";
+    const char *TAG = "test_st_c";
     const unsigned char m[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f};
     unsigned char op1[] = {VGSCPU_OP_ST_C_M1, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_ST_C_M2, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
@@ -125,7 +125,7 @@ int test_st_c(struct vgscpu_context* c)
 
 int main()
 {
-    struct vgscpu_context* c = (struct vgscpu_context*)vgscpu_create_context();
+    struct vgscpu_context *c = (struct vgscpu_context *)vgscpu_create_context();
     if (!c) return -1;
     int result = -1;
 

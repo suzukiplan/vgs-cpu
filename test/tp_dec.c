@@ -8,9 +8,9 @@
         return -1;                                           \
     }
 
-int test_dec_a(struct vgscpu_context* c)
+int test_dec_a(struct vgscpu_context *c)
 {
-    const char* TAG = "test_dec_a";
+    const char *TAG = "test_dec_a";
     unsigned char op[] = {VGSCPU_OP_DEC_A, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -33,9 +33,9 @@ int test_dec_a(struct vgscpu_context* c)
     return 0;
 }
 
-int test_dec_b(struct vgscpu_context* c)
+int test_dec_b(struct vgscpu_context *c)
 {
-    const char* TAG = "test_dec_b";
+    const char *TAG = "test_dec_b";
     unsigned char op[] = {VGSCPU_OP_DEC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -58,9 +58,9 @@ int test_dec_b(struct vgscpu_context* c)
     return 0;
 }
 
-int test_dec_c(struct vgscpu_context* c)
+int test_dec_c(struct vgscpu_context *c)
 {
-    const char* TAG = "test_dec_c";
+    const char *TAG = "test_dec_c";
     unsigned char op[] = {VGSCPU_OP_DEC_C, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -83,9 +83,9 @@ int test_dec_c(struct vgscpu_context* c)
     return 0;
 }
 
-int test_dec_d(struct vgscpu_context* c)
+int test_dec_d(struct vgscpu_context *c)
 {
-    const char* TAG = "test_dec_d";
+    const char *TAG = "test_dec_d";
     unsigned char op[] = {VGSCPU_OP_DEC_D, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -110,7 +110,7 @@ int test_dec_d(struct vgscpu_context* c)
 
 int main()
 {
-    struct vgscpu_context* c = (struct vgscpu_context*)vgscpu_create_context();
+    struct vgscpu_context *c = (struct vgscpu_context *)vgscpu_create_context();
     if (!c) return -1;
     int result = -1;
 

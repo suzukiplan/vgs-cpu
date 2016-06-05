@@ -13,3 +13,4 @@ tp_inc
 tp_dec
 tp_not
 tp_jmp
+tp_jz_jnz

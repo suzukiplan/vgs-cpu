@@ -8,9 +8,9 @@
         return -1;                                           \
     }
 
-int test_push(struct vgscpu_context* c)
+int test_push(struct vgscpu_context *c)
 {
-    const char* TAG = "test_push";
+    const char *TAG = "test_push";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {VGSCPU_OP_PUSH_C1, VGSCPU_OP_PUSH_C2, VGSCPU_OP_PUSH_C4, VGSCPU_OP_BRK};
@@ -29,9 +29,9 @@ int test_push(struct vgscpu_context* c)
     return 0;
 }
 
-int test_pop1(struct vgscpu_context* c)
+int test_pop1(struct vgscpu_context *c)
 {
-    const char* TAG = "test_pop1";
+    const char *TAG = "test_pop1";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {VGSCPU_OP_PUSH_C1, VGSCPU_OP_POP_C1, VGSCPU_OP_BRK};
@@ -45,9 +45,9 @@ int test_pop1(struct vgscpu_context* c)
     return 0;
 }
 
-int test_pop2(struct vgscpu_context* c)
+int test_pop2(struct vgscpu_context *c)
 {
-    const char* TAG = "test_pop2";
+    const char *TAG = "test_pop2";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {VGSCPU_OP_PUSH_C2, VGSCPU_OP_POP_C2, VGSCPU_OP_BRK};
@@ -61,9 +61,9 @@ int test_pop2(struct vgscpu_context* c)
     return 0;
 }
 
-int test_pop4(struct vgscpu_context* c)
+int test_pop4(struct vgscpu_context *c)
 {
-    const char* TAG = "test_pop4";
+    const char *TAG = "test_pop4";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {VGSCPU_OP_PUSH_C4, VGSCPU_OP_POP_C4, VGSCPU_OP_BRK};
@@ -79,7 +79,7 @@ int test_pop4(struct vgscpu_context* c)
 
 int main()
 {
-    struct vgscpu_context* c = (struct vgscpu_context*)vgscpu_create_context();
+    struct vgscpu_context *c = (struct vgscpu_context *)vgscpu_create_context();
     if (!c) return -1;
     int result = -1;
 

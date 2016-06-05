@@ -8,9 +8,9 @@
         return -1;                                           \
     }
 
-int test_not_a(struct vgscpu_context* c)
+int test_not_a(struct vgscpu_context *c)
 {
-    const char* TAG = "test_not_a";
+    const char *TAG = "test_not_a";
     unsigned char op[] = {VGSCPU_OP_NOT_A, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -46,9 +46,9 @@ int test_not_a(struct vgscpu_context* c)
     return 0;
 }
 
-int test_not_b(struct vgscpu_context* c)
+int test_not_b(struct vgscpu_context *c)
 {
-    const char* TAG = "test_not_b";
+    const char *TAG = "test_not_b";
     unsigned char op[] = {VGSCPU_OP_NOT_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -84,9 +84,9 @@ int test_not_b(struct vgscpu_context* c)
     return 0;
 }
 
-int test_not_c(struct vgscpu_context* c)
+int test_not_c(struct vgscpu_context *c)
 {
-    const char* TAG = "test_not_c";
+    const char *TAG = "test_not_c";
     unsigned char op[] = {VGSCPU_OP_NOT_C, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -122,9 +122,9 @@ int test_not_c(struct vgscpu_context* c)
     return 0;
 }
 
-int test_not_d(struct vgscpu_context* c)
+int test_not_d(struct vgscpu_context *c)
 {
-    const char* TAG = "test_not_d";
+    const char *TAG = "test_not_d";
     unsigned char op[] = {VGSCPU_OP_NOT_D, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -162,7 +162,7 @@ int test_not_d(struct vgscpu_context* c)
 
 int main()
 {
-    struct vgscpu_context* c = (struct vgscpu_context*)vgscpu_create_context();
+    struct vgscpu_context *c = (struct vgscpu_context *)vgscpu_create_context();
     if (!c) return -1;
     int result = -1;
 

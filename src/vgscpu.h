@@ -5,10 +5,10 @@
 extern "C" {
 #endif
 
-void* vgscpu_create_context();
-void vgscpu_release_context(void* ctx);
-void vgscpu_load_program(void* ctx, void* pg, size_t size);
-int vgscpu_run(void* ctx);
+void *vgscpu_create_context();
+void vgscpu_release_context(void *ctx);
+void vgscpu_load_program(void *ctx, void *pg, size_t size);
+int vgscpu_run(void *ctx);
 
 #ifdef __cplusplus
 };
