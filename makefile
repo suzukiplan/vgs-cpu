@@ -15,6 +15,7 @@ format:
 	@sh tools/format.sh test/tp_inc.c
 	@sh tools/format.sh test/tp_dec.c
 	@sh tools/format.sh test/tp_not.c
+	@sh tools/format.sh test/tp_jmp.c
 
 run-test: vgscpu.o
 	gcc -I./src vgscpu.o test/tp_stack_a.c -o tp_stack_a && ./tp_stack_a
@@ -28,6 +29,7 @@ run-test: vgscpu.o
 	gcc -I./src vgscpu.o test/tp_inc.c -o tp_inc && ./tp_inc
 	gcc -I./src vgscpu.o test/tp_dec.c -o tp_dec && ./tp_dec
 	gcc -I./src vgscpu.o test/tp_not.c -o tp_not && ./tp_not
+	gcc -I./src vgscpu.o test/tp_jmp.c -o tp_jmp && ./tp_jmp
 
 vgscpu.o: src/vgscpu.c src/vgscpu.h src/vgscpu_internal.h
 	gcc -I./src src/vgscpu.c -c -o vgscpu.o
