@@ -1,4 +1,5 @@
 TESTCASE=\
+	tp_load_program\
 	tp_stack_a\
 	tp_stack_b\
 	tp_stack_c\
@@ -27,21 +28,6 @@ format:
 
 run-test: vgscpu.o
 	@for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
-
-foo:
-	@make run-test-exec TP=tp_stack_a
-	@make run-test-exec TP=tp_stack_b
-	@make run-test-exec TP=tp_stack_c
-	@make run-test-exec TP=tp_stack_d
-	@make run-test-exec TP=tp_ldst_a
-	@make run-test-exec TP=tp_ldst_b
-	@make run-test-exec TP=tp_ldst_c
-	@make run-test-exec TP=tp_ldst_d
-	@make run-test-exec TP=tp_inc
-	@make run-test-exec TP=tp_dec
-	@make run-test-exec TP=tp_not
-	@make run-test-exec TP=tp_jmp
-	@make run-test-exec TP=tp_jz_jnz
 
 vgscpu.o: src/vgscpu.c src/vgscpu.h src/vgscpu_internal.h
 	@gcc -I./src src/vgscpu.c -c -o vgscpu.o
