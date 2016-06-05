@@ -7,14 +7,14 @@ int test_jz(struct vgscpu_context *c)
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ, 0x0b, 0x00, 0x00, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x00) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x00) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x00);
+    TEST(__FILE__, __LINE__, c->r.b, 0x00);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x01) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x01) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x01);
+    TEST(__FILE__, __LINE__, c->r.b, 0x01);
     return 0;
 }
 
@@ -25,14 +25,14 @@ int test_jz_1(struct vgscpu_context *c)
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ_1, 0x01, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x00) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x00) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x00);
+    TEST(__FILE__, __LINE__, c->r.b, 0x00);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x01) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x01) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x01);
+    TEST(__FILE__, __LINE__, c->r.b, 0x01);
     return 0;
 }
 
@@ -43,14 +43,14 @@ int test_jz_2(struct vgscpu_context *c)
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ_2, 0x01, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x00) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x00) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x00);
+    TEST(__FILE__, __LINE__, c->r.b, 0x00);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x01) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x01) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x01);
+    TEST(__FILE__, __LINE__, c->r.b, 0x01);
     return 0;
 }
 
@@ -61,14 +61,14 @@ int test_jnz(struct vgscpu_context *c)
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ, 0x0b, 0x00, 0x00, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x00) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x01) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x00);
+    TEST(__FILE__, __LINE__, c->r.b, 0x01);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x01) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x00) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x01);
+    TEST(__FILE__, __LINE__, c->r.b, 0x00);
     return 0;
 }
 
@@ -79,14 +79,14 @@ int test_jnz_1(struct vgscpu_context *c)
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ_1, 0x01, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x00) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x01) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x00);
+    TEST(__FILE__, __LINE__, c->r.b, 0x01);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x01) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x00) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x01);
+    TEST(__FILE__, __LINE__, c->r.b, 0x00);
     return 0;
 }
 
@@ -97,14 +97,14 @@ int test_jnz_2(struct vgscpu_context *c)
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ_2, 0x01, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x00) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x01) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x00);
+    TEST(__FILE__, __LINE__, c->r.b, 0x01);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0x01) FAILED(TAG, __LINE__);
-    if (c->r.b != 0x00) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0x01);
+    TEST(__FILE__, __LINE__, c->r.b, 0x00);
     return 0;
 }
 

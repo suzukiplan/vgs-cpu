@@ -4,6 +4,7 @@ format:
 	@sh tools/format.sh src/vgscpu.c
 	@sh tools/format.sh src/vgscpu.h
 	@sh tools/format.sh src/vgscpu_internal.h 
+	@sh tools/format.sh test/tp.h 
 
 run-test: vgscpu.o
 	@make run-test-exec TP=tp_stack_a

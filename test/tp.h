@@ -2,8 +2,15 @@
 #include <string.h>
 #include "vgscpu.h"
 #include "vgscpu_internal.h"
-#define FAILED(F, L)                                         \
-    {                                                        \
-        printf("test-failed: function=%s, line=%d\n", F, L); \
-        return -1;                                           \
+
+#define TEST(F, L, OPERATION, EXPECT)                                                                    \
+    {                                                                                                    \
+        printf(".");                                                                                     \
+        {                                                                                                \
+            int actual = OPERATION;                                                                      \
+            if (actual != EXPECT) {                                                                      \
+                printf("test-failed: actual=%d, expected=%d, file=%s, line=%d\n", actual, EXPECT, F, L); \
+                return -1;                                                                               \
+            }                                                                                            \
+        }                                                                                                \
     }

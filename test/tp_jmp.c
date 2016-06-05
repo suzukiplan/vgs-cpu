@@ -7,9 +7,9 @@ int test_jmp(struct vgscpu_context *c)
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0xaa) FAILED(TAG, __LINE__);
-    if (c->r.b != 0xbb) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0xaa);
+    TEST(__FILE__, __LINE__, c->r.b, 0xbb);
     return 0;
 }
 
@@ -20,9 +20,9 @@ int test_jmp_1(struct vgscpu_context *c)
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0xaa) FAILED(TAG, __LINE__);
-    if (c->r.b != 0xbb) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0xaa);
+    TEST(__FILE__, __LINE__, c->r.b, 0xbb);
     return 0;
 }
 
@@ -33,9 +33,9 @@ int test_jmp_2(struct vgscpu_context *c)
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
-    if (c->r.a != 0xaa) FAILED(TAG, __LINE__);
-    if (c->r.b != 0xbb) FAILED(TAG, __LINE__);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    TEST(__FILE__, __LINE__, c->r.a, 0xaa);
+    TEST(__FILE__, __LINE__, c->r.b, 0xbb);
     return 0;
 }
 
