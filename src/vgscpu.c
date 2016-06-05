@@ -34,10 +34,16 @@ void vgscpu_release_context(void *ctx)
     free(ctx);
 }
 
-void vgscpu_load_program(void *ctx, void *pg, size_t size)
+int vgscpu_load_program(void *ctx, void *pg, size_t size)
 {
     struct vgscpu_context *c = (struct vgscpu_context *)ctx;
-    memcpy(c->p, pg, size);
+    if (VGSCPU_PROGRAM_SIZE < (unsigned int)size) {
+        sprintf(c->error, "TOO BIG PROGRAM");
+        return -1;
+    }
+    c->psize = (unsigned int)size;
+    memcpy(c->p, pg, c->psize);
+    return 0;
 }
 
 int vgscpu_run(void *ctx)
