@@ -29,6 +29,48 @@ int test_push(struct vgscpu_context *c)
     return 0;
 }
 
+int error_push_stack_overflow_1(struct vgscpu_context *c)
+{
+    const char *TAG = "error_push_stack_overflow_1";
+    unsigned char op[] = {VGSCPU_OP_PUSH_B1, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00};
+
+    vgscpu_load_program(c, op, sizeof(op));
+    c->r.a = 0;
+    if (!vgscpu_run(c)) FAILED(TAG, __LINE__);
+    if (0 != strcmp(c->error, "STACK OVERFLOW")) FAILED(TAG, __LINE__);
+    if (VGSCPU_STACK_SIZE - 1 != c->r.a) FAILED(TAG, __LINE__);
+
+    return 0;
+}
+
+int error_push_stack_overflow_2(struct vgscpu_context *c)
+{
+    const char *TAG = "error_push_stack_overflow_2";
+    unsigned char op[] = {VGSCPU_OP_PUSH_B2, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00};
+
+    vgscpu_load_program(c, op, sizeof(op));
+    c->r.a = 0;
+    if (!vgscpu_run(c)) FAILED(TAG, __LINE__);
+    if (0 != strcmp(c->error, "STACK OVERFLOW")) FAILED(TAG, __LINE__);
+    if (VGSCPU_STACK_SIZE / 2 - 1 != c->r.a) FAILED(TAG, __LINE__);
+
+    return 0;
+}
+
+int error_push_stack_overflow_4(struct vgscpu_context *c)
+{
+    const char *TAG = "error_push_stack_overflow_4";
+    unsigned char op[] = {VGSCPU_OP_PUSH_B4, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00};
+
+    vgscpu_load_program(c, op, sizeof(op));
+    c->r.a = 0;
+    if (!vgscpu_run(c)) FAILED(TAG, __LINE__);
+    if (0 != strcmp(c->error, "STACK OVERFLOW")) FAILED(TAG, __LINE__);
+    if (VGSCPU_STACK_SIZE / 4 - 1 != c->r.a) FAILED(TAG, __LINE__);
+
+    return 0;
+}
+
 int test_pop1(struct vgscpu_context *c)
 {
     const char *TAG = "test_pop1";
@@ -84,6 +126,9 @@ int main()
     int result = -1;
 
     if (test_push(c)) goto END_TEST;
+    if (error_push_stack_overflow_1(c)) goto END_TEST;
+    if (error_push_stack_overflow_2(c)) goto END_TEST;
+    if (error_push_stack_overflow_4(c)) goto END_TEST;
     if (test_pop1(c)) goto END_TEST;
     if (test_pop2(c)) goto END_TEST;
     if (test_pop4(c)) goto END_TEST;
