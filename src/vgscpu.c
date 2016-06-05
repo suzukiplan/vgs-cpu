@@ -60,40 +60,40 @@ int vgscpu_run(void *ctx)
              *----------------------------------------------------------------
              */
             case VGSCPU_OP_PUSH_A1:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(1);
+                c->r.p++;
                 c->s[c->r.s] = (unsigned char)(c->r.a & 0xff);
                 c->r.s++;
                 break;
             case VGSCPU_OP_PUSH_A2:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(2);
+                c->r.p++;
                 s = (unsigned short)(c->r.a & 0xffff);
                 memcpy(&c->s[c->r.s], &s, 2);
                 c->r.s += 2;
                 break;
             case VGSCPU_OP_PUSH_A4:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(4);
+                c->r.p++;
                 memcpy(&c->s[c->r.s], &c->r.a, 4);
                 c->r.s += 4;
                 break;
             case VGSCPU_OP_POP_A1:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(1);
+                c->r.p++;
                 c->r.s--;
                 c->r.a = c->s[c->r.s];
                 break;
             case VGSCPU_OP_POP_A2:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(2);
+                c->r.p++;
                 c->r.s -= 2;
                 memcpy(&s, &c->s[c->r.s], 2);
                 c->r.a = s;
                 break;
             case VGSCPU_OP_POP_A4:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(4);
+                c->r.p++;
                 c->r.s -= 4;
                 memcpy(&i, &c->s[c->r.s], 4);
                 c->r.a = i;
@@ -187,40 +187,40 @@ int vgscpu_run(void *ctx)
              *----------------------------------------------------------------
              */
             case VGSCPU_OP_PUSH_B1:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(1);
+                c->r.p++;
                 c->s[c->r.s] = (unsigned char)(c->r.b & 0xff);
                 c->r.s++;
                 break;
             case VGSCPU_OP_PUSH_B2:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(2);
+                c->r.p++;
                 s = (unsigned short)(c->r.b & 0xffff);
                 memcpy(&c->s[c->r.s], &s, 2);
                 c->r.s += 2;
                 break;
             case VGSCPU_OP_PUSH_B4:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(4);
+                c->r.p++;
                 memcpy(&c->s[c->r.s], &c->r.b, 4);
                 c->r.s += 4;
                 break;
             case VGSCPU_OP_POP_B1:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(1);
+                c->r.p++;
                 c->r.s--;
                 c->r.b = c->s[c->r.s];
                 break;
             case VGSCPU_OP_POP_B2:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(2);
+                c->r.p++;
                 c->r.s -= 2;
                 memcpy(&s, &c->s[c->r.s], 2);
                 c->r.b = s;
                 break;
             case VGSCPU_OP_POP_B4:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(4);
+                c->r.p++;
                 c->r.s -= 4;
                 memcpy(&i, &c->s[c->r.s], 4);
                 c->r.b = i;
@@ -314,40 +314,40 @@ int vgscpu_run(void *ctx)
              *----------------------------------------------------------------
              */
             case VGSCPU_OP_PUSH_C1:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(1);
+                c->r.p++;
                 c->s[c->r.s] = (unsigned char)(c->r.c & 0xff);
                 c->r.s++;
                 break;
             case VGSCPU_OP_PUSH_C2:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(2);
+                c->r.p++;
                 s = (unsigned short)(c->r.c & 0xffff);
                 memcpy(&c->s[c->r.s], &s, 2);
                 c->r.s += 2;
                 break;
             case VGSCPU_OP_PUSH_C4:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(4);
+                c->r.p++;
                 memcpy(&c->s[c->r.s], &c->r.c, 4);
                 c->r.s += 4;
                 break;
             case VGSCPU_OP_POP_C1:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(1);
+                c->r.p++;
                 c->r.s--;
                 c->r.c = c->s[c->r.s];
                 break;
             case VGSCPU_OP_POP_C2:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(2);
+                c->r.p++;
                 c->r.s -= 2;
                 memcpy(&s, &c->s[c->r.s], 2);
                 c->r.c = s;
                 break;
             case VGSCPU_OP_POP_C4:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(4);
+                c->r.p++;
                 c->r.s -= 4;
                 memcpy(&i, &c->s[c->r.s], 4);
                 c->r.c = i;
@@ -441,40 +441,40 @@ int vgscpu_run(void *ctx)
              *----------------------------------------------------------------
              */
             case VGSCPU_OP_PUSH_D1:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(1);
+                c->r.p++;
                 c->s[c->r.s] = (unsigned char)(c->r.d & 0xff);
                 c->r.s++;
                 break;
             case VGSCPU_OP_PUSH_D2:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(2);
+                c->r.p++;
                 s = (unsigned short)(c->r.d & 0xffff);
                 memcpy(&c->s[c->r.s], &s, 2);
                 c->r.s += 2;
                 break;
             case VGSCPU_OP_PUSH_D4:
-                c->r.p++;
                 ASSERT_IF_STACK_OVERFLOW(4);
+                c->r.p++;
                 memcpy(&c->s[c->r.s], &c->r.d, 4);
                 c->r.s += 4;
                 break;
             case VGSCPU_OP_POP_D1:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(1);
+                c->r.p++;
                 c->r.s--;
                 c->r.d = c->s[c->r.s];
                 break;
             case VGSCPU_OP_POP_D2:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(2);
+                c->r.p++;
                 c->r.s -= 2;
                 memcpy(&s, &c->s[c->r.s], 2);
                 c->r.d = s;
                 break;
             case VGSCPU_OP_POP_D4:
-                c->r.p++;
                 ASSERT_IF_STACK_UNDERFLOW(4);
+                c->r.p++;
                 c->r.s -= 4;
                 memcpy(&i, &c->s[c->r.s], 4);
                 c->r.d = i;
