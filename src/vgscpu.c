@@ -522,6 +522,233 @@ int vgscpu_run(void* ctx)
                 c->r.d = ~c->r.d;
                 c->f.z = (0 == c->r.d) ? 1 : 0;
                 break;
+            /*
+             *----------------------------------------------------------------
+             * branch (jump)
+             *----------------------------------------------------------------
+             */
+            case VGSCPU_OP_JMP:
+                c->r.p++;
+                memcpy(&i, &c->p[c->r.p], 4);
+                c->r.p = i;
+                break;
+            case VGSCPU_OP_JMP_1:
+                c->r.p++;
+                c->r.p += c->p[c->r.p] + 1;
+                break;
+            case VGSCPU_OP_JMP_2:
+                c->r.p++;
+                memcpy(&s, &c->p[c->r.p], 2);
+                c->r.p += s + 2;
+                break;
+            case VGSCPU_OP_JZ:
+                if (c->f.z) {
+                    c->r.p++;
+                    memcpy(&i, &c->p[c->r.p], 4);
+                    c->r.p = i;
+                } else {
+                    c->r.p += 5;
+                }
+                break;
+            case VGSCPU_OP_JZ_1:
+                if (c->f.z) {
+                    c->r.p++;
+                    c->r.p += c->p[c->r.p] + 1;
+                } else {
+                    c->r.p += 2;
+                }
+                break;
+            case VGSCPU_OP_JZ_2:
+                if (c->f.z) {
+                    c->r.p++;
+                    memcpy(&s, &c->p[c->r.p], 2);
+                    c->r.p += s + 2;
+                } else {
+                    c->r.p += 3;
+                }
+                break;
+            case VGSCPU_OP_JNZ:
+                if (!c->f.z) {
+                    c->r.p++;
+                    memcpy(&i, &c->p[c->r.p], 4);
+                    c->r.p = i;
+                } else {
+                    c->r.p += 5;
+                }
+                break;
+            case VGSCPU_OP_JNZ_1:
+                if (!c->f.z) {
+                    c->r.p++;
+                    c->r.p += c->p[c->r.p] + 1;
+                } else {
+                    c->r.p += 2;
+                }
+                break;
+            case VGSCPU_OP_JNZ_2:
+                if (!c->f.z) {
+                    c->r.p++;
+                    memcpy(&s, &c->p[c->r.p], 2);
+                    c->r.p += s + 2;
+                } else {
+                    c->r.p += 3;
+                }
+                break;
+            case VGSCPU_OP_JE:
+                if (0 == c->f.q) {
+                    c->r.p++;
+                    memcpy(&i, &c->p[c->r.p], 4);
+                    c->r.p = i;
+                } else {
+                    c->r.p += 5;
+                }
+                break;
+            case VGSCPU_OP_JE_1:
+                if (0 == c->f.q) {
+                    c->r.p++;
+                    c->r.p += c->p[c->r.p] + 1;
+                } else {
+                    c->r.p += 2;
+                }
+                break;
+            case VGSCPU_OP_JE_2:
+                if (0 == c->f.q) {
+                    c->r.p++;
+                    memcpy(&s, &c->p[c->r.p], 2);
+                    c->r.p += s + 2;
+                } else {
+                    c->r.p += 3;
+                }
+                break;
+            case VGSCPU_OP_JNE:
+                if (0 != c->f.q) {
+                    c->r.p++;
+                    memcpy(&i, &c->p[c->r.p], 4);
+                    c->r.p = i;
+                } else {
+                    c->r.p += 5;
+                }
+                break;
+            case VGSCPU_OP_JNE_1:
+                if (0 != c->f.q) {
+                    c->r.p++;
+                    c->r.p += c->p[c->r.p] + 1;
+                } else {
+                    c->r.p += 2;
+                }
+                break;
+            case VGSCPU_OP_JNE_2:
+                if (0 != c->f.q) {
+                    c->r.p++;
+                    memcpy(&s, &c->p[c->r.p], 2);
+                    c->r.p += s + 2;
+                } else {
+                    c->r.p += 3;
+                }
+                break;
+            case VGSCPU_OP_JN:
+                if (-1 == c->f.q) {
+                    c->r.p++;
+                    memcpy(&i, &c->p[c->r.p], 4);
+                    c->r.p = i;
+                } else {
+                    c->r.p += 5;
+                }
+                break;
+            case VGSCPU_OP_JN_1:
+                if (-1 == c->f.q) {
+                    c->r.p++;
+                    c->r.p += c->p[c->r.p] + 1;
+                } else {
+                    c->r.p += 2;
+                }
+                break;
+            case VGSCPU_OP_JN_2:
+                if (-1 == c->f.q) {
+                    c->r.p++;
+                    memcpy(&s, &c->p[c->r.p], 2);
+                    c->r.p += s + 2;
+                } else {
+                    c->r.p += 3;
+                }
+                break;
+            case VGSCPU_OP_JNN:
+                if (-1 != c->f.q) {
+                    c->r.p++;
+                    memcpy(&i, &c->p[c->r.p], 4);
+                    c->r.p = i;
+                } else {
+                    c->r.p += 5;
+                }
+                break;
+            case VGSCPU_OP_JNN_1:
+                if (-1 != c->f.q) {
+                    c->r.p++;
+                    c->r.p += c->p[c->r.p] + 1;
+                } else {
+                    c->r.p += 2;
+                }
+                break;
+            case VGSCPU_OP_JNN_2:
+                if (-1 != c->f.q) {
+                    c->r.p++;
+                    memcpy(&s, &c->p[c->r.p], 2);
+                    c->r.p += s + 2;
+                } else {
+                    c->r.p += 3;
+                }
+                break;
+            case VGSCPU_OP_JP:
+                if (1 == c->f.q) {
+                    c->r.p++;
+                    memcpy(&i, &c->p[c->r.p], 4);
+                    c->r.p = i;
+                } else {
+                    c->r.p += 5;
+                }
+                break;
+            case VGSCPU_OP_JP_1:
+                if (1 == c->f.q) {
+                    c->r.p++;
+                    c->r.p += c->p[c->r.p] + 1;
+                } else {
+                    c->r.p += 2;
+                }
+                break;
+            case VGSCPU_OP_JP_2:
+                if (1 == c->f.q) {
+                    c->r.p++;
+                    memcpy(&s, &c->p[c->r.p], 2);
+                    c->r.p += s + 2;
+                } else {
+                    c->r.p += 3;
+                }
+                break;
+            case VGSCPU_OP_JNP:
+                if (1 != c->f.q) {
+                    c->r.p++;
+                    memcpy(&i, &c->p[c->r.p], 4);
+                    c->r.p = i;
+                } else {
+                    c->r.p += 5;
+                }
+                break;
+            case VGSCPU_OP_JNP_1:
+                if (1 != c->f.q) {
+                    c->r.p++;
+                    c->r.p += c->p[c->r.p] + 1;
+                } else {
+                    c->r.p += 2;
+                }
+                break;
+            case VGSCPU_OP_JNP_2:
+                if (1 != c->f.q) {
+                    c->r.p++;
+                    memcpy(&s, &c->p[c->r.p], 2);
+                    c->r.p += s + 2;
+                } else {
+                    c->r.p += 3;
+                }
+                break;
             default:
                 sprintf(c->error, "UNKNOWN INSTRUCTION(%02X)", (int)c->p[c->r.p]);
                 loop_flag = 0;
