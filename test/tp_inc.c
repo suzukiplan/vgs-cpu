@@ -2,7 +2,6 @@
 
 int test_inc_a(struct vgscpu_context *c)
 {
-    const char *TAG = "test_inc_a";
     unsigned char op[] = {VGSCPU_OP_INC_A, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -32,7 +31,6 @@ int test_inc_a(struct vgscpu_context *c)
 
 int test_inc_b(struct vgscpu_context *c)
 {
-    const char *TAG = "test_inc_b";
     unsigned char op[] = {VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -62,7 +60,6 @@ int test_inc_b(struct vgscpu_context *c)
 
 int test_inc_c(struct vgscpu_context *c)
 {
-    const char *TAG = "test_inc_c";
     unsigned char op[] = {VGSCPU_OP_INC_C, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -92,7 +89,6 @@ int test_inc_c(struct vgscpu_context *c)
 
 int test_inc_d(struct vgscpu_context *c)
 {
-    const char *TAG = "test_inc_d";
     unsigned char op[] = {VGSCPU_OP_INC_D, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));

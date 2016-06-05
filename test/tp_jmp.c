@@ -2,7 +2,6 @@
 
 int test_jmp(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jmp";
     unsigned char op[] = {VGSCPU_OP_LD_A_1, 0xaa, VGSCPU_OP_JMP, 0x09, 0x00, 0x00, 0x00, VGSCPU_OP_LD_A_1, 0xbb, VGSCPU_OP_LD_B_1, 0xbb, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -15,7 +14,6 @@ int test_jmp(struct vgscpu_context *c)
 
 int test_jmp_1(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jmp_1";
     unsigned char op[] = {VGSCPU_OP_LD_A_1, 0xaa, VGSCPU_OP_JMP_1, 0x02, VGSCPU_OP_LD_A_1, 0xbb, VGSCPU_OP_LD_B_1, 0xbb, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -28,7 +26,6 @@ int test_jmp_1(struct vgscpu_context *c)
 
 int test_jmp_2(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jmp_2";
     unsigned char op[] = {VGSCPU_OP_LD_A_1, 0xaa, VGSCPU_OP_JMP_2, 0x02, 0x00, VGSCPU_OP_LD_A_1, 0xbb, VGSCPU_OP_LD_B_1, 0xbb, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));

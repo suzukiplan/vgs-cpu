@@ -2,7 +2,6 @@
 
 int test_jz(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jz";
     unsigned char op1[] = {VGSCPU_OP_LD_A_1, 0x01, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ, 0x0b, 0x00, 0x00, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ, 0x0b, 0x00, 0x00, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
@@ -20,7 +19,6 @@ int test_jz(struct vgscpu_context *c)
 
 int test_jz_1(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jz_1";
     unsigned char op1[] = {VGSCPU_OP_LD_A_1, 0x01, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ_1, 0x01, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ_1, 0x01, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
@@ -38,7 +36,6 @@ int test_jz_1(struct vgscpu_context *c)
 
 int test_jz_2(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jz_2";
     unsigned char op1[] = {VGSCPU_OP_LD_A_1, 0x01, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ_2, 0x01, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JZ_2, 0x01, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
@@ -56,7 +53,6 @@ int test_jz_2(struct vgscpu_context *c)
 
 int test_jnz(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jnz";
     unsigned char op1[] = {VGSCPU_OP_LD_A_1, 0x01, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ, 0x0b, 0x00, 0x00, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ, 0x0b, 0x00, 0x00, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
@@ -74,7 +70,6 @@ int test_jnz(struct vgscpu_context *c)
 
 int test_jnz_1(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jnz_1";
     unsigned char op1[] = {VGSCPU_OP_LD_A_1, 0x01, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ_1, 0x01, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ_1, 0x01, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
@@ -92,7 +87,6 @@ int test_jnz_1(struct vgscpu_context *c)
 
 int test_jnz_2(struct vgscpu_context *c)
 {
-    const char *TAG = "test_jnz_2";
     unsigned char op1[] = {VGSCPU_OP_LD_A_1, 0x01, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ_2, 0x01, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_A_1, 0x02, VGSCPU_OP_LD_B_1, 0x00, VGSCPU_OP_DEC_A, VGSCPU_OP_JNZ_2, 0x01, 0x00, VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 

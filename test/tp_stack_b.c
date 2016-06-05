@@ -2,7 +2,6 @@
 
 int test_push(struct vgscpu_context *c)
 {
-    const char *TAG = "test_push";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {VGSCPU_OP_PUSH_B1, VGSCPU_OP_PUSH_B2, VGSCPU_OP_PUSH_B4, VGSCPU_OP_BRK};
@@ -22,7 +21,6 @@ int test_push(struct vgscpu_context *c)
 
 int error_push_stack_overflow_1(struct vgscpu_context *c)
 {
-    const char *TAG = "error_push_stack_overflow_1";
     unsigned char op[] = {VGSCPU_OP_PUSH_B1, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -36,7 +34,6 @@ int error_push_stack_overflow_1(struct vgscpu_context *c)
 
 int error_push_stack_overflow_2(struct vgscpu_context *c)
 {
-    const char *TAG = "error_push_stack_overflow_2";
     unsigned char op[] = {VGSCPU_OP_PUSH_B2, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -50,7 +47,6 @@ int error_push_stack_overflow_2(struct vgscpu_context *c)
 
 int error_push_stack_overflow_4(struct vgscpu_context *c)
 {
-    const char *TAG = "error_push_stack_overflow_4";
     unsigned char op[] = {VGSCPU_OP_PUSH_B4, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -64,7 +60,6 @@ int error_push_stack_overflow_4(struct vgscpu_context *c)
 
 int test_pop1(struct vgscpu_context *c)
 {
-    const char *TAG = "test_pop1";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {VGSCPU_OP_PUSH_B1, VGSCPU_OP_POP_B1, VGSCPU_OP_BRK};
@@ -79,7 +74,6 @@ int test_pop1(struct vgscpu_context *c)
 
 int test_pop2(struct vgscpu_context *c)
 {
-    const char *TAG = "test_pop2";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {VGSCPU_OP_PUSH_B2, VGSCPU_OP_POP_B2, VGSCPU_OP_BRK};
@@ -94,7 +88,6 @@ int test_pop2(struct vgscpu_context *c)
 
 int test_pop4(struct vgscpu_context *c)
 {
-    const char *TAG = "test_pop4";
     unsigned short s;
     unsigned int i;
     unsigned char op[] = {VGSCPU_OP_PUSH_B4, VGSCPU_OP_POP_B4, VGSCPU_OP_BRK};

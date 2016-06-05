@@ -2,7 +2,6 @@
 
 int test_ld_d_literal(struct vgscpu_context *c)
 {
-    const char *TAG = "test_ld_d_literal";
     unsigned short s;
     unsigned int i;
     unsigned char op1[] = {VGSCPU_OP_LD_D_1, 0xCD, VGSCPU_OP_BRK};
@@ -25,7 +24,6 @@ int test_ld_d_literal(struct vgscpu_context *c)
 
 int test_ld_d_registry(struct vgscpu_context *c)
 {
-    const char *TAG = "test_ld_d_registry";
     unsigned char op1[] = {VGSCPU_OP_LD_D_A, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_D_B, VGSCPU_OP_BRK};
     unsigned char op3[] = {VGSCPU_OP_LD_D_C, VGSCPU_OP_BRK};
@@ -55,7 +53,6 @@ int test_ld_d_registry(struct vgscpu_context *c)
 
 int test_ld_d_memory(struct vgscpu_context *c)
 {
-    const char *TAG = "test_ld_d_memory";
     const unsigned char m[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f};
     unsigned char op1[] = {VGSCPU_OP_LD_D_M1, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_D_M2, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
@@ -80,7 +77,6 @@ int test_ld_d_memory(struct vgscpu_context *c)
 
 int test_st_d(struct vgscpu_context *c)
 {
-    const char *TAG = "test_st_d";
     const unsigned char m[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f};
     unsigned char op1[] = {VGSCPU_OP_ST_D_M1, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_ST_D_M2, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};

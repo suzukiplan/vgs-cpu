@@ -2,7 +2,6 @@
 
 int test_dec_a(struct vgscpu_context *c)
 {
-    const char *TAG = "test_dec_a";
     unsigned char op[] = {VGSCPU_OP_DEC_A, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -31,7 +30,6 @@ int test_dec_a(struct vgscpu_context *c)
 
 int test_dec_b(struct vgscpu_context *c)
 {
-    const char *TAG = "test_dec_b";
     unsigned char op[] = {VGSCPU_OP_DEC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -61,7 +59,6 @@ int test_dec_b(struct vgscpu_context *c)
 
 int test_dec_c(struct vgscpu_context *c)
 {
-    const char *TAG = "test_dec_c";
     unsigned char op[] = {VGSCPU_OP_DEC_C, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
@@ -91,7 +88,6 @@ int test_dec_c(struct vgscpu_context *c)
 
 int test_dec_d(struct vgscpu_context *c)
 {
-    const char *TAG = "test_dec_d";
     unsigned char op[] = {VGSCPU_OP_DEC_D, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
