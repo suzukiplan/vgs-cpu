@@ -14,20 +14,25 @@ int test_inc_a(struct vgscpu_context *c)
     unsigned char op[] = {VGSCPU_OP_INC_A, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.a != 1) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.a != 2) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.a != 3) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
+
     c->r.a = -1;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.a != 0) FAILED(TAG, __LINE__);
     if (c->f.z != 1) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.a != 1) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
     return 0;
@@ -39,20 +44,25 @@ int test_inc_b(struct vgscpu_context *c)
     unsigned char op[] = {VGSCPU_OP_INC_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.b != 1) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.b != 2) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.b != 3) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
+
     c->r.b = -1;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.b != 0) FAILED(TAG, __LINE__);
     if (c->f.z != 1) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.b != 1) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
     return 0;
@@ -64,20 +74,25 @@ int test_inc_c(struct vgscpu_context *c)
     unsigned char op[] = {VGSCPU_OP_INC_C, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.c != 1) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.c != 2) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.c != 3) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
+
     c->r.c = -1;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.c != 0) FAILED(TAG, __LINE__);
     if (c->f.z != 1) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.c != 1) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
     return 0;
@@ -89,20 +104,25 @@ int test_inc_d(struct vgscpu_context *c)
     unsigned char op[] = {VGSCPU_OP_INC_D, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 1) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 2) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 3) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
+
     c->r.d = -1;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0) FAILED(TAG, __LINE__);
     if (c->f.z != 1) FAILED(TAG, __LINE__);
-    vgscpu_run(c);
+
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 1) FAILED(TAG, __LINE__);
     if (c->f.z != 0) FAILED(TAG, __LINE__);
     return 0;

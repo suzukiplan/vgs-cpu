@@ -18,15 +18,15 @@ int test_ld_d_literal(struct vgscpu_context *c)
     unsigned char op3[] = {VGSCPU_OP_LD_D_4, 0x67, 0x89, 0xAB, 0xCD, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0x000000CD) FAILED(TAG, __LINE__);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0x0000CDAB) FAILED(TAG, __LINE__);
 
     vgscpu_load_program(c, op3, sizeof(op3));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0xCDAB8967) FAILED(TAG, __LINE__);
     return 0;
 }
@@ -42,21 +42,21 @@ int test_ld_d_registry(struct vgscpu_context *c)
     c->r.a = 0x01020304;
     c->r.b = 0x05060708;
     c->r.c = 0x090a0b0c;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0x01020304) FAILED(TAG, __LINE__);
 
     vgscpu_load_program(c, op2, sizeof(op2));
     c->r.a = 0x01020304;
     c->r.b = 0x05060708;
     c->r.c = 0x090a0b0c;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0x05060708) FAILED(TAG, __LINE__);
 
     vgscpu_load_program(c, op3, sizeof(op3));
     c->r.a = 0x01020304;
     c->r.b = 0x05060708;
     c->r.c = 0x090a0b0c;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0x090a0b0c) FAILED(TAG, __LINE__);
     return 0;
 }
@@ -71,17 +71,17 @@ int test_ld_d_memory(struct vgscpu_context *c)
 
     vgscpu_load_program(c, op1, sizeof(op1));
     memcpy(&c->m, m, sizeof(m));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0x00000008) FAILED(TAG, __LINE__);
 
     vgscpu_load_program(c, op2, sizeof(op2));
     memcpy(&c->m, m, sizeof(m));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0x00000908) FAILED(TAG, __LINE__);
 
     vgscpu_load_program(c, op3, sizeof(op3));
     memcpy(&c->m, m, sizeof(m));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->r.d != 0x0b0a0908) FAILED(TAG, __LINE__);
     return 0;
 }
@@ -97,7 +97,7 @@ int test_st_d(struct vgscpu_context *c)
     vgscpu_load_program(c, op1, sizeof(op1));
     memcpy(&c->m, m, sizeof(m));
     c->r.d = 0x12345678;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->m[0x8] != 0x78) FAILED(TAG, __LINE__);
     if (c->m[0x9] != 0x09) FAILED(TAG, __LINE__);
     if (c->m[0xa] != 0x0a) FAILED(TAG, __LINE__);
@@ -106,7 +106,7 @@ int test_st_d(struct vgscpu_context *c)
     vgscpu_load_program(c, op2, sizeof(op2));
     memcpy(&c->m, m, sizeof(m));
     c->r.d = 0x12345678;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->m[0x8] != 0x78) FAILED(TAG, __LINE__);
     if (c->m[0x9] != 0x56) FAILED(TAG, __LINE__);
     if (c->m[0xa] != 0x0a) FAILED(TAG, __LINE__);
@@ -115,7 +115,7 @@ int test_st_d(struct vgscpu_context *c)
     vgscpu_load_program(c, op3, sizeof(op3));
     memcpy(&c->m, m, sizeof(m));
     c->r.d = 0x12345678;
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
     if (c->m[0x8] != 0x78) FAILED(TAG, __LINE__);
     if (c->m[0x9] != 0x56) FAILED(TAG, __LINE__);
     if (c->m[0xa] != 0x34) FAILED(TAG, __LINE__);

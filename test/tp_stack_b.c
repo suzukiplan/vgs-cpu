@@ -17,7 +17,7 @@ int test_push(struct vgscpu_context *c)
 
     c->r.b = 0x12345678;
     vgscpu_load_program(c, op, sizeof(op));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
 
     if (c->r.b != 0x12345678) FAILED(TAG, __LINE__);
     if (c->r.s != 7) FAILED(TAG, __LINE__);
@@ -80,7 +80,7 @@ int test_pop1(struct vgscpu_context *c)
 
     c->r.b = 0x12345678;
     vgscpu_load_program(c, op, sizeof(op));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
 
     if (c->r.b != 0x78) FAILED(TAG, __LINE__);
     if (c->r.s != 0) FAILED(TAG, __LINE__);
@@ -96,7 +96,7 @@ int test_pop2(struct vgscpu_context *c)
 
     c->r.b = 0x12345678;
     vgscpu_load_program(c, op, sizeof(op));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
 
     if (c->r.b != 0x5678) FAILED(TAG, __LINE__);
     if (c->r.s != 0) FAILED(TAG, __LINE__);
@@ -112,7 +112,7 @@ int test_pop4(struct vgscpu_context *c)
 
     c->r.b = 0x12345678;
     vgscpu_load_program(c, op, sizeof(op));
-    vgscpu_run(c);
+    if (vgscpu_run(c)) FAILED(TAG, __LINE__);
 
     if (c->r.b != 0x12345678) FAILED(TAG, __LINE__);
     if (c->r.s != 0) FAILED(TAG, __LINE__);
