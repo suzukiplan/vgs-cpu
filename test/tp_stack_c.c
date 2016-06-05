@@ -23,7 +23,7 @@ int test_push(struct vgscpu_context *c)
 int error_push_stack_overflow_1(struct vgscpu_context *c)
 {
     const char *TAG = "error_push_stack_overflow_1";
-    unsigned char op[] = {VGSCPU_OP_PUSH_C1, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00};
+    unsigned char op[] = {VGSCPU_OP_PUSH_C1, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
     c->r.a = 0;
@@ -37,7 +37,7 @@ int error_push_stack_overflow_1(struct vgscpu_context *c)
 int error_push_stack_overflow_2(struct vgscpu_context *c)
 {
     const char *TAG = "error_push_stack_overflow_2";
-    unsigned char op[] = {VGSCPU_OP_PUSH_C2, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00};
+    unsigned char op[] = {VGSCPU_OP_PUSH_C2, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
     c->r.a = 0;
@@ -51,7 +51,7 @@ int error_push_stack_overflow_2(struct vgscpu_context *c)
 int error_push_stack_overflow_4(struct vgscpu_context *c)
 {
     const char *TAG = "error_push_stack_overflow_4";
-    unsigned char op[] = {VGSCPU_OP_PUSH_C4, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00};
+    unsigned char op[] = {VGSCPU_OP_PUSH_C4, VGSCPU_OP_INC_A, VGSCPU_OP_JMP, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
     c->r.a = 0;
