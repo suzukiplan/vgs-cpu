@@ -6,8 +6,8 @@ int test_program_memory(struct vgscpu_context *c)
     unsigned char op2[] = {VGSCPU_OP_PUSH_A2, VGSCPU_OP_BRK};
     unsigned char op3[] = {VGSCPU_OP_PUSH_A4, VGSCPU_OP_BRK};
     unsigned char op4[] = {VGSCPU_OP_PUSH_A1, VGSCPU_OP_POP_A1, VGSCPU_OP_BRK};
-    unsigned char op5[] = {VGSCPU_OP_PUSH_A2, VGSCPU_OP_POP_A1, VGSCPU_OP_BRK};
-    unsigned char op6[] = {VGSCPU_OP_PUSH_A4, VGSCPU_OP_POP_A1, VGSCPU_OP_BRK};
+    unsigned char op5[] = {VGSCPU_OP_PUSH_A2, VGSCPU_OP_POP_A2, VGSCPU_OP_BRK};
+    unsigned char op6[] = {VGSCPU_OP_PUSH_A4, VGSCPU_OP_POP_A4, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
