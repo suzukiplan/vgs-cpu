@@ -28,12 +28,12 @@
         break;                                \
     }
 
-#define ASSERT_IF_STACK_UNDERFLOW(SIZE)        \
-    if (c->r.s - SIZE < 0) {                   \
-        sprintf(c->error, "STACK UNDERFOLOW"); \
-        loop_flag = 0;                         \
-        ret = -1;                              \
-        break;                                 \
+#define ASSERT_IF_STACK_UNDERFLOW(SIZE)       \
+    if (c->r.s < SIZE) {                      \
+        sprintf(c->error, "STACK UNDERFLOW"); \
+        loop_flag = 0;                        \
+        ret = -1;                             \
+        break;                                \
     }
 
 void *vgscpu_create_context()
