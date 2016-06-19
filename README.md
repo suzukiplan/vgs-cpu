@@ -9,6 +9,45 @@
 - 将来的には Cコンパイラ も作りたいと思っていますが __32bit CPUなのに6502並にフルアセンブリ言語でもコーディングしやすい石__ として, 嘗て私がフルアセでコードを書いていたことを色々思い出しながら設計しています _(単にCコンパイラを作るのは大変だからという説もある)_
 - VGSの推奨言語を今まで「C言語」としてきた伏線がようやくここで回収される訳です（ゲーム本体は普通にC++で書いた方が楽ですが、C++コンパイラを作るのは私には荷が重すぎるので... _Cなら標準関数を除けば多分作れる_）
 
+## How to use
+- このリポジトリには コード + テスト しかありません
+- 利用したいプログラムに `git subversion add` して利用する想定
+
+## API specification
+### vgscpu_create_context
+```c
+void *vgscpu_create_context();
+```
+- CPUコンテキストを作成
+
+### vgscpu_load_program
+```c
+int vgscpu_load_program(void *ctx, void *pg, size_t size);
+```
+- CPUコンテキスト に プログラム を ロード
+- 成功すると 0 を返し, 失敗すると -1 を返す
+
+### vgscpu_run
+```c
+int vgscpu_run(void *ctx);
+```
+- プログラムを実行
+- program counter と stack pointer はリセットされる
+- `BRK` 命令を検出すると 0 を返す
+- 例外を検出すると -1 を返しエラー情報が格納される
+
+### vgscpu_get_last_error
+```c
+const char* vgscpu_get_last_error(void *ctx);
+```
+- 最後に発生したエラー情報 ( `\0` で終端するASCIIテキスト) を返す
+
+### vgscpu_release_context
+```c
+void vgscpu_release_context(void *ctx);
+```
+- CPUコンテキストを開放
+
 ## Specification & Plans (WIP)
 - VGS 本体の SLOT に PSLOT (Program Slot) を追加する
 - VGS アプリ起動時に PSLOT000 が 1回だけ実行される
