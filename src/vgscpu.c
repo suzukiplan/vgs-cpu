@@ -975,3 +975,9 @@ int vgscpu_run(void *ctx)
     } while (loop_flag);
     return ret;
 }
+
+const char *vgscpu_get_last_error(void *ctx)
+{
+    struct vgscpu_context *c = (struct vgscpu_context *)ctx;
+    return c->error;
+}
