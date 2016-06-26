@@ -12,7 +12,8 @@ TESTCASE=\
 	tp_dec\
 	tp_not\
 	tp_jmp\
-	tp_jz_jnz
+	tp_jz_jnz\
+	tp_sh
 
 all: format run-test
 

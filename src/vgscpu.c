@@ -69,6 +69,7 @@ int vgscpu_run(void *ctx)
     int ret = 0;
     unsigned short s;
     unsigned int i;
+    unsigned char b;
     c->r.p = 0;
     c->r.s = 0;
     do {
@@ -667,6 +668,59 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 c->r.d = ~c->r.d;
                 c->f.z = (0 == c->r.d) ? 1 : 0;
+                break;
+            /*
+             *----------------------------------------------------------------
+             * shift
+             *----------------------------------------------------------------
+             */
+            case VGSCPU_OP_SHL_A:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                b = c->p[c->r.p++];
+                c->r.a <<= b;
+                break;
+            case VGSCPU_OP_SHL_B:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                b = c->p[c->r.p++];
+                c->r.b <<= b;
+                break;
+            case VGSCPU_OP_SHL_C:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                b = c->p[c->r.p++];
+                c->r.c <<= b;
+                break;
+            case VGSCPU_OP_SHL_D:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                b = c->p[c->r.p++];
+                c->r.d <<= b;
+                break;
+            case VGSCPU_OP_SHR_A:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                b = c->p[c->r.p++];
+                c->r.a >>= b;
+                break;
+            case VGSCPU_OP_SHR_B:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                b = c->p[c->r.p++];
+                c->r.b >>= b;
+                break;
+            case VGSCPU_OP_SHR_C:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                b = c->p[c->r.p++];
+                c->r.c >>= b;
+                break;
+            case VGSCPU_OP_SHR_D:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                b = c->p[c->r.p++];
+                c->r.d >>= b;
                 break;
             /*
              *----------------------------------------------------------------
