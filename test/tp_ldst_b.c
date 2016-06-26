@@ -86,12 +86,12 @@ int test_main_memory(struct vgscpu_context *c)
     memcpy(&op1[1], &m, 4);
     vgscpu_load_program(c, op1, sizeof(op1));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
     m = VGSCPU_MEMORY_SIZE + 1;
     memcpy(&op1[1], &m, 4);
     vgscpu_load_program(c, op1, sizeof(op1));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
     m = VGSCPU_MEMORY_SIZE - 2;
     memcpy(&op2[1], &m, 4);
@@ -101,12 +101,12 @@ int test_main_memory(struct vgscpu_context *c)
     memcpy(&op2[1], &m, 4);
     vgscpu_load_program(c, op2, sizeof(op2));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
     m = VGSCPU_MEMORY_SIZE + 1;
     memcpy(&op2[1], &m, 4);
     vgscpu_load_program(c, op2, sizeof(op2));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
     m = VGSCPU_MEMORY_SIZE - 4;
     memcpy(&op3[1], &m, 4);
@@ -116,12 +116,12 @@ int test_main_memory(struct vgscpu_context *c)
     memcpy(&op3[1], &m, 4);
     vgscpu_load_program(c, op3, sizeof(op3));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
     m = VGSCPU_MEMORY_SIZE + 1;
     memcpy(&op3[1], &m, 4);
     vgscpu_load_program(c, op3, sizeof(op3));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
     m = VGSCPU_MEMORY_SIZE - 1;
     memcpy(&op4[1], &m, 4);
@@ -131,12 +131,12 @@ int test_main_memory(struct vgscpu_context *c)
     memcpy(&op4[1], &m, 4);
     vgscpu_load_program(c, op4, sizeof(op4));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
     m = VGSCPU_MEMORY_SIZE + 1;
     memcpy(&op4[1], &m, 4);
     vgscpu_load_program(c, op4, sizeof(op4));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
     m = VGSCPU_MEMORY_SIZE - 2;
     memcpy(&op5[1], &m, 4);
@@ -146,12 +146,12 @@ int test_main_memory(struct vgscpu_context *c)
     memcpy(&op5[1], &m, 4);
     vgscpu_load_program(c, op5, sizeof(op5));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
     m = VGSCPU_MEMORY_SIZE + 1;
     memcpy(&op5[1], &m, 4);
     vgscpu_load_program(c, op5, sizeof(op5));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
     m = VGSCPU_MEMORY_SIZE - 4;
     memcpy(&op6[1], &m, 4);
@@ -161,12 +161,12 @@ int test_main_memory(struct vgscpu_context *c)
     memcpy(&op6[1], &m, 4);
     vgscpu_load_program(c, op6, sizeof(op6));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
     m = VGSCPU_MEMORY_SIZE + 1;
     memcpy(&op6[1], &m, 4);
     vgscpu_load_program(c, op6, sizeof(op6));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
     return 0;
 }
 
