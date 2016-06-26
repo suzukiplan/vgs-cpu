@@ -36,6 +36,19 @@
         break;                                \
     }
 
+#define ASSERT_IF_OUT_OF_MAIN_MEMORY(PTR, SIZE)                        \
+    if (VGSCPU_MEMORY_SIZE <= PTR) {                                   \
+        sprintf(c->error, "OUT OF PROGRAM MEMORY: $%08X", PTR);        \
+        loop_flag = 0;                                                 \
+        ret = -1;                                                      \
+        break;                                                         \
+    } else if (VGSCPU_MEMORY_SIZE < PTR + SIZE) {                      \
+        sprintf(c->error, "OUT OF PROGRAM MEMORY: $%08X", PTR + SIZE); \
+        loop_flag = 0;                                                 \
+        ret = -1;                                                      \
+        break;                                                         \
+    }
+
 void *vgscpu_create_context()
 {
     struct vgscpu_context *result;
@@ -167,6 +180,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->r.a = c->m[i];
                 break;
             case VGSCPU_OP_LD_A_M2:
@@ -174,6 +188,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&s, &c->m[i], 2);
                 c->r.a = s;
                 break;
@@ -182,6 +197,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&i, &c->m[i], 4);
                 c->r.a = i;
                 break;
@@ -190,6 +206,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->m[i] = (unsigned char)(c->r.a & 0xff);
                 break;
             case VGSCPU_OP_ST_A_M2:
@@ -198,6 +215,7 @@ int vgscpu_run(void *ctx)
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 s = (unsigned short)(c->r.a & 0xffff);
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&c->m[i], &s, 2);
                 break;
             case VGSCPU_OP_ST_A_M4:
@@ -205,6 +223,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&c->m[i], &c->r.a, 4);
                 break;
             case VGSCPU_OP_INC_A:
@@ -315,6 +334,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->r.b = c->m[i];
                 break;
             case VGSCPU_OP_LD_B_M2:
@@ -322,6 +342,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&s, &c->m[i], 2);
                 c->r.b = s;
                 break;
@@ -330,6 +351,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&i, &c->m[i], 4);
                 c->r.b = i;
                 break;
@@ -338,6 +360,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->m[i] = (unsigned char)(c->r.b & 0xff);
                 break;
             case VGSCPU_OP_ST_B_M2:
@@ -346,6 +369,7 @@ int vgscpu_run(void *ctx)
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 s = (unsigned short)(c->r.b & 0xffff);
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&c->m[i], &s, 2);
                 break;
             case VGSCPU_OP_ST_B_M4:
@@ -353,6 +377,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&c->m[i], &c->r.b, 4);
                 break;
             case VGSCPU_OP_INC_B:
@@ -463,6 +488,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->r.c = c->m[i];
                 break;
             case VGSCPU_OP_LD_C_M2:
@@ -470,6 +496,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&s, &c->m[i], 2);
                 c->r.c = s;
                 break;
@@ -478,6 +505,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&i, &c->m[i], 4);
                 c->r.c = i;
                 break;
@@ -486,6 +514,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->m[i] = (unsigned char)(c->r.c & 0xff);
                 break;
             case VGSCPU_OP_ST_C_M2:
@@ -494,6 +523,7 @@ int vgscpu_run(void *ctx)
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 s = (unsigned short)(c->r.c & 0xffff);
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&c->m[i], &s, 2);
                 break;
             case VGSCPU_OP_ST_C_M4:
@@ -501,6 +531,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&c->m[i], &c->r.c, 4);
                 break;
             case VGSCPU_OP_INC_C:
@@ -611,6 +642,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->r.d = c->m[i];
                 break;
             case VGSCPU_OP_LD_D_M2:
@@ -618,6 +650,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&s, &c->m[i], 2);
                 c->r.d = s;
                 break;
@@ -626,6 +659,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&i, &c->m[i], 4);
                 c->r.d = i;
                 break;
@@ -634,6 +668,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->m[i] = (unsigned char)(c->r.d & 0xff);
                 break;
             case VGSCPU_OP_ST_D_M2:
@@ -642,6 +677,7 @@ int vgscpu_run(void *ctx)
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
                 s = (unsigned short)(c->r.d & 0xffff);
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&c->m[i], &s, 2);
                 break;
             case VGSCPU_OP_ST_D_M4:
@@ -649,6 +685,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 memcpy(&i, &c->p[c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&c->m[i], &c->r.d, 4);
                 break;
             case VGSCPU_OP_INC_D:
@@ -769,6 +806,7 @@ int vgscpu_run(void *ctx)
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
                 memcpy(&i, &c->p[++c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 c->r.a += c->m[i];
                 c->f.z = c->r.a ? 0 : 1;
                 break;
@@ -776,6 +814,7 @@ int vgscpu_run(void *ctx)
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
                 memcpy(&i, &c->p[++c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
                 memcpy(&s, &c->m[i], 2);
                 c->r.a += s;
                 c->f.z = c->r.a ? 0 : 1;
@@ -784,6 +823,7 @@ int vgscpu_run(void *ctx)
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
                 memcpy(&i, &c->p[++c->r.p], 4);
                 c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&i, &c->m[i], 4);
                 c->r.a += i;
                 c->f.z = c->r.a ? 0 : 1;
