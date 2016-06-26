@@ -13,7 +13,8 @@ TESTCASE=\
 	tp_not\
 	tp_jmp\
 	tp_jz_jnz\
-	tp_sh
+	tp_sh\
+	tp_add_a
 
 all: format run-test
 
