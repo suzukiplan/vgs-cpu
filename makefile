@@ -15,7 +15,8 @@ TESTCASE=\
 	tp_jz_jnz\
 	tp_sh\
 	tp_add_a\
-	tp_sub_a
+	tp_sub_a\
+	tp_mul_a
 
 all: format run-test
 
