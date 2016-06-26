@@ -36,17 +36,17 @@
         break;                                \
     }
 
-#define ASSERT_IF_OUT_OF_MAIN_MEMORY(PTR, SIZE)                        \
-    if (VGSCPU_MEMORY_SIZE <= PTR) {                                   \
-        sprintf(c->error, "OUT OF PROGRAM MEMORY: $%08X", PTR);        \
-        loop_flag = 0;                                                 \
-        ret = -1;                                                      \
-        break;                                                         \
-    } else if (VGSCPU_MEMORY_SIZE < PTR + SIZE) {                      \
-        sprintf(c->error, "OUT OF PROGRAM MEMORY: $%08X", PTR + SIZE); \
-        loop_flag = 0;                                                 \
-        ret = -1;                                                      \
-        break;                                                         \
+#define ASSERT_IF_OUT_OF_MAIN_MEMORY(PTR, SIZE)     \
+    if (VGSCPU_MEMORY_SIZE <= PTR) {                \
+        sprintf(c->error, "OUT OF PROGRAM MEMORY"); \
+        loop_flag = 0;                              \
+        ret = -1;                                   \
+        break;                                      \
+    } else if (VGSCPU_MEMORY_SIZE < PTR + SIZE) {   \
+        sprintf(c->error, "OUT OF PROGRAM MEMORY"); \
+        loop_flag = 0;                              \
+        ret = -1;                                   \
+        break;                                      \
     }
 
 void *vgscpu_create_context()

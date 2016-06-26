@@ -68,6 +68,108 @@ int test_program_memory(struct vgscpu_context *c)
     return 0;
 }
 
+int test_main_memory(struct vgscpu_context *c)
+{
+    unsigned int m = VGSCPU_MEMORY_SIZE;
+    unsigned char op1[] = {VGSCPU_OP_LD_A_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op2[] = {VGSCPU_OP_LD_A_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op3[] = {VGSCPU_OP_LD_A_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op4[] = {VGSCPU_OP_ST_A_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op5[] = {VGSCPU_OP_ST_A_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op6[] = {VGSCPU_OP_ST_A_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+
+    m = VGSCPU_MEMORY_SIZE - 1;
+    memcpy(&op1[1], &m, 4);
+    vgscpu_load_program(c, op1, sizeof(op1));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    m = VGSCPU_MEMORY_SIZE;
+    memcpy(&op1[1], &m, 4);
+    vgscpu_load_program(c, op1, sizeof(op1));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    m = VGSCPU_MEMORY_SIZE + 1;
+    memcpy(&op1[1], &m, 4);
+    vgscpu_load_program(c, op1, sizeof(op1));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+
+    m = VGSCPU_MEMORY_SIZE - 2;
+    memcpy(&op2[1], &m, 4);
+    vgscpu_load_program(c, op2, sizeof(op2));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    m = VGSCPU_MEMORY_SIZE - 1;
+    memcpy(&op2[1], &m, 4);
+    vgscpu_load_program(c, op2, sizeof(op2));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    m = VGSCPU_MEMORY_SIZE + 1;
+    memcpy(&op2[1], &m, 4);
+    vgscpu_load_program(c, op2, sizeof(op2));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+
+    m = VGSCPU_MEMORY_SIZE - 4;
+    memcpy(&op3[1], &m, 4);
+    vgscpu_load_program(c, op3, sizeof(op3));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    m = VGSCPU_MEMORY_SIZE - 3;
+    memcpy(&op3[1], &m, 4);
+    vgscpu_load_program(c, op3, sizeof(op3));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    m = VGSCPU_MEMORY_SIZE + 1;
+    memcpy(&op3[1], &m, 4);
+    vgscpu_load_program(c, op3, sizeof(op3));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+
+    m = VGSCPU_MEMORY_SIZE - 1;
+    memcpy(&op4[1], &m, 4);
+    vgscpu_load_program(c, op4, sizeof(op4));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    m = VGSCPU_MEMORY_SIZE;
+    memcpy(&op4[1], &m, 4);
+    vgscpu_load_program(c, op4, sizeof(op4));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    m = VGSCPU_MEMORY_SIZE + 1;
+    memcpy(&op4[1], &m, 4);
+    vgscpu_load_program(c, op4, sizeof(op4));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+
+    m = VGSCPU_MEMORY_SIZE - 2;
+    memcpy(&op5[1], &m, 4);
+    vgscpu_load_program(c, op5, sizeof(op5));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    m = VGSCPU_MEMORY_SIZE - 1;
+    memcpy(&op5[1], &m, 4);
+    vgscpu_load_program(c, op5, sizeof(op5));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    m = VGSCPU_MEMORY_SIZE + 1;
+    memcpy(&op5[1], &m, 4);
+    vgscpu_load_program(c, op5, sizeof(op5));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+
+    m = VGSCPU_MEMORY_SIZE - 4;
+    memcpy(&op6[1], &m, 4);
+    vgscpu_load_program(c, op6, sizeof(op6));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+    m = VGSCPU_MEMORY_SIZE - 3;
+    memcpy(&op6[1], &m, 4);
+    vgscpu_load_program(c, op6, sizeof(op6));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    m = VGSCPU_MEMORY_SIZE + 1;
+    memcpy(&op6[1], &m, 4);
+    vgscpu_load_program(c, op6, sizeof(op6));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY"), 0);
+    return 0;
+}
+
 int test_ld_a_literal(struct vgscpu_context *c)
 {
     unsigned short s;
@@ -186,6 +288,7 @@ int main()
     int result = -1;
 
     if (test_program_memory(c)) goto END_TEST;
+    if (test_main_memory(c)) goto END_TEST;
     if (test_ld_a_literal(c)) goto END_TEST;
     if (test_ld_a_registry(c)) goto END_TEST;
     if (test_ld_a_memory(c)) goto END_TEST;
