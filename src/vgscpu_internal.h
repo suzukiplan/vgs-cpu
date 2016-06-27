@@ -150,49 +150,60 @@
 #define VGSCPU_OP_DIV_A_M2 0x7f /* div: a = a / &memory[ptr](2byte) */
 #define VGSCPU_OP_DIV_A_M4 0x80 /* div: a = a / &memory[ptr](4byte) */
 
+/* mod */
+#define VGSCPU_OP_MOD_A_1 0x81  /* mod: a = a % literal(1byte) */
+#define VGSCPU_OP_MOD_A_2 0x82  /* mod: a = a % literal(2byte) */
+#define VGSCPU_OP_MOD_A_4 0x83  /* mod: a = a % literal(4byte) */
+#define VGSCPU_OP_MOD_A_B 0x84  /* mod: a = a % b */
+#define VGSCPU_OP_MOD_A_C 0x85  /* mod: a = a % c */
+#define VGSCPU_OP_MOD_A_D 0x86  /* mod: a = a % d */
+#define VGSCPU_OP_MOD_A_M1 0x87 /* mod: a = a % &memory[ptr](1byte) */
+#define VGSCPU_OP_MOD_A_M2 0x88 /* mod: a = a % &memory[ptr](2byte) */
+#define VGSCPU_OP_MOD_A_M4 0x89 /* mod: a = a % &memory[ptr](4byte) */
+
 /* and */
-#define VGSCPU_OP_AND_A_1 0x81  /* and: a = a & literal(1byte) */
-#define VGSCPU_OP_AND_A_2 0x82  /* and: a = a & literal(2byte) */
-#define VGSCPU_OP_AND_A_4 0x83  /* and: a = a & literal(4byte) */
-#define VGSCPU_OP_AND_A_B 0x84  /* and: a = a & b */
-#define VGSCPU_OP_AND_A_C 0x85  /* and: a = a & c */
-#define VGSCPU_OP_AND_A_D 0x86  /* and: a = a & d */
-#define VGSCPU_OP_AND_A_M1 0x87 /* and: a = a & &memory[ptr](1byte) */
-#define VGSCPU_OP_AND_A_M2 0x88 /* and: a = a & &memory[ptr](2byte) */
-#define VGSCPU_OP_AND_A_M4 0x89 /* and: a = a & &memory[ptr](4byte) */
+#define VGSCPU_OP_AND_A_1 0x8a  /* and: a = a & literal(1byte) */
+#define VGSCPU_OP_AND_A_2 0x8b  /* and: a = a & literal(2byte) */
+#define VGSCPU_OP_AND_A_4 0x8c  /* and: a = a & literal(4byte) */
+#define VGSCPU_OP_AND_A_B 0x8d  /* and: a = a & b */
+#define VGSCPU_OP_AND_A_C 0x8e  /* and: a = a & c */
+#define VGSCPU_OP_AND_A_D 0x8f  /* and: a = a & d */
+#define VGSCPU_OP_AND_A_M1 0x90 /* and: a = a & &memory[ptr](1byte) */
+#define VGSCPU_OP_AND_A_M2 0x91 /* and: a = a & &memory[ptr](2byte) */
+#define VGSCPU_OP_AND_A_M4 0x92 /* and: a = a & &memory[ptr](4byte) */
 
 /* or */
-#define VGSCPU_OP_OR_A_1 0x8a  /* or: a = a | literal(1byte) */
-#define VGSCPU_OP_OR_A_2 0x8b  /* or: a = a | literal(2byte) */
-#define VGSCPU_OP_OR_A_4 0x8c  /* or: a = a | literal(4byte) */
-#define VGSCPU_OP_OR_A_B 0x8d  /* or: a = a | b */
-#define VGSCPU_OP_OR_A_C 0x8e  /* or: a = a | c */
-#define VGSCPU_OP_OR_A_D 0x8f  /* or: a = a | d */
-#define VGSCPU_OP_OR_A_M1 0x90 /* or: a = a | &memory[ptr](1byte) */
-#define VGSCPU_OP_OR_A_M2 0x91 /* or: a = a | &memory[ptr](2byte) */
-#define VGSCPU_OP_OR_A_M4 0x92 /* or: a = a | &memory[ptr](4byte) */
+#define VGSCPU_OP_OR_A_1 0x93  /* or: a = a | literal(1byte) */
+#define VGSCPU_OP_OR_A_2 0x94  /* or: a = a | literal(2byte) */
+#define VGSCPU_OP_OR_A_4 0x95  /* or: a = a | literal(4byte) */
+#define VGSCPU_OP_OR_A_B 0x96  /* or: a = a | b */
+#define VGSCPU_OP_OR_A_C 0x97  /* or: a = a | c */
+#define VGSCPU_OP_OR_A_D 0x98  /* or: a = a | d */
+#define VGSCPU_OP_OR_A_M1 0x99 /* or: a = a | &memory[ptr](1byte) */
+#define VGSCPU_OP_OR_A_M2 0x9a /* or: a = a | &memory[ptr](2byte) */
+#define VGSCPU_OP_OR_A_M4 0x9b /* or: a = a | &memory[ptr](4byte) */
 
 /* xor */
-#define VGSCPU_OP_XOR_A_1 0x93  /* xor: a = a ^ literal(1byte) */
-#define VGSCPU_OP_XOR_A_2 0x94  /* xor: a = a ^ literal(2byte) */
-#define VGSCPU_OP_XOR_A_4 0x95  /* xor: a = a ^ literal(4byte) */
-#define VGSCPU_OP_XOR_A_B 0x96  /* xor: a = a ^ b */
-#define VGSCPU_OP_XOR_A_C 0x97  /* xor: a = a ^ c */
-#define VGSCPU_OP_XOR_A_D 0x98  /* xor: a = a ^ d */
-#define VGSCPU_OP_XOR_A_M1 0x99 /* xor: a = a ^ &memory[ptr](1byte) */
-#define VGSCPU_OP_XOR_A_M2 0x9a /* xor: a = a ^ &memory[ptr](2byte) */
-#define VGSCPU_OP_XOR_A_M4 0x9b /* xor: a = a ^ &memory[ptr](4byte) */
+#define VGSCPU_OP_XOR_A_1 0x9c  /* xor: a = a ^ literal(1byte) */
+#define VGSCPU_OP_XOR_A_2 0x9d  /* xor: a = a ^ literal(2byte) */
+#define VGSCPU_OP_XOR_A_4 0x9e  /* xor: a = a ^ literal(4byte) */
+#define VGSCPU_OP_XOR_A_B 0x9f  /* xor: a = a ^ b */
+#define VGSCPU_OP_XOR_A_C 0xa0  /* xor: a = a ^ c */
+#define VGSCPU_OP_XOR_A_D 0xa1  /* xor: a = a ^ d */
+#define VGSCPU_OP_XOR_A_M1 0xa2 /* xor: a = a ^ &memory[ptr](1byte) */
+#define VGSCPU_OP_XOR_A_M2 0xa3 /* xor: a = a ^ &memory[ptr](2byte) */
+#define VGSCPU_OP_XOR_A_M4 0xa4 /* xor: a = a ^ &memory[ptr](4byte) */
 
 /* compare (result: vgscpu_status_flag.eq) */
-#define VGSCPU_CMP_A_1 0x9c  /* cmp: a and literal(1byte) */
-#define VGSCPU_CMP_A_2 0x9d  /* cmp: a and literal(2byte) */
-#define VGSCPU_CMP_A_4 0x9e  /* cmp: a and literal(4byte) */
-#define VGSCPU_CMP_A_B 0x9f  /* cmp: a and b */
-#define VGSCPU_CMP_A_C 0xa0  /* cmp: a and c */
-#define VGSCPU_CMP_A_D 0xa1  /* cmp: a and d */
-#define VGSCPU_CMP_A_M1 0xa2 /* cmp: a and &memory[ptr](1byte) */
-#define VGSCPU_CMP_A_M2 0xa3 /* cmp: a and &memory[ptr](2byte) */
-#define VGSCPU_CMP_A_M4 0xa4 /* cmp: a and &memory[ptr](4byte) */
+#define VGSCPU_CMP_A_1 0xa5  /* cmp: a and literal(1byte) */
+#define VGSCPU_CMP_A_2 0xa6  /* cmp: a and literal(2byte) */
+#define VGSCPU_CMP_A_4 0xa7  /* cmp: a and literal(4byte) */
+#define VGSCPU_CMP_A_B 0xa8  /* cmp: a and b */
+#define VGSCPU_CMP_A_C 0xa9  /* cmp: a and c */
+#define VGSCPU_CMP_A_D 0xaa  /* cmp: a and d */
+#define VGSCPU_CMP_A_M1 0xab /* cmp: a and &memory[ptr](1byte) */
+#define VGSCPU_CMP_A_M2 0xac /* cmp: a and &memory[ptr](2byte) */
+#define VGSCPU_CMP_A_M4 0xad /* cmp: a and &memory[ptr](4byte) */
 
 /* branch */
 #define VGSCPU_OP_JMP 0xe0   /* jump to specific address */
