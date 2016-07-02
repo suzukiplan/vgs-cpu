@@ -19,4 +19,5 @@ tp_load_program
 tp_add_a
 tp_sub_a
 tp_mul_a
+tp_div_a
 

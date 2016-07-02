@@ -49,6 +49,14 @@
         break;                                    \
     }
 
+#define ASSERT_IF_ZERO_DIVIDE(NUMBER)     \
+    if (0 == NUMBER) {                    \
+        sprintf(c->error, "ZERO DIVIDE"); \
+        loop_flag = 0;                    \
+        ret = -1;                         \
+        break;                            \
+    }
+
 void *vgscpu_create_context()
 {
     struct vgscpu_context *result;
@@ -964,6 +972,84 @@ int vgscpu_run(void *ctx)
                 ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
                 memcpy(&i, &c->m[i], 4);
                 c->r.a *= i;
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            /*
+             *----------------------------------------------------------------
+             * div A
+             *----------------------------------------------------------------
+             */
+            case VGSCPU_OP_DIV_A_1:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                ASSERT_IF_ZERO_DIVIDE(c->p[++c->r.p]);
+                c->r.a /= c->p[c->r.p];
+                c->r.p++;
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            case VGSCPU_OP_DIV_A_2:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                memcpy(&s, &c->p[++c->r.p], 2);
+                c->r.p += 2;
+                ASSERT_IF_ZERO_DIVIDE(s);
+                c->r.a /= s;
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            case VGSCPU_OP_DIV_A_4:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                memcpy(&i, &c->p[++c->r.p], 4);
+                c->r.p += 4;
+                ASSERT_IF_ZERO_DIVIDE(i);
+                c->r.a /= i;
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            case VGSCPU_OP_DIV_A_B:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                c->r.p++;
+                ASSERT_IF_ZERO_DIVIDE(c->r.b);
+                c->r.a /= c->r.b;
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            case VGSCPU_OP_DIV_A_C:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                c->r.p++;
+                ASSERT_IF_ZERO_DIVIDE(c->r.c);
+                c->r.a /= c->r.c;
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            case VGSCPU_OP_DIV_A_D:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                c->r.p++;
+                ASSERT_IF_ZERO_DIVIDE(c->r.d);
+                c->r.a /= c->r.d;
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            case VGSCPU_OP_DIV_A_M1:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                memcpy(&i, &c->p[++c->r.p], 4);
+                c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                ASSERT_IF_ZERO_DIVIDE(c->m[i]);
+                c->r.a /= c->m[i];
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            case VGSCPU_OP_DIV_A_M2:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                memcpy(&i, &c->p[++c->r.p], 4);
+                c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                memcpy(&s, &c->m[i], 2);
+                ASSERT_IF_ZERO_DIVIDE(s);
+                c->r.a /= s;
+                c->f.z = c->r.a ? 0 : 1;
+                break;
+            case VGSCPU_OP_DIV_A_M4:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                memcpy(&i, &c->p[++c->r.p], 4);
+                c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                memcpy(&i, &c->m[i], 4);
+                ASSERT_IF_ZERO_DIVIDE(i);
+                c->r.a /= i;
                 c->f.z = c->r.a ? 0 : 1;
                 break;
             /*

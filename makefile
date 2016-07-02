@@ -16,7 +16,8 @@ TESTCASE=\
 	tp_sh\
 	tp_add_a\
 	tp_sub_a\
-	tp_mul_a
+	tp_mul_a\
+	tp_div_a
 
 all: format run-test
 
