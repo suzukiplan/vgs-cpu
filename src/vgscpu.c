@@ -1370,7 +1370,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 if (c->r.a < b) {
                     c->f.q = -1;
-                } else if (c->r.a > b) {
+                } else if (c->r.a != b) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
@@ -1382,7 +1382,7 @@ int vgscpu_run(void *ctx)
                 c->r.p += 2;
                 if (c->r.a < s) {
                     c->f.q = -1;
-                } else if (c->r.a > s) {
+                } else if (c->r.a != s) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
@@ -1394,7 +1394,7 @@ int vgscpu_run(void *ctx)
                 c->r.p += 4;
                 if (c->r.a < i) {
                     c->f.q = -1;
-                } else if (c->r.a > i) {
+                } else if (c->r.a != i) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
@@ -1405,7 +1405,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 if (c->r.a < c->r.b) {
                     c->f.q = -1;
-                } else if (c->r.a > c->r.b) {
+                } else if (c->r.a != c->r.b) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
@@ -1416,7 +1416,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 if (c->r.a < c->r.c) {
                     c->f.q = -1;
-                } else if (c->r.a > c->r.c) {
+                } else if (c->r.a != c->r.c) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
@@ -1427,7 +1427,7 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 if (c->r.a < c->r.d) {
                     c->f.q = -1;
-                } else if (c->r.a > c->r.d) {
+                } else if (c->r.a != c->r.d) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
@@ -1440,7 +1440,7 @@ int vgscpu_run(void *ctx)
                 ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
                 if (c->r.a < c->m[i]) {
                     c->f.q = -1;
-                } else if (c->r.a > c->m[i]) {
+                } else if (c->r.a != c->m[i]) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
@@ -1454,7 +1454,7 @@ int vgscpu_run(void *ctx)
                 memcpy(&s, &c->m[i], 2);
                 if (c->r.a < s) {
                     c->f.q = -1;
-                } else if (c->r.a > s) {
+                } else if (c->r.a != s) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
@@ -1468,7 +1468,7 @@ int vgscpu_run(void *ctx)
                 memcpy(&i, &c->m[i], 4);
                 if (c->r.a < i) {
                     c->f.q = -1;
-                } else if (c->r.a > i) {
+                } else if (c->r.a != i) {
                     c->f.q = 1;
                 } else {
                     c->f.q = 0;
