@@ -7,7 +7,7 @@ extern "C" {
 #endif
 
 void *vgscpu_create_context();
-void *vgscpu_create_specific_context(unsigned int plsize, unsigned int ssize, unsigned int msize);
+void *vgscpu_create_specific_context(unsigned int ps, unsigned int ss, unsigned int ms);
 void vgscpu_release_context(void *ctx);
 int vgscpu_load_program(void *ctx, void *pg, size_t size);
 int vgscpu_run(void *ctx);
