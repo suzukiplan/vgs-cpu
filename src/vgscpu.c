@@ -1591,6 +1591,820 @@ int vgscpu_run(void *ctx)
                 break;
             /*
              *----------------------------------------------------------------
+             * accumulator of B
+             *----------------------------------------------------------------
+             */
+            case VGSCPU_ACU_B:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                switch (c->p[++c->r.p]) {
+                    /*
+                     *----------------------------------------------------------------
+                     * add B
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_ADD_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        c->r.b += c->p[++c->r.p];
+                        c->r.p++;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_ADD_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        c->r.b += s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_ADD_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        c->r.b += i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_ADD_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b += c->r.a;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_ADD_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b += c->r.c;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_ADD_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b += c->r.d;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_ADD_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        c->r.b += c->m[i];
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_ADD_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        c->r.b += s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_ADD_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        c->r.b += i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * sub A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_SUB_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        c->r.b -= c->p[++c->r.p];
+                        c->r.p++;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_SUB_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        c->r.b -= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_SUB_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        c->r.b -= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_SUB_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b -= c->r.a;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_SUB_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b -= c->r.c;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_SUB_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b -= c->r.d;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_SUB_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        c->r.b -= c->m[i];
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_SUB_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        c->r.b -= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_SUB_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        c->r.b -= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * mul A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_MUL_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        c->r.b *= c->p[++c->r.p];
+                        c->r.p++;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MUL_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        c->r.b *= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MUL_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        c->r.b *= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MUL_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b *= c->r.a;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MUL_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b *= c->r.c;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MUL_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b *= c->r.d;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MUL_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        c->r.b *= c->m[i];
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MUL_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        c->r.b *= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MUL_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        c->r.b *= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * div A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_DIV_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        ASSERT_IF_ZERO_DIVIDE(c->p[++c->r.p]);
+                        c->r.b /= c->p[c->r.p];
+                        c->r.p++;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_DIV_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        ASSERT_IF_ZERO_DIVIDE(s);
+                        c->r.b /= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_DIV_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_ZERO_DIVIDE(i);
+                        c->r.b /= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_DIV_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        ASSERT_IF_ZERO_DIVIDE(c->r.b);
+                        c->r.b /= c->r.a;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_DIV_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        ASSERT_IF_ZERO_DIVIDE(c->r.c);
+                        c->r.b /= c->r.c;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_DIV_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        ASSERT_IF_ZERO_DIVIDE(c->r.d);
+                        c->r.b /= c->r.d;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_DIV_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        ASSERT_IF_ZERO_DIVIDE(c->m[i]);
+                        c->r.b /= c->m[i];
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_DIV_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        ASSERT_IF_ZERO_DIVIDE(s);
+                        c->r.b /= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_DIV_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        ASSERT_IF_ZERO_DIVIDE(i);
+                        c->r.b /= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * mod A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_MOD_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        ASSERT_IF_ZERO_DIVIDE(c->p[++c->r.p]);
+                        c->r.b %= c->p[c->r.p];
+                        c->r.p++;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MOD_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        ASSERT_IF_ZERO_DIVIDE(s);
+                        c->r.b %= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MOD_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_ZERO_DIVIDE(i);
+                        c->r.b %= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MOD_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        ASSERT_IF_ZERO_DIVIDE(c->r.b);
+                        c->r.b %= c->r.a;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MOD_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        ASSERT_IF_ZERO_DIVIDE(c->r.c);
+                        c->r.b %= c->r.c;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MOD_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        ASSERT_IF_ZERO_DIVIDE(c->r.d);
+                        c->r.b %= c->r.d;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MOD_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        ASSERT_IF_ZERO_DIVIDE(c->m[i]);
+                        c->r.b %= c->m[i];
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MOD_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        ASSERT_IF_ZERO_DIVIDE(s);
+                        c->r.b %= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_MOD_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        ASSERT_IF_ZERO_DIVIDE(i);
+                        c->r.b %= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * and A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_AND_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        c->r.b &= c->p[++c->r.p];
+                        c->r.p++;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_AND_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        c->r.b &= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_AND_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        c->r.b &= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_AND_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b &= c->r.a;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_AND_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b &= c->r.c;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_AND_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b &= c->r.d;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_AND_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        c->r.b &= c->m[i];
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_AND_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        c->r.b &= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_AND_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        c->r.b &= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * or A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_OR_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        c->r.b |= c->p[++c->r.p];
+                        c->r.p++;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_OR_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        c->r.b |= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_OR_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        c->r.b |= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_OR_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b |= c->r.a;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_OR_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b |= c->r.c;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_OR_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b |= c->r.d;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_OR_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        c->r.b |= c->m[i];
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_OR_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        c->r.b |= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_OR_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        c->r.b |= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * xor A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_XOR_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        c->r.b ^= c->p[++c->r.p];
+                        c->r.p++;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_XOR_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        c->r.b ^= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_XOR_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        c->r.b ^= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_XOR_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b ^= c->r.a;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_XOR_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b ^= c->r.c;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_XOR_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        c->r.b ^= c->r.d;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_XOR_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        c->r.b ^= c->m[i];
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_XOR_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        c->r.b ^= s;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    case VGSCPU_OP_XOR_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        c->r.b ^= i;
+                        c->f.z = c->r.b ? 0 : 1;
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * cmp A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_CMP_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        b = c->p[++c->r.p];
+                        c->r.p++;
+                        if (c->r.b < b) {
+                            c->f.q = -1;
+                        } else if (c->r.b != b) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        if (c->r.b < s) {
+                            c->f.q = -1;
+                        } else if (c->r.b != s) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        if (c->r.b < i) {
+                            c->f.q = -1;
+                        } else if (c->r.b != i) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        if (c->r.b < c->r.a) {
+                            c->f.q = -1;
+                        } else if (c->r.b != c->r.a) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        if (c->r.b < c->r.c) {
+                            c->f.q = -1;
+                        } else if (c->r.b != c->r.c) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        if (c->r.b < c->r.d) {
+                            c->f.q = -1;
+                        } else if (c->r.b != c->r.d) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        if (c->r.b < c->m[i]) {
+                            c->f.q = -1;
+                        } else if (c->r.b != c->m[i]) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        if (c->r.b < s) {
+                            c->f.q = -1;
+                        } else if (c->r.b != s) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        if (c->r.b < i) {
+                            c->f.q = -1;
+                        } else if (c->r.b != i) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    /*
+                     *----------------------------------------------------------------
+                     * cmp2 A
+                     *----------------------------------------------------------------
+                     */
+                    case VGSCPU_OP_CMP2_B_1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                        b = c->p[++c->r.p];
+                        c->r.p++;
+                        if ((int)c->r.b < (char)b) {
+                            c->f.q = -1;
+                        } else if ((int)c->r.b != (char)b) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP2_B_2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                        memcpy(&s, &c->p[++c->r.p], 2);
+                        c->r.p += 2;
+                        if ((int)c->r.b < (short)s) {
+                            c->f.q = -1;
+                        } else if ((int)c->r.b != (short)s) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP2_B_4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        if ((int)c->r.b < (int)i) {
+                            c->f.q = -1;
+                        } else if (c->r.b != i) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP2_B_A:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        if ((int)c->r.b < (int)c->r.a) {
+                            c->f.q = -1;
+                        } else if (c->r.b != c->r.a) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP2_B_C:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        if ((int)c->r.b < (int)c->r.c) {
+                            c->f.q = -1;
+                        } else if (c->r.b != c->r.c) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP2_B_D:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                        c->r.p++;
+                        if ((int)c->r.b < (int)c->r.d) {
+                            c->f.q = -1;
+                        } else if (c->r.b != c->r.d) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP2_B_M1:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                        if ((int)c->r.b < (char)c->m[i]) {
+                            c->f.q = -1;
+                        } else if ((int)c->r.b != (char)c->m[i]) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP2_B_M2:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                        memcpy(&s, &c->m[i], 2);
+                        if ((int)c->r.b < (short)s) {
+                            c->f.q = -1;
+                        } else if ((int)c->r.b != (short)s) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    case VGSCPU_OP_CMP2_B_M4:
+                        ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                        memcpy(&i, &c->p[++c->r.p], 4);
+                        c->r.p += 4;
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                        memcpy(&i, &c->m[i], 4);
+                        if ((int)c->r.b < (int)i) {
+                            c->f.q = -1;
+                        } else if (c->r.b != i) {
+                            c->f.q = 1;
+                        } else {
+                            c->f.q = 0;
+                        }
+                        break;
+                    default:
+                        sprintf(c->error, "UNKNOWN INSTRUCTION(%02X)", (int)c->p[c->r.p]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            /*
+             *----------------------------------------------------------------
              * branch (jump)
              *----------------------------------------------------------------
              */
