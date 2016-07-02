@@ -19,7 +19,8 @@ TESTCASE=\
 	tp_mul_a\
 	tp_div_a\
 	tp_mod_a\
-	tp_and_a
+	tp_and_a\
+	tp_or_a
 
 all: format run-test
 
