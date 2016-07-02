@@ -1476,6 +1476,121 @@ int vgscpu_run(void *ctx)
                 break;
             /*
              *----------------------------------------------------------------
+             * cmp2 A
+             *----------------------------------------------------------------
+             */
+            case VGSCPU_OP_CMP2_A_1:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                b = c->p[++c->r.p];
+                c->r.p++;
+                if ((int)c->r.a < (char)b) {
+                    c->f.q = -1;
+                } else if ((int)c->r.a != (char)b) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            case VGSCPU_OP_CMP2_A_2:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
+                memcpy(&s, &c->p[++c->r.p], 2);
+                c->r.p += 2;
+                if ((int)c->r.a < (short)s) {
+                    c->f.q = -1;
+                } else if ((int)c->r.a != (short)s) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            case VGSCPU_OP_CMP2_A_4:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                memcpy(&i, &c->p[++c->r.p], 4);
+                c->r.p += 4;
+                if ((int)c->r.a < (int)i) {
+                    c->f.q = -1;
+                } else if (c->r.a != i) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            case VGSCPU_OP_CMP2_A_B:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                c->r.p++;
+                if ((int)c->r.a < (int)c->r.b) {
+                    c->f.q = -1;
+                } else if (c->r.a != c->r.b) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            case VGSCPU_OP_CMP2_A_C:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                c->r.p++;
+                if ((int)c->r.a < (int)c->r.c) {
+                    c->f.q = -1;
+                } else if (c->r.a != c->r.c) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            case VGSCPU_OP_CMP2_A_D:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                c->r.p++;
+                if ((int)c->r.a < (int)c->r.d) {
+                    c->f.q = -1;
+                } else if (c->r.a != c->r.d) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            case VGSCPU_OP_CMP2_A_M1:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                memcpy(&i, &c->p[++c->r.p], 4);
+                c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 1);
+                if ((int)c->r.a < (char)c->m[i]) {
+                    c->f.q = -1;
+                } else if ((int)c->r.a != (char)c->m[i]) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            case VGSCPU_OP_CMP2_A_M2:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                memcpy(&i, &c->p[++c->r.p], 4);
+                c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 2);
+                memcpy(&s, &c->m[i], 2);
+                if ((int)c->r.a < (short)s) {
+                    c->f.q = -1;
+                } else if ((int)c->r.a != (short)s) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            case VGSCPU_OP_CMP2_A_M4:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                memcpy(&i, &c->p[++c->r.p], 4);
+                c->r.p += 4;
+                ASSERT_IF_OUT_OF_MAIN_MEMORY(i, 4);
+                memcpy(&i, &c->m[i], 4);
+                if ((int)c->r.a < (int)i) {
+                    c->f.q = -1;
+                } else if (c->r.a != i) {
+                    c->f.q = 1;
+                } else {
+                    c->f.q = 0;
+                }
+                break;
+            /*
+             *----------------------------------------------------------------
              * branch (jump)
              *----------------------------------------------------------------
              */
