@@ -17,8 +17,13 @@
 ### vgscpu_create_context
 ```c
 void *vgscpu_create_context();
+void *vgscpu_create_specific_context(unsigned int ps, unsigned int ss, unsigned int ms);
 ```
 - CPUコンテキストを作成
+- `vgscpu_create_context` は `vgscpu_create_specific_context(64KB - 4byte, 256KB, 4MB)` と等価
+- `ps` : プログラムサイズの上限（byte）
+- `ss` : スタックサイズの上限（byte）
+- `ms` : メモリサイズの上限（byte）
 
 ### vgscpu_load_program
 ```c
@@ -68,9 +73,9 @@ void vgscpu_release_context(void *ctx);
 |register|r.p|32bit|program counter|
 |status flag|f.z|32bit|zero flag|
 |status flag|f.q|32bit|equal flag (0: euqal, -1: negative, 1:positive)|
-|memory|m|4MB|main memory|
-|memory|s|256KB|stack memory|
-|memory|p|64KB|program context|
+|memory|m|variable|main memory|
+|memory|s|variable|stack memory|
+|memory|p|variable|program context|
 
 - 一般的なCPUと異なる点として以下のような特徴があります
   - フラグは32bitで管理（この方がトータルの演算コストが低くなる）
