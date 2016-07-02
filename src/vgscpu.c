@@ -20,12 +20,12 @@
         break;                                                  \
     }
 
-#define ASSERT_IF_STACK_OVERFLOW(SIZE)        \
-    if (VGSCPU_STACK_SIZE <= c->r.s + SIZE) { \
-        sprintf(c->error, "STACK OVERFLOW");  \
-        loop_flag = 0;                        \
-        ret = -1;                             \
-        break;                                \
+#define ASSERT_IF_STACK_OVERFLOW(SIZE)       \
+    if (c->sizeS <= c->r.s + SIZE) {         \
+        sprintf(c->error, "STACK OVERFLOW"); \
+        loop_flag = 0;                       \
+        ret = -1;                            \
+        break;                               \
     }
 
 #define ASSERT_IF_STACK_UNDERFLOW(SIZE)       \
@@ -36,17 +36,17 @@
         break;                                \
     }
 
-#define ASSERT_IF_OUT_OF_MAIN_MEMORY(PTR, SIZE)   \
-    if (VGSCPU_MEMORY_SIZE <= PTR) {              \
-        sprintf(c->error, "OUT OF MAIN MEMORY");  \
-        loop_flag = 0;                            \
-        ret = -1;                                 \
-        break;                                    \
-    } else if (VGSCPU_MEMORY_SIZE < PTR + SIZE) { \
-        sprintf(c->error, "OUT OF MAIN MEMORY");  \
-        loop_flag = 0;                            \
-        ret = -1;                                 \
-        break;                                    \
+#define ASSERT_IF_OUT_OF_MAIN_MEMORY(PTR, SIZE)  \
+    if (c->sizeM <= PTR) {                       \
+        sprintf(c->error, "OUT OF MAIN MEMORY"); \
+        loop_flag = 0;                           \
+        ret = -1;                                \
+        break;                                   \
+    } else if (c->sizeM < PTR + SIZE) {          \
+        sprintf(c->error, "OUT OF MAIN MEMORY"); \
+        loop_flag = 0;                           \
+        ret = -1;                                \
+        break;                                   \
     }
 
 #define ASSERT_IF_ZERO_DIVIDE(NUMBER)     \
@@ -59,22 +59,44 @@
 
 void *vgscpu_create_context()
 {
+    return vgscpu_create_specific_context(VGSCPU_PROGRAM_SIZE_DEFAULT, VGSCPU_STACK_SIZE_DEFAULT, VGSCPU_MEMORY_SIZE_DEFAULT);
+}
+
+void *vgscpu_create_specific_context(unsigned int ps, unsigned int ss, unsigned int ms)
+{
     struct vgscpu_context *result;
     result = (struct vgscpu_context *)malloc(sizeof(struct vgscpu_context));
     if (NULL == result) return NULL;
     memset(result, 0, sizeof(struct vgscpu_context));
+    result->p = (unsigned char *)malloc(ps);
+    result->sizeP = ps;
+    result->s = (unsigned char *)malloc(ss);
+    result->sizeS = ss;
+    result->m = (unsigned char *)malloc(ms);
+    result->sizeM = ms;
+    if (!result->p || !result->s || !result->m) {
+        vgscpu_release_context(result);
+        return NULL;
+    }
     return result;
 }
 
 void vgscpu_release_context(void *ctx)
 {
-    free(ctx);
+    struct vgscpu_context *c = (struct vgscpu_context *)ctx;
+    if (c) {
+        if (c->p) free(c->p);
+        if (c->s) free(c->s);
+        if (c->m) free(c->m);
+        memset(c, 0x42, sizeof(struct vgscpu_context));
+        free(c);
+    }
 }
 
 int vgscpu_load_program(void *ctx, void *pg, size_t size)
 {
     struct vgscpu_context *c = (struct vgscpu_context *)ctx;
-    if (VGSCPU_PROGRAM_SIZE < (unsigned int)size) {
+    if (c->sizeP < (unsigned int)size) {
         sprintf(c->error, "TOO BIG PROGRAM");
         return -1;
     }

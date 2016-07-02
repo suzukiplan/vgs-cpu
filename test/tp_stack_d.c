@@ -74,7 +74,7 @@ int error_push_stack_overflow_1(struct vgscpu_context *c)
     c->r.a = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "STACK OVERFLOW"), 0);
-    TEST(__FILE__, __LINE__, c->r.a, VGSCPU_STACK_SIZE - 1);
+    TEST(__FILE__, __LINE__, c->r.a, c->sizeS - 1);
     return 0;
 }
 
@@ -86,7 +86,7 @@ int error_push_stack_overflow_2(struct vgscpu_context *c)
     c->r.a = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "STACK OVERFLOW"), 0);
-    TEST(__FILE__, __LINE__, c->r.a, VGSCPU_STACK_SIZE / 2 - 1);
+    TEST(__FILE__, __LINE__, c->r.a, c->sizeS / 2 - 1);
     return 0;
 }
 
@@ -98,7 +98,7 @@ int error_push_stack_overflow_4(struct vgscpu_context *c)
     c->r.a = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "STACK OVERFLOW"), 0);
-    TEST(__FILE__, __LINE__, c->r.a, VGSCPU_STACK_SIZE / 4 - 1);
+    TEST(__FILE__, __LINE__, c->r.a, c->sizeS / 4 - 1);
     return 0;
 }
 

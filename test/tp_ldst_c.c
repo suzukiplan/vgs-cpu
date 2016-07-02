@@ -70,7 +70,7 @@ int test_program_memory(struct vgscpu_context *c)
 
 int test_main_memory(struct vgscpu_context *c)
 {
-    unsigned int m = VGSCPU_MEMORY_SIZE;
+    unsigned int m = c->sizeM;
     unsigned char op1[] = {VGSCPU_OP_LD_C_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op2[] = {VGSCPU_OP_LD_C_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op3[] = {VGSCPU_OP_LD_C_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
@@ -78,91 +78,91 @@ int test_main_memory(struct vgscpu_context *c)
     unsigned char op5[] = {VGSCPU_OP_ST_C_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op6[] = {VGSCPU_OP_ST_C_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
-    m = VGSCPU_MEMORY_SIZE - 1;
+    m = c->sizeM - 1;
     memcpy(&op1[1], &m, 4);
     vgscpu_load_program(c, op1, sizeof(op1));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    m = VGSCPU_MEMORY_SIZE;
-    memcpy(&op1[1], &m, 4);
-    vgscpu_load_program(c, op1, sizeof(op1));
-    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
-    m = VGSCPU_MEMORY_SIZE + 1;
+    m = c->sizeM;
     memcpy(&op1[1], &m, 4);
     vgscpu_load_program(c, op1, sizeof(op1));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
+    m = c->sizeM + 1;
+    memcpy(&op1[1], &m, 4);
+    vgscpu_load_program(c, op1, sizeof(op1));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
-    m = VGSCPU_MEMORY_SIZE - 2;
+    m = c->sizeM - 2;
     memcpy(&op2[1], &m, 4);
     vgscpu_load_program(c, op2, sizeof(op2));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    m = VGSCPU_MEMORY_SIZE - 1;
+    m = c->sizeM - 1;
     memcpy(&op2[1], &m, 4);
     vgscpu_load_program(c, op2, sizeof(op2));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
-    m = VGSCPU_MEMORY_SIZE + 1;
+    m = c->sizeM + 1;
     memcpy(&op2[1], &m, 4);
     vgscpu_load_program(c, op2, sizeof(op2));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
-    m = VGSCPU_MEMORY_SIZE - 4;
+    m = c->sizeM - 4;
     memcpy(&op3[1], &m, 4);
     vgscpu_load_program(c, op3, sizeof(op3));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    m = VGSCPU_MEMORY_SIZE - 3;
+    m = c->sizeM - 3;
     memcpy(&op3[1], &m, 4);
     vgscpu_load_program(c, op3, sizeof(op3));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
-    m = VGSCPU_MEMORY_SIZE + 1;
+    m = c->sizeM + 1;
     memcpy(&op3[1], &m, 4);
     vgscpu_load_program(c, op3, sizeof(op3));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
-    m = VGSCPU_MEMORY_SIZE - 1;
+    m = c->sizeM - 1;
     memcpy(&op4[1], &m, 4);
     vgscpu_load_program(c, op4, sizeof(op4));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    m = VGSCPU_MEMORY_SIZE;
+    m = c->sizeM;
     memcpy(&op4[1], &m, 4);
     vgscpu_load_program(c, op4, sizeof(op4));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
-    m = VGSCPU_MEMORY_SIZE + 1;
+    m = c->sizeM + 1;
     memcpy(&op4[1], &m, 4);
     vgscpu_load_program(c, op4, sizeof(op4));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
-    m = VGSCPU_MEMORY_SIZE - 2;
+    m = c->sizeM - 2;
     memcpy(&op5[1], &m, 4);
     vgscpu_load_program(c, op5, sizeof(op5));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    m = VGSCPU_MEMORY_SIZE - 1;
+    m = c->sizeM - 1;
     memcpy(&op5[1], &m, 4);
     vgscpu_load_program(c, op5, sizeof(op5));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
-    m = VGSCPU_MEMORY_SIZE + 1;
+    m = c->sizeM + 1;
     memcpy(&op5[1], &m, 4);
     vgscpu_load_program(c, op5, sizeof(op5));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
 
-    m = VGSCPU_MEMORY_SIZE - 4;
+    m = c->sizeM - 4;
     memcpy(&op6[1], &m, 4);
     vgscpu_load_program(c, op6, sizeof(op6));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    m = VGSCPU_MEMORY_SIZE - 3;
+    m = c->sizeM - 3;
     memcpy(&op6[1], &m, 4);
     vgscpu_load_program(c, op6, sizeof(op6));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF MAIN MEMORY"), 0);
-    m = VGSCPU_MEMORY_SIZE + 1;
+    m = c->sizeM + 1;
     memcpy(&op6[1], &m, 4);
     vgscpu_load_program(c, op6, sizeof(op6));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
@@ -229,17 +229,17 @@ int test_ld_c_memory(struct vgscpu_context *c)
     unsigned char op3[] = {VGSCPU_OP_LD_C_M4, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    memcpy(&c->m, m, sizeof(m));
+    memcpy(c->m, m, sizeof(m));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
     TEST(__FILE__, __LINE__, c->r.c, 0x8);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    memcpy(&c->m, m, sizeof(m));
+    memcpy(c->m, m, sizeof(m));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
     TEST(__FILE__, __LINE__, c->r.c, 0x908);
 
     vgscpu_load_program(c, op3, sizeof(op3));
-    memcpy(&c->m, m, sizeof(m));
+    memcpy(c->m, m, sizeof(m));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
     TEST(__FILE__, __LINE__, c->r.c, 0xb0a0908);
     return 0;
@@ -253,7 +253,7 @@ int test_st_c(struct vgscpu_context *c)
     unsigned char op3[] = {VGSCPU_OP_ST_C_M4, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
-    memcpy(&c->m, m, sizeof(m));
+    memcpy(c->m, m, sizeof(m));
     c->r.c = 0x12345678;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
     TEST(__FILE__, __LINE__, c->m[0x8], 0x78);
@@ -262,7 +262,7 @@ int test_st_c(struct vgscpu_context *c)
     TEST(__FILE__, __LINE__, c->m[0xb], 0xb);
 
     vgscpu_load_program(c, op2, sizeof(op2));
-    memcpy(&c->m, m, sizeof(m));
+    memcpy(c->m, m, sizeof(m));
     c->r.c = 0x12345678;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
     TEST(__FILE__, __LINE__, c->m[0x8], 0x78);
@@ -271,7 +271,7 @@ int test_st_c(struct vgscpu_context *c)
     TEST(__FILE__, __LINE__, c->m[0xb], 0xb);
 
     vgscpu_load_program(c, op3, sizeof(op3));
-    memcpy(&c->m, m, sizeof(m));
+    memcpy(c->m, m, sizeof(m));
     c->r.c = 0x12345678;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
     TEST(__FILE__, __LINE__, c->m[0x8], 0x78);

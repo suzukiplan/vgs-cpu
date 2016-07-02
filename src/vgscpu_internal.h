@@ -1,6 +1,6 @@
-#define VGSCPU_MEMORY_SIZE 4194304
-#define VGSCPU_STACK_SIZE 262144
-#define VGSCPU_PROGRAM_SIZE 65536 - 4
+#define VGSCPU_MEMORY_SIZE_DEFAULT 4194304
+#define VGSCPU_STACK_SIZE_DEFAULT 262144
+#define VGSCPU_PROGRAM_SIZE_DEFAULT 65536 - 4
 
 #define VGSCPU_OP_BRK 0x00 /* break */
 
@@ -254,11 +254,14 @@ struct vgscpu_status_flag {
 };
 
 struct vgscpu_context {
-    char error[1024];                     /* error info */
-    struct vgscpu_register r;             /* register */
-    struct vgscpu_status_flag f;          /* flag */
-    unsigned int psize;                   /* program size */
-    unsigned char p[VGSCPU_PROGRAM_SIZE]; /* program */
-    unsigned char s[VGSCPU_STACK_SIZE];   /* stack */
-    unsigned char m[VGSCPU_MEMORY_SIZE];  /* main memory */
+    char error[1024];            /* error info */
+    struct vgscpu_register r;    /* register */
+    struct vgscpu_status_flag f; /* flag */
+    unsigned int psize;          /* program size */
+    unsigned int sizeP;          /* program limit size */
+    unsigned int sizeS;          /* stack size */
+    unsigned int sizeM;          /* main memory size */
+    unsigned char* p;            /* program */
+    unsigned char* s;            /* stack */
+    unsigned char* m;            /* main memory */
 };

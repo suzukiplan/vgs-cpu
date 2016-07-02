@@ -1,4 +1,5 @@
 .work
+*.dSYM/
 .vscode
 vgscpu.o
 tp_stack_a
