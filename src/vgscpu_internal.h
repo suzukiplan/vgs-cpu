@@ -195,15 +195,15 @@
 #define VGSCPU_OP_XOR_A_M4 0xa4 /* xor: a = a ^ &memory[ptr](4byte) */
 
 /* compare (result: vgscpu_status_flag.eq) */
-#define VGSCPU_CMP_A_1 0xa5  /* cmp: a and literal(1byte) */
-#define VGSCPU_CMP_A_2 0xa6  /* cmp: a and literal(2byte) */
-#define VGSCPU_CMP_A_4 0xa7  /* cmp: a and literal(4byte) */
-#define VGSCPU_CMP_A_B 0xa8  /* cmp: a and b */
-#define VGSCPU_CMP_A_C 0xa9  /* cmp: a and c */
-#define VGSCPU_CMP_A_D 0xaa  /* cmp: a and d */
-#define VGSCPU_CMP_A_M1 0xab /* cmp: a and &memory[ptr](1byte) */
-#define VGSCPU_CMP_A_M2 0xac /* cmp: a and &memory[ptr](2byte) */
-#define VGSCPU_CMP_A_M4 0xad /* cmp: a and &memory[ptr](4byte) */
+#define VGSCPU_OP_CMP_A_1 0xa5  /* cmp: a and literal(1byte) */
+#define VGSCPU_OP_CMP_A_2 0xa6  /* cmp: a and literal(2byte) */
+#define VGSCPU_OP_CMP_A_4 0xa7  /* cmp: a and literal(4byte) */
+#define VGSCPU_OP_CMP_A_B 0xa8  /* cmp: a and b */
+#define VGSCPU_OP_CMP_A_C 0xa9  /* cmp: a and c */
+#define VGSCPU_OP_CMP_A_D 0xaa  /* cmp: a and d */
+#define VGSCPU_OP_CMP_A_M1 0xab /* cmp: a and &memory[ptr](1byte) */
+#define VGSCPU_OP_CMP_A_M2 0xac /* cmp: a and &memory[ptr](2byte) */
+#define VGSCPU_OP_CMP_A_M4 0xad /* cmp: a and &memory[ptr](4byte) */
 
 /* branch */
 #define VGSCPU_OP_JMP 0xe0   /* jump to specific address */
