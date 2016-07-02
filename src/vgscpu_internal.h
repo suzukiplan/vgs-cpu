@@ -205,6 +205,17 @@
 #define VGSCPU_OP_CMP_A_M2 0xac /* cmp: a and &memory[ptr](2byte) */
 #define VGSCPU_OP_CMP_A_M4 0xad /* cmp: a and &memory[ptr](4byte) */
 
+/* compare - two's complement (result: vgscpu_status_flag.eq) */
+#define VGSCPU_OP_CMP2_A_1 0xae  /* cmp: a and literal(1byte) */
+#define VGSCPU_OP_CMP2_A_2 0xaf  /* cmp: a and literal(2byte) */
+#define VGSCPU_OP_CMP2_A_4 0xb0  /* cmp: a and literal(4byte) */
+#define VGSCPU_OP_CMP2_A_B 0xb1  /* cmp: a and b */
+#define VGSCPU_OP_CMP2_A_C 0xb2  /* cmp: a and c */
+#define VGSCPU_OP_CMP2_A_D 0xb3  /* cmp: a and d */
+#define VGSCPU_OP_CMP2_A_M1 0xb4 /* cmp: a and &memory[ptr](1byte) */
+#define VGSCPU_OP_CMP2_A_M2 0xb5 /* cmp: a and &memory[ptr](2byte) */
+#define VGSCPU_OP_CMP2_A_M4 0xb6 /* cmp: a and &memory[ptr](4byte) */
+
 /* branch */
 #define VGSCPU_OP_JMP 0xe0   /* jump to specific address */
 #define VGSCPU_OP_JMP_1 0xe1 /* jump to current address + literal(1byte) */
