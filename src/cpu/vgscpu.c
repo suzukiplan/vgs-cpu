@@ -1965,7 +1965,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_MOD_B_A:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        ASSERT_IF_ZERO_DIVIDE((*r));
+                        ASSERT_IF_ZERO_DIVIDE((c->r.a));
                         (*r) %= c->r.a;
                         c->f.z = (*r) ? 0 : 1;
                         break;
