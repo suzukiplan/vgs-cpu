@@ -3,7 +3,14 @@
 - VGS-CPU is a 32bit cpu that spacialized for creating games of VGS.
 
 ## Developmental status
-- version alpha (いろいろ作りかけ)
+WIP外しの残todo:
+- [ ] ACU-B の test case を全て追加
+- [ ] ACU-C の test case を全て追加
+- [ ] ACU-D の test case を全て追加
+- [ ] CAL operand の実装
+- [ ] branch operand の test case を全て追加
+- [ ] VGS operand の実装
+- [ ] VGS operand の test case を全て実装
 
 ## About VGS-CPU
 - 将来的には Cコンパイラ も作りたいと思っていますが __32bit CPUなのに6502並にフルアセンブリ言語でもコーディングしやすい石__ として, 嘗て私がフルアセでコードを書いていたことを色々思い出しながら設計しています _(単にCコンパイラを作るのは大変だからという説もある)_
