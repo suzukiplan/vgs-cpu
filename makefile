@@ -26,7 +26,8 @@ TESTCASE=\
 	tp_cmp2_a\
 	tp_add_b\
 	tp_sub_b\
-	tp_mul_b
+	tp_mul_b\
+	tp_div_b
 
 all: format run-test
 
