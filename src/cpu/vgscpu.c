@@ -1989,7 +1989,7 @@ int vgscpu_run(void *ctx)
                             (*r) %= c->r.c;
                         } else {
                             ASSERT_IF_ZERO_DIVIDE(c->r.d);
-                            (*r) %= c->r.b;
+                            (*r) %= c->r.d;
                         }
                         c->f.z = (*r) ? 0 : 1;
                         break;
