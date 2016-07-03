@@ -27,7 +27,8 @@ TESTCASE=\
 	tp_add_b\
 	tp_sub_b\
 	tp_mul_b\
-	tp_div_b
+	tp_div_b\
+	tp_mod_b
 
 all: format run-test
 

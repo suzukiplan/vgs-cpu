@@ -26,6 +26,7 @@ tp_mul_b
 tp_div_a
 tp_div_b
 tp_mod_a
+tp_mod_b
 tp_and_a
 tp_or_a
 tp_xor_a
