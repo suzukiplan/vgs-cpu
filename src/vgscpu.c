@@ -1596,22 +1596,22 @@ int vgscpu_run(void *ctx)
              * accumulator of B, C, D
              *----------------------------------------------------------------
              */
-            case VGSCPU_ACU_B:
-            case VGSCPU_ACU_C:
-            case VGSCPU_ACU_D:
+            case VGSCPU_OP_ACU_B:
+            case VGSCPU_OP_ACU_C:
+            case VGSCPU_OP_ACU_D:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 switch (c->p[c->r.p]) {
-                    case VGSCPU_ACU_B:
+                    case VGSCPU_OP_ACU_B:
                         r = &c->r.b;
-                        a = VGSCPU_ACU_B;
+                        a = VGSCPU_OP_ACU_B;
                         break;
-                    case VGSCPU_ACU_C:
+                    case VGSCPU_OP_ACU_C:
                         r = &c->r.c;
-                        a = VGSCPU_ACU_C;
+                        a = VGSCPU_OP_ACU_C;
                         break;
-                    case VGSCPU_ACU_D:
+                    case VGSCPU_OP_ACU_D:
                         r = &c->r.d;
-                        a = VGSCPU_ACU_D;
+                        a = VGSCPU_OP_ACU_D;
                         break;
                 }
                 switch (c->p[++c->r.p]) {
@@ -1649,7 +1649,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_ADD_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             (*r) += c->r.c;
                         } else {
                             (*r) += c->r.b;
@@ -1659,7 +1659,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_ADD_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             (*r) += c->r.c;
                         } else {
                             (*r) += c->r.d;
@@ -1726,7 +1726,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_SUB_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             (*r) -= c->r.c;
                         } else {
                             (*r) -= c->r.b;
@@ -1736,7 +1736,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_SUB_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             (*r) -= c->r.c;
                         } else {
                             (*r) -= c->r.d;
@@ -1803,7 +1803,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_MUL_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             (*r) *= c->r.c;
                         } else {
                             (*r) *= c->r.b;
@@ -1813,7 +1813,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_MUL_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             (*r) *= c->r.c;
                         } else {
                             (*r) *= c->r.d;
@@ -1884,7 +1884,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_DIV_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             ASSERT_IF_ZERO_DIVIDE(c->r.c);
                             (*r) /= c->r.c;
                         } else {
@@ -1896,7 +1896,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_DIV_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             ASSERT_IF_ZERO_DIVIDE(c->r.c);
                             (*r) /= c->r.c;
                         } else {
@@ -1972,7 +1972,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_MOD_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             ASSERT_IF_ZERO_DIVIDE(c->r.c);
                             (*r) %= c->r.c;
                         } else {
@@ -1984,7 +1984,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_MOD_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             ASSERT_IF_ZERO_DIVIDE(c->r.c);
                             (*r) %= c->r.c;
                         } else {
@@ -2056,7 +2056,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_AND_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             (*r) &= c->r.c;
                         } else {
                             (*r) &= c->r.b;
@@ -2066,7 +2066,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_AND_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             (*r) &= c->r.c;
                         } else {
                             (*r) &= c->r.d;
@@ -2133,7 +2133,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_OR_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             (*r) |= c->r.c;
                         } else {
                             (*r) |= c->r.b;
@@ -2143,7 +2143,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_OR_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             (*r) |= c->r.c;
                         } else {
                             (*r) |= c->r.d;
@@ -2210,7 +2210,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_XOR_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             (*r) ^= c->r.c;
                         } else {
                             (*r) ^= c->r.b;
@@ -2220,7 +2220,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_XOR_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             (*r) ^= c->r.c;
                         } else {
                             (*r) ^= c->r.d;
@@ -2308,7 +2308,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_CMP_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             if ((*r) < c->r.c) {
                                 c->f.q = -1;
                             } else if ((*r) != c->r.c) {
@@ -2329,7 +2329,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_CMP_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             if ((*r) < c->r.c) {
                                 c->f.q = -1;
                             } else if ((*r) != c->r.c) {
@@ -2443,7 +2443,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_CMP2_B_C:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_B == a) {
+                        if (VGSCPU_OP_ACU_B == a) {
                             if ((int)(*r) < (int)c->r.c) {
                                 c->f.q = -1;
                             } else if ((*r) != c->r.c) {
@@ -2464,7 +2464,7 @@ int vgscpu_run(void *ctx)
                     case VGSCPU_OP_CMP2_B_D:
                         ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                         c->r.p++;
-                        if (VGSCPU_ACU_D == a) {
+                        if (VGSCPU_OP_ACU_D == a) {
                             if ((int)(*r) < (int)c->r.c) {
                                 c->f.q = -1;
                             } else if ((*r) != c->r.c) {

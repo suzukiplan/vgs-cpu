@@ -213,9 +213,9 @@
 #define VGSCPU_OP_CMP2_A_M4 0xb6 /* cmp: a and &memory[ptr](4byte) */
 
 /* accumulator (exclude A) */
-#define VGSCPU_ACU_B 0xdd
-#define VGSCPU_ACU_C 0xde
-#define VGSCPU_ACU_D 0xdf
+#define VGSCPU_OP_ACU_B 0xdd
+#define VGSCPU_OP_ACU_C 0xde
+#define VGSCPU_OP_ACU_D 0xdf
 
 /* branch */
 #define VGSCPU_OP_JMP 0xe0   /* jump to specific address */
