@@ -61,6 +61,6 @@ vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
 
 run-test-exec:
 	@echo testing: $(TP)
-	@sh tools/format.sh test/$(TP).c 
-	@gcc -I./src/cpu vgscpu.o test/$(TP).c -o $(TP) && ./$(TP)
+	@sh tools/format.sh src/test/$(TP).c 
+	@gcc -I./src/cpu vgscpu.o src/test/$(TP).c -o $(TP) && ./$(TP)
 
