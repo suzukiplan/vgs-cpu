@@ -32,7 +32,8 @@ TESTCASE=\
 	tp_and_b\
 	tp_or_b\
 	tp_xor_b\
-	tp_cmp_b
+	tp_cmp_b\
+	tp_cmp2_b
 
 all: format run-test
 
