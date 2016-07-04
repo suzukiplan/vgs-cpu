@@ -4,7 +4,7 @@
 
 ## Developmental status
 WIP外しの残todo:
-- [ ] ACU-B の test case を全て追加
+- [x] ACU-B の test case を全て追加
 - [ ] ACU-C の test case を全て追加
 - [ ] ACU-D の test case を全て追加
 - [ ] CAL operand の実装
