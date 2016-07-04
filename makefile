@@ -37,8 +37,9 @@ TESTCASE=\
 	tp_add_c\
 	tp_add_d
 
-all: format
+all:
 	@echo usage:
+	@echo $$ make format : executes clang-format
 	@echo $$ make test : runs test
 
 clean:
