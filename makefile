@@ -37,7 +37,7 @@ TESTCASE=\
 	tp_add_c\
 	tp_add_d
 
-all: format run-test
+all: format test
 
 clean:
 	-@rm -f vgscpu.o
@@ -53,7 +53,7 @@ format:
 	@sh tools/format.sh src/cpu/vgscpu_op_acu_d.h 
 	@sh tools/format.sh test/tp.h 
 
-run-test: vgscpu.o
+test: vgscpu.o
 	@for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
 
 vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
