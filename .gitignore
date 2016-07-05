@@ -32,6 +32,7 @@ tp_mul_d
 tp_div_a
 tp_div_b
 tp_div_c
+tp_div_d
 tp_mod_a
 tp_mod_b
 tp_and_a
