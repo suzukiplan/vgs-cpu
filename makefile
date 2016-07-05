@@ -36,8 +36,10 @@ TESTCASE=\
 	tp_cmp2_b\
 	tp_add_c\
 	tp_sub_c\
+	tp_mul_c\
 	tp_add_d\
-	tp_sub_d
+	tp_sub_d\
+	tp_mul_d
 
 all:
 	@echo usage:

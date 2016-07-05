@@ -27,6 +27,8 @@ tp_sub_c
 tp_sub_d
 tp_mul_a
 tp_mul_b
+tp_mul_c
+tp_mul_d
 tp_div_a
 tp_div_b
 tp_mod_a

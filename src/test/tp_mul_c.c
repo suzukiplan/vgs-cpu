@@ -2,15 +2,15 @@
 
 int test_program_memory(struct vgscpu_context *c)
 {
-    unsigned char op1[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_1, 0x00, VGSCPU_OP_BRK};
-    unsigned char op2[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_2, 0x00, 0x00, VGSCPU_OP_BRK};
-    unsigned char op3[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
-    unsigned char op4[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_A, VGSCPU_OP_BRK};
-    unsigned char op5[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_C, VGSCPU_OP_BRK};
-    unsigned char op6[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_D, VGSCPU_OP_BRK};
-    unsigned char op7[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
-    unsigned char op8[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
-    unsigned char op9[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op1[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_1, 0x00, VGSCPU_OP_BRK};
+    unsigned char op2[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_2, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op3[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op4[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_A, VGSCPU_OP_BRK};
+    unsigned char op5[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_B, VGSCPU_OP_BRK};
+    unsigned char op6[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_D, VGSCPU_OP_BRK};
+    unsigned char op7[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op8[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op9[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
@@ -72,9 +72,9 @@ int test_program_memory(struct vgscpu_context *c)
 int test_main_memory(struct vgscpu_context *c)
 {
     unsigned int m = c->sizeM;
-    unsigned char op1[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
-    unsigned char op2[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
-    unsigned char op3[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op1[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op2[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op3[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
 
     m = c->sizeM - 1;
     memcpy(&op1[2], &m, 4);
@@ -123,170 +123,170 @@ int test_main_memory(struct vgscpu_context *c)
     return 0;
 }
 
-int test_mul_b_1(struct vgscpu_context *c)
+int test_mul_c_1(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_1, 0x80, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_1, 0x80, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 4;
+    c->r.c = 4;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 512);
+    TEST(__FILE__, __LINE__, c->r.c, 512);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
 
-int test_mul_b_2(struct vgscpu_context *c)
+int test_mul_c_2(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_2, 0x12, 0x34, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_2, 0x12, 0x34, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 2;
+    c->r.c = 2;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0x6824);
+    TEST(__FILE__, __LINE__, c->r.c, 0x6824);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
 
-int test_mul_b_4(struct vgscpu_context *c)
+int test_mul_c_4(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_4, 0x11, 0x22, 0x33, 0x44, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_4, 0x11, 0x22, 0x33, 0x44, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 2;
+    c->r.c = 2;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0x88664422);
+    TEST(__FILE__, __LINE__, c->r.c, 0x88664422);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
 
-int test_mul_b_a(struct vgscpu_context *c)
+int test_mul_c_a(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_LD_A_1, 0x11, VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_A, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_LD_A_1, 0x11, VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_A, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 2;
+    c->r.c = 2;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0x22);
+    TEST(__FILE__, __LINE__, c->r.c, 0x22);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
 
-int test_mul_b_c(struct vgscpu_context *c)
+int test_mul_c_b(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_LD_C_1, 0x22, VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_C, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_LD_B_1, 0x22, VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_B, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 2;
+    c->r.c = 2;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0x44);
+    TEST(__FILE__, __LINE__, c->r.c, 0x44);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
 
-int test_mul_b_d(struct vgscpu_context *c)
+int test_mul_c_d(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_LD_D_1, 0x33, VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_D, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_LD_D_1, 0x33, VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_D, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 2;
+    c->r.c = 2;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0x66);
+    TEST(__FILE__, __LINE__, c->r.c, 0x66);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
 
-int test_mul_b_m1(struct vgscpu_context *c)
+int test_mul_c_m1(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M1, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned int i = 0x11223344;
 
     memcpy(&c->m[0], &i, 4);
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 2;
+    c->r.c = 2;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0x88);
+    TEST(__FILE__, __LINE__, c->r.c, 0x88);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
 
-int test_mul_b_m2(struct vgscpu_context *c)
+int test_mul_c_m2(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M2, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned int i = 0x11223344;
 
     memcpy(&c->m[0], &i, 4);
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 2;
+    c->r.c = 2;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0x6688);
+    TEST(__FILE__, __LINE__, c->r.c, 0x6688);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
 
-int test_mul_b_m4(struct vgscpu_context *c)
+int test_mul_c_m4(struct vgscpu_context *c)
 {
-    unsigned char op[] = {VGSCPU_OP_ACU_B, VGSCPU_OP_MUL_B_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op[] = {VGSCPU_OP_ACU_C, VGSCPU_OP_MUL_C_M4, 0x00, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned int i = 0x11223344;
 
     memcpy(&c->m[0], &i, 4);
     vgscpu_load_program(c, op, sizeof(op));
 
-    c->r.b = 0;
+    c->r.c = 0;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0);
+    TEST(__FILE__, __LINE__, c->r.c, 0);
     TEST(__FILE__, __LINE__, c->f.z, 1);
 
-    c->r.b = 2;
+    c->r.c = 2;
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
-    TEST(__FILE__, __LINE__, c->r.b, 0x22446688);
+    TEST(__FILE__, __LINE__, c->r.c, 0x22446688);
     TEST(__FILE__, __LINE__, c->f.z, 0);
     return 0;
 }
@@ -299,15 +299,15 @@ int main()
 
     if (test_program_memory(c)) goto END_TEST;
     if (test_main_memory(c)) goto END_TEST;
-    if (test_mul_b_1(c)) goto END_TEST;
-    if (test_mul_b_2(c)) goto END_TEST;
-    if (test_mul_b_4(c)) goto END_TEST;
-    if (test_mul_b_a(c)) goto END_TEST;
-    if (test_mul_b_c(c)) goto END_TEST;
-    if (test_mul_b_d(c)) goto END_TEST;
-    if (test_mul_b_m1(c)) goto END_TEST;
-    if (test_mul_b_m2(c)) goto END_TEST;
-    if (test_mul_b_m4(c)) goto END_TEST;
+    if (test_mul_c_1(c)) goto END_TEST;
+    if (test_mul_c_2(c)) goto END_TEST;
+    if (test_mul_c_4(c)) goto END_TEST;
+    if (test_mul_c_a(c)) goto END_TEST;
+    if (test_mul_c_b(c)) goto END_TEST;
+    if (test_mul_c_d(c)) goto END_TEST;
+    if (test_mul_c_m1(c)) goto END_TEST;
+    if (test_mul_c_m2(c)) goto END_TEST;
+    if (test_mul_c_m4(c)) goto END_TEST;
 
     result = 0;
     puts("success");
