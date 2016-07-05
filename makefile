@@ -37,6 +37,7 @@ TESTCASE=\
 	tp_add_c\
 	tp_sub_c\
 	tp_mul_c\
+	tp_div_c\
 	tp_add_d\
 	tp_sub_d\
 	tp_mul_d
