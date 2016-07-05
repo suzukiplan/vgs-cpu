@@ -60,6 +60,7 @@ format:
 
 test: format vgscpu.o
 	@for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
+	@rm vgscpu.o
 
 vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
 	@gcc -I./src/cpu src/cpu/vgscpu.c -c -o vgscpu.o
