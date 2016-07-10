@@ -68,7 +68,7 @@ format:
 	@sh tools/format.sh src/cpu/vgscpu_op_acu_d.h 
 	@sh tools/format.sh src/test/tp.h 
 
-test: format vgscpu.o
+test: vgscpu.o
 	@for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
 	@rm vgscpu.o
 
