@@ -59,25 +59,28 @@ clean:
 	-@rm -f $(TESTCASE)
 
 format:
-	@sh tools/format.sh src/cpu/vgscpu.c
-	@sh tools/format.sh src/cpu/vgscpu.h
-	@sh tools/format.sh src/cpu/vgscpu_internal.h 
-	@sh tools/format.sh src/cpu/vgscpu_op.h 
-	@sh tools/format.sh src/cpu/vgscpu_op_acu_b.h 
-	@sh tools/format.sh src/cpu/vgscpu_op_acu_c.h 
-	@sh tools/format.sh src/cpu/vgscpu_op_acu_d.h 
-	@sh tools/format.sh src/test/tp.h 
+	sh tools/format.sh src/cpu/vgscpu.c
+	sh tools/format.sh src/cpu/vgscpu.h
+	sh tools/format.sh src/cpu/vgscpu_internal.h 
+	sh tools/format.sh src/cpu/vgscpu_op.h 
+	sh tools/format.sh src/cpu/vgscpu_op_acu_b.h 
+	sh tools/format.sh src/cpu/vgscpu_op_acu_c.h 
+	sh tools/format.sh src/cpu/vgscpu_op_acu_d.h 
+	sh tools/format.sh src/test/tp.h 
+	for TP in $(TESTCASE); do make format-test-src TP=$$TP; done
 
-test: format vgscpu.o
+test: vgscpu.o
 	@for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
 	@rm vgscpu.o
 
 vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
 	@gcc -I./src/cpu src/cpu/vgscpu.c -c -o vgscpu.o
 
+format-test-src:
+	@sh tools/format.sh src/test/$(TP).c 
+
 run-test-exec:
 	@echo testing: $(TP)
-	@sh tools/format.sh src/test/$(TP).c 
 	@gcc -I./src/cpu vgscpu.o src/test/$(TP).c -o $(TP)
 	@./$(TP)
 	@rm ./$(TP)
