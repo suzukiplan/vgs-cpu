@@ -44,7 +44,8 @@ TESTCASE=\
 	tp_sub_d\
 	tp_mul_d\
 	tp_div_d\
-	tp_mod_d
+	tp_mod_d\
+	tp_and_d
 
 all:
 	@echo usage:
