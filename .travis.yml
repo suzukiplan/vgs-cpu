@@ -1,2 +1,2 @@
 script:
-  - make test | grep -v "Entering directory" | grep -v "Leaving directory"
+  - make --no-print-directory test
