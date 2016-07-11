@@ -157,6 +157,8 @@ void vgscpu_release_context(void *ctx);
 |`XOR GR, [n]`|o|-|汎用レジスタ `<-` 汎用レジスタ `^` 主記憶のn番地の内容|
 |`XOR GR1, GR2`|o|-|汎用レジスタ1 `<-` 汎用レジスタ1 `^` 汎用レジスタ2|
 |`NOT GR`|o|-|汎用レジスタ `<-` `not` 汎用レジスタ|
+|`SHL GR, n`|o|-|汎用レジスタ を n bit 左シフト _(0 <= n < 256)_|
+|`SHR GR, n`|o|-|汎用レジスタ を n bit 右シフト _(0 <= n < 256)_|
 
 - AND, OR, XOR の場合 GR, GR1 は A を使うと高速になる
 
