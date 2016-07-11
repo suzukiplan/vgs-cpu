@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/suzukiplan/vgs-cpu.svg?branch=master)](https://travis-ci.org/suzukiplan/vgs-cpu)
-# [WIP] VGS CPU
+# [WIP] VGS CPU [![Build Status](https://travis-ci.org/suzukiplan/vgs-cpu.svg?branch=master)](https://travis-ci.org/suzukiplan/vgs-cpu)
 - SUZUKI PLAN - Video Game System - Central Processing Unit
 - VGS-CPU is a 32bit cpu that spacialized for creating games of VGS.
 
