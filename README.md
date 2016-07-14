@@ -143,6 +143,7 @@ void vgscpu_release_context(void *ctx);
 |`MOD GR1, GR2`|o|-|汎用レジスタ1 `<-` 汎用レジスタ1 `mod` 汎用レジスタ2|
 
 - ADD, SUB, MUL, DIV, MOD の場合 GR, GR1 は A を使うと高速になる
+- todo: 補数演算が追加で必要かもしれない
 
 ### logical calculation
 |operand|z|q|outline|
