@@ -43,6 +43,7 @@ TESTCASE=\
 	tp_or_c\
 	tp_xor_c\
 	tp_cmp_c\
+	tp_cmp2_c\
 	tp_add_d\
 	tp_sub_d\
 	tp_mul_d\
@@ -51,7 +52,8 @@ TESTCASE=\
 	tp_and_d\
 	tp_or_d\
 	tp_xor_d\
-	tp_cmp_d
+	tp_cmp_d\
+	tp_cmp2_d
 
 all:
 	@echo usage:
