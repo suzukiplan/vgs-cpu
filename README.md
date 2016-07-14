@@ -193,4 +193,18 @@ void vgscpu_release_context(void *ctx);
 |`JP n`|-|x|`f.q` が 1 の場合, アドレスn へジャンプ|
 |`JNP n`|-|x|`f.q` が 非1 の場合, アドレスn へジャンプ|
 
-todo: 書き途中
+### call and return
+|operand|z|q|outline|
+|---|:---:|:---:|---|
+|`CAL n`|-|-|アドレスn を呼び出す|
+|`RET`|-|-|`CAL` の呼び出し元へ復帰|
+
+- `CAL` を実行すると, スタック領域に 戻りアドレス(4byte) を PUSH して アドレスn へジャンプする
+- `RET` を実行すると, スタック領域から 戻りアドレス(4byte) を POP して 戻りアドレス へジャンプする
+- _アプリケーションにより, 誤って 戻りアドレス が `POP` されると stack underflow または 不正アドレス へジャンプする恐れがある_
+
+### VGS API
+- VGS の API を呼び出すための特別な命令
+- 全てのデバイスアクセスは VGS API が実行するため, VGS-CPU には 通常のコンピュータの `OUT` や `IN` に相当する命令は存在しない 
+- todo: 書き途中
+
