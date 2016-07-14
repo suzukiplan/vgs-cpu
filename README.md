@@ -204,7 +204,20 @@ void vgscpu_release_context(void *ctx);
 - _アプリケーションにより, 誤って 戻りアドレス が `POP` されると stack underflow または 不正アドレス へジャンプする恐れがある_
 
 ### VGS API
+|operand|z|q|outline|
+|---|:---:|:---:|---|
+|`VGS n``|-|-|主記憶のn番地の領域を AAF; _api-arguments-frame_ として VGS API を実行|
+
+- 戻り値は必ず __レジスタD__ に格納される
 - VGS の API を呼び出すための特別な命令
 - 全てのデバイスアクセスは VGS API が実行するため, VGS-CPU には 通常のコンピュータの `OUT` や `IN` に相当する命令は存在しない 
-- todo: 書き途中
 
+### AAF (Api Arguments Frame)
+- AAF は実行する VGS API の 種別(1byte) と 引数 が格納された メモリブロック
+- 引数の長さは 種別 により異なる
+
+|種別|API名|引数|戻り値|意味|
+|---:|:---|:---|:---:|:---|
+|0|NOOP|n/a|0|何も実行せずに 0 を返す|
+
+todo: 書き途中
