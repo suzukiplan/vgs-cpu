@@ -42,6 +42,7 @@ TESTCASE=\
 	tp_and_c\
 	tp_or_c\
 	tp_xor_c\
+	tp_cmp_c\
 	tp_add_d\
 	tp_sub_d\
 	tp_mul_d\
