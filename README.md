@@ -5,8 +5,8 @@
 ## Developmental status
 WIP外しの残todo:
 - [x] ACU-B の test case を全て追加
-- [ ] ACU-C の test case を全て追加
-- [ ] ACU-D の test case を全て追加
+- [x] ACU-C の test case を全て追加
+- [x] ACU-D の test case を全て追加
 - [ ] CAL operand の実装
 - [ ] branch operand の test case を全て追加
 - [ ] VGS operand の実装
