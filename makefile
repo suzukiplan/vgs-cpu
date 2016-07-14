@@ -50,7 +50,8 @@ TESTCASE=\
 	tp_mod_d\
 	tp_and_d\
 	tp_or_d\
-	tp_xor_d
+	tp_xor_d\
+	tp_cmp_d
 
 all:
 	@echo usage:
