@@ -57,6 +57,14 @@
         break;                            \
     }
 
+#define PUSH4(N)                      \
+    {                                 \
+        ASSERT_IF_STACK_OVERFLOW(4);  \
+        unsigned int v = N;           \
+        memcpy(&c->s[c->r.s], &v, 4); \
+        c->r.s += 4;                  \
+    }
+
 void *vgscpu_create_context()
 {
     return vgscpu_create_specific_context(VGSCPU_PROGRAM_SIZE_DEFAULT, VGSCPU_STACK_SIZE_DEFAULT, VGSCPU_MEMORY_SIZE_DEFAULT);
@@ -144,10 +152,8 @@ int vgscpu_run(void *ctx)
                 break;
             case VGSCPU_OP_PUSH_A4:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
-                ASSERT_IF_STACK_OVERFLOW(4);
+                PUSH4(c->r.a);
                 c->r.p++;
-                memcpy(&c->s[c->r.s], &c->r.a, 4);
-                c->r.s += 4;
                 break;
             case VGSCPU_OP_POP_A1:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
@@ -298,10 +304,8 @@ int vgscpu_run(void *ctx)
                 break;
             case VGSCPU_OP_PUSH_B4:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
-                ASSERT_IF_STACK_OVERFLOW(4);
+                PUSH4(c->r.b);
                 c->r.p++;
-                memcpy(&c->s[c->r.s], &c->r.b, 4);
-                c->r.s += 4;
                 break;
             case VGSCPU_OP_POP_B1:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
@@ -452,10 +456,8 @@ int vgscpu_run(void *ctx)
                 break;
             case VGSCPU_OP_PUSH_C4:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
-                ASSERT_IF_STACK_OVERFLOW(4);
+                PUSH4(c->r.c);
                 c->r.p++;
-                memcpy(&c->s[c->r.s], &c->r.c, 4);
-                c->r.s += 4;
                 break;
             case VGSCPU_OP_POP_C1:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
@@ -606,10 +608,8 @@ int vgscpu_run(void *ctx)
                 break;
             case VGSCPU_OP_PUSH_D4:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
-                ASSERT_IF_STACK_OVERFLOW(4);
+                PUSH4(c->r.d);
                 c->r.p++;
-                memcpy(&c->s[c->r.s], &c->r.d, 4);
-                c->r.s += 4;
                 break;
             case VGSCPU_OP_POP_D1:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
@@ -2827,6 +2827,21 @@ int vgscpu_run(void *ctx)
                 } else {
                     c->r.p += 3;
                 }
+                break;
+            case VGSCPU_OP_CAL:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
+                PUSH4(c->r.p + 5);
+                memcpy(&i, &c->p[c->r.p + 1], 4);
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
+                c->r.p = i;
+                break;
+            case VGSCPU_OP_RET:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
+                ASSERT_IF_STACK_UNDERFLOW(4);
+                c->r.s -= 4;
+                memcpy(&i, &c->s[c->r.s], 4);
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
+                c->r.p = i;
                 break;
             default:
                 sprintf(c->error, "UNKNOWN INSTRUCTION(%02X)", (int)c->p[c->r.p]);
