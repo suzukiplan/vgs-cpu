@@ -74,6 +74,7 @@ clean:
 	-@rm -f $(TESTCASE)
 
 format:
+	sh tools/format.sh src/asm/vgsasm.c
 	sh tools/format.sh src/cpu/vgsapi.c
 	sh tools/format.sh src/cpu/vgscpu.c
 	sh tools/format.sh src/cpu/vgscpu.h
@@ -85,7 +86,7 @@ format:
 	sh tools/format.sh src/test/tp.h 
 	for TP in $(TESTCASE); do make format-test-src TP=$$TP; done
 
-build: vgscpu.a
+build: vgscpu.a vgsasm
 
 vgscpu.a: vgscpu.o vgsapi.o
 	ar ruv vgscpu.a vgscpu.o vgsapi.o
@@ -95,6 +96,9 @@ vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
 
 vgsapi.o: src/cpu/vgsapi.c src/cpu/vgscpu_internal.h
 	gcc -O2 -I./src/cpu src/cpu/vgsapi.c -c -o vgsapi.o
+
+vgsasm: src/asm/vgsasm.c src/cpu/vgscpu_internal.h
+	gcc -O2 -I./src/cpu src/asm/vgsasm.c -o vgsasm
 
 test: build
 	for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
