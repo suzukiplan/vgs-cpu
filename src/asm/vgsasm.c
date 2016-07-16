@@ -8,6 +8,8 @@
 struct line_data {
     char* buffer;
     int number;
+    char* token[8];
+    int toknum;
 };
 
 struct program_table {
@@ -100,7 +102,7 @@ static char* load_file(const char* path)
     return data;
 }
 
-struct line_data* parse_lines(char* buf, int* line)
+static struct line_data* parse_lines(char* buf, int* line)
 {
     struct line_data* result = NULL;
     char* cp;
@@ -202,6 +204,26 @@ static void remove_empty_line(struct line_data* line, int* len)
     }
 }
 
+static void parse_token(struct line_data* line, int len)
+{
+    int i;
+    char* w;
+    for (i = 0; i < len; i++) {
+        w = line[i].buffer;
+        while (*w) {
+            line[i].token[line[i].toknum++] = w;
+            while (*w && ' ' != *w && '\t' != *w)
+                w++;
+            if (' ' == *w || '\t' == *w) {
+                *w = '\0';
+                w++;
+                while (' ' == *w && '\t' == *w)
+                    w++;
+            }
+        }
+    }
+}
+
 int main(int argc, char* argv[])
 {
     if (check_arguments(argc, argv)) {
@@ -222,11 +244,21 @@ int main(int argc, char* argv[])
     }
 
     remove_empty_line(PT.line, &PT.line_number);
+    if (0 == PT.line_number) {
+        fprintf(stderr, "empty source file.\n");
+        return 4;
+    }
+
+    parse_token(PT.line, PT.line_number);
 
     {
-        int i;
+        int i, j;
         for (i = 0; i < PT.line_number; i++) {
-            printf("%04d: <%s>\n", PT.line[i].number, PT.line[i].buffer);
+            printf("%04d:", PT.line[i].number);
+            for (j = 0; j < PT.line[i].toknum; j++) {
+                printf(" <%s>", PT.line[i].token[j]);
+            }
+            printf("\n");
         }
     }
 
