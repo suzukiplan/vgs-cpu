@@ -16,6 +16,7 @@ TESTCASE=\
 	tp_je_jne\
 	tp_jn_jnn\
 	tp_jp_jnp\
+	tp_cal_ret\
 	tp_sh\
 	tp_add_a\
 	tp_sub_a\
