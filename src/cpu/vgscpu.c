@@ -65,6 +65,8 @@
         c->r.s += 4;                  \
     }
 
+static int (*vgsapi[1])(struct vgscpu_context *) = {vgsapi_noop};
+
 void *vgscpu_create_context()
 {
     return vgscpu_create_specific_context(VGSCPU_PROGRAM_SIZE_DEFAULT, VGSCPU_STACK_SIZE_DEFAULT, VGSCPU_MEMORY_SIZE_DEFAULT);
@@ -2642,6 +2644,12 @@ int vgscpu_run(void *ctx)
                 memcpy(&i, &c->s[c->r.s], 4);
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
                 c->r.p = i;
+                break;
+            case VGSCPU_OP_VGS:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                c->r.d = vgsapi[c->p[c->r.p]](c);
+                c->r.p++;
                 break;
             default:
                 sprintf(c->error, "UNKNOWN INSTRUCTION(%02X)", (int)c->p[c->r.p]);

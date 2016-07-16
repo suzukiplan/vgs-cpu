@@ -57,18 +57,24 @@ TESTCASE=\
 	tp_or_d\
 	tp_xor_d\
 	tp_cmp_d\
-	tp_cmp2_d
+	tp_cmp2_d\
+	tp_vgs
 
 all:
 	@echo usage:
 	@echo $$ make format : executes clang-format
+	@echo $$ make build : builds vgscpu.a
 	@echo $$ make test : runs test
+	@echo $$ make clean : clean modules
 
 clean:
+	-@rm -f vgscpu.a
+	-@rm -f vgsapi.o
 	-@rm -f vgscpu.o
 	-@rm -f $(TESTCASE)
 
 format:
+	sh tools/format.sh src/cpu/vgsapi.c
 	sh tools/format.sh src/cpu/vgscpu.c
 	sh tools/format.sh src/cpu/vgscpu.h
 	sh tools/format.sh src/cpu/vgscpu_internal.h 
@@ -79,18 +85,25 @@ format:
 	sh tools/format.sh src/test/tp.h 
 	for TP in $(TESTCASE); do make format-test-src TP=$$TP; done
 
-test: vgscpu.o
-	@for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
-	@rm vgscpu.o
+build: vgscpu.a
+
+vgscpu.a: vgscpu.o vgsapi.o
+	ar ruv vgscpu.a vgscpu.o vgsapi.o
 
 vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
-	@gcc -I./src/cpu src/cpu/vgscpu.c -c -o vgscpu.o
+	gcc -O2 -I./src/cpu src/cpu/vgscpu.c -c -o vgscpu.o
+
+vgsapi.o: src/cpu/vgsapi.c src/cpu/vgscpu_internal.h
+	gcc -O2 -I./src/cpu src/cpu/vgsapi.c -c -o vgsapi.o
+
+test: build
+	for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
 
 format-test-src:
 	@sh tools/format.sh src/test/$(TP).c 
 
 run-test-exec:
 	@echo testing: $(TP)
-	@gcc -I./src/cpu vgscpu.o src/test/$(TP).c -o $(TP)
-	@./$(TP)
+	gcc -I./src/cpu src/test/$(TP).c -o $(TP) vgscpu.a
+	./$(TP)
 	@rm ./$(TP)

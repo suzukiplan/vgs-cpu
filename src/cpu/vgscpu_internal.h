@@ -33,3 +33,5 @@ struct vgscpu_context {
     unsigned char* s;            /* stack */
     unsigned char* m;            /* main memory */
 };
+
+int vgsapi_noop(struct vgscpu_context* c);

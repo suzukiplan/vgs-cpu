@@ -1,7 +1,9 @@
 .work
 *.dSYM/
 .vscode
+vgscpu.a
 vgscpu.o
+vgsapi.o
 tp_stack_a
 tp_stack_b
 tp_stack_c
@@ -61,3 +63,4 @@ tp_cmp2_a
 tp_cmp2_b
 tp_cmp2_c
 tp_cmp2_d
+tp_vgs

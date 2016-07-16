@@ -1,24 +1,9 @@
-# [WIP] VGS CPU [![Build Status](https://travis-ci.org/suzukiplan/vgs-cpu.svg?branch=master)](https://travis-ci.org/suzukiplan/vgs-cpu)
+# VGS CPU [![Build Status](https://travis-ci.org/suzukiplan/vgs-cpu.svg?branch=master)](https://travis-ci.org/suzukiplan/vgs-cpu)
 - SUZUKI PLAN - Video Game System - Central Processing Unit
 - VGS-CPU is a 32bit cpu that spacialized for creating games of VGS.
 
-## Developmental status
-WIP外しの残todo:
-- [x] ACU-B の test case を全て追加
-- [x] ACU-C の test case を全て追加
-- [x] ACU-D の test case を全て追加
-- [x] CAL operand の実装
-- [x] branch operand の test case を全て追加
-- [ ] VGS operand の実装
-- [ ] VGS operand の test case を全て実装
-- [ ] ドキュメント整備
-
-## About VGS-CPU
-- 将来的には Cコンパイラ も作りたいと思っていますが __32bit CPUなのに6502並にフルアセンブリ言語でもコーディングしやすい石__ として, 嘗て私がフルアセでコードを書いていたことを色々思い出しながら設計しています _(単にCコンパイラを作るのは大変だからという説もある)_
-- VGSの推奨言語を今まで「C言語」としてきた伏線がようやくここで回収される訳です（ゲーム本体は普通にC++で書いた方が楽ですが、C++コンパイラを作るのは私には荷が重すぎるので... _Cなら標準関数を除けば多分作れる_）
-
 ## How to use
-- このリポジトリには コード + テスト しかありません
+- UNIX系OS全般(mac/Linuxを含む) の ターミナル で `make` を実行すれば, できることが書いてあります
 - 利用したいプログラムに `git subversion add` して利用する想定
 
 ## API specification
@@ -215,4 +200,4 @@ void vgscpu_release_context(void *ctx);
 |---:|:---|:---|:---:|:---|
 |0|NOOP|n/a|0|何も実行せずに 0 を返す|
 
-todo: 書き途中
+_※VGS APIは実装途中で、今後拡張していきます_
