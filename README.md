@@ -1,9 +1,11 @@
 # VGS CPU [![Build Status](https://travis-ci.org/suzukiplan/vgs-cpu.svg?branch=master)](https://travis-ci.org/suzukiplan/vgs-cpu)
 - SUZUKI PLAN - Video Game System - Central Processing Unit
 - VGS-CPU is a 32bit cpu that spacialized for creating games of VGS.
+- This repository also provides assember for VGS-CPU.
 
 ## How to use
 - UNIX系OS全般(mac/Linuxを含む) の ターミナル で `make` を実行すれば, できることが書いてあります
+- `make build` を実行すればアセンブラ (vgsasmコマンド) をビルドできます
 - 利用したいプログラムに `git subversion add` して利用する想定
 
 ## API specification
@@ -201,3 +203,6 @@ void vgscpu_release_context(void *ctx);
 |0|NOOP|n/a|0|何も実行せずに 0 を返す|
 
 _※VGS APIは実装途中で、今後拡張していきます_
+
+## vgsasm command
+todo: 後で書く
