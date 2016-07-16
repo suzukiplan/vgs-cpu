@@ -2541,21 +2541,6 @@ int vgscpu_run(void *ctx)
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
                 c->r.p = i;
                 break;
-            case VGSCPU_OP_JMP_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                c->r.p++;
-                i = c->r.p + c->p[c->r.p] + 1;
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                c->r.p = i;
-                break;
-            case VGSCPU_OP_JMP_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                c->r.p++;
-                memcpy(&s, &c->p[c->r.p], 2);
-                i = c->r.p + s + 2;
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                c->r.p = i;
-                break;
             case VGSCPU_OP_JZ:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
                 if (c->f.z) {
@@ -2565,29 +2550,6 @@ int vgscpu_run(void *ctx)
                     c->r.p = i;
                 } else {
                     c->r.p += 5;
-                }
-                break;
-            case VGSCPU_OP_JZ_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                if (c->f.z) {
-                    c->r.p++;
-                    i = c->r.p + c->p[c->r.p] + 1;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 2;
-                }
-                break;
-            case VGSCPU_OP_JZ_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                if (c->f.z) {
-                    c->r.p++;
-                    memcpy(&s, &c->p[c->r.p], 2);
-                    i = c->r.p + s + 2;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 3;
                 }
                 break;
             case VGSCPU_OP_JNZ:
@@ -2601,29 +2563,6 @@ int vgscpu_run(void *ctx)
                     c->r.p += 5;
                 }
                 break;
-            case VGSCPU_OP_JNZ_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                if (!c->f.z) {
-                    c->r.p++;
-                    i = c->r.p + c->p[c->r.p] + 1;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 2;
-                }
-                break;
-            case VGSCPU_OP_JNZ_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                if (!c->f.z) {
-                    c->r.p++;
-                    memcpy(&s, &c->p[c->r.p], 2);
-                    i = c->r.p + s + 2;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 3;
-                }
-                break;
             case VGSCPU_OP_JE:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
                 if (0 == c->f.q) {
@@ -2633,29 +2572,6 @@ int vgscpu_run(void *ctx)
                     c->r.p = i;
                 } else {
                     c->r.p += 5;
-                }
-                break;
-            case VGSCPU_OP_JE_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                if (0 == c->f.q) {
-                    c->r.p++;
-                    i = c->r.p + c->p[c->r.p] + 1;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 2;
-                }
-                break;
-            case VGSCPU_OP_JE_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                if (0 == c->f.q) {
-                    c->r.p++;
-                    memcpy(&s, &c->p[c->r.p], 2);
-                    i = c->r.p + s + 2;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 3;
                 }
                 break;
             case VGSCPU_OP_JNE:
@@ -2669,29 +2585,6 @@ int vgscpu_run(void *ctx)
                     c->r.p += 5;
                 }
                 break;
-            case VGSCPU_OP_JNE_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                if (0 != c->f.q) {
-                    c->r.p++;
-                    i = c->r.p + c->p[c->r.p] + 1;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 2;
-                }
-                break;
-            case VGSCPU_OP_JNE_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                if (0 != c->f.q) {
-                    c->r.p++;
-                    memcpy(&s, &c->p[c->r.p], 2);
-                    i = c->r.p + s + 2;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 3;
-                }
-                break;
             case VGSCPU_OP_JN:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
                 if (-1 == c->f.q) {
@@ -2701,29 +2594,6 @@ int vgscpu_run(void *ctx)
                     c->r.p = i;
                 } else {
                     c->r.p += 5;
-                }
-                break;
-            case VGSCPU_OP_JN_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                if (-1 == c->f.q) {
-                    c->r.p++;
-                    i = c->r.p + c->p[c->r.p] + 1;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 2;
-                }
-                break;
-            case VGSCPU_OP_JN_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                if (-1 == c->f.q) {
-                    c->r.p++;
-                    memcpy(&s, &c->p[c->r.p], 2);
-                    i = c->r.p + s + 2;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 3;
                 }
                 break;
             case VGSCPU_OP_JNN:
@@ -2737,29 +2607,6 @@ int vgscpu_run(void *ctx)
                     c->r.p += 5;
                 }
                 break;
-            case VGSCPU_OP_JNN_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                if (-1 != c->f.q) {
-                    c->r.p++;
-                    i = c->r.p + c->p[c->r.p] + 1;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 2;
-                }
-                break;
-            case VGSCPU_OP_JNN_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                if (-1 != c->f.q) {
-                    c->r.p++;
-                    memcpy(&s, &c->p[c->r.p], 2);
-                    i = c->r.p + s + 2;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 3;
-                }
-                break;
             case VGSCPU_OP_JP:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
                 if (1 == c->f.q) {
@@ -2771,29 +2618,6 @@ int vgscpu_run(void *ctx)
                     c->r.p += 5;
                 }
                 break;
-            case VGSCPU_OP_JP_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                if (1 == c->f.q) {
-                    c->r.p++;
-                    i = c->r.p + c->p[c->r.p] + 1;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 2;
-                }
-                break;
-            case VGSCPU_OP_JP_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                if (1 == c->f.q) {
-                    c->r.p++;
-                    memcpy(&s, &c->p[c->r.p], 2);
-                    i = c->r.p + s + 2;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 3;
-                }
-                break;
             case VGSCPU_OP_JNP:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(5);
                 if (1 != c->f.q) {
@@ -2803,29 +2627,6 @@ int vgscpu_run(void *ctx)
                     c->r.p = i;
                 } else {
                     c->r.p += 5;
-                }
-                break;
-            case VGSCPU_OP_JNP_1:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
-                if (1 != c->f.q) {
-                    c->r.p++;
-                    i = c->r.p + c->p[c->r.p] + 1;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 2;
-                }
-                break;
-            case VGSCPU_OP_JNP_2:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(3);
-                if (1 != c->f.q) {
-                    c->r.p++;
-                    memcpy(&s, &c->p[c->r.p], 2);
-                    i = c->r.p + s + 2;
-                    ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
-                    c->r.p = i;
-                } else {
-                    c->r.p += 3;
                 }
                 break;
             case VGSCPU_OP_CAL:

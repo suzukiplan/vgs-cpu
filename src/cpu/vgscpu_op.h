@@ -218,35 +218,15 @@
 #define VGSCPU_OP_ACU_D 0xdf
 
 /* branch */
-#define VGSCPU_OP_JMP 0xe0   /* jump to specific address */
-#define VGSCPU_OP_JMP_1 0xe1 /* jump to current address + literal(1byte) */
-#define VGSCPU_OP_JMP_2 0xe2 /* jump to current address + literal(2byte) */
-#define VGSCPU_OP_JZ 0xe3    /* jump when zero flag set */
-#define VGSCPU_OP_JZ_1 0xe4  /* jump when zero flag set */
-#define VGSCPU_OP_JZ_2 0xe5  /* jump when zero flag set */
-#define VGSCPU_OP_JNZ 0xe6   /* jump when zero flag reset */
-#define VGSCPU_OP_JNZ_1 0xe7 /* jump when zero flag reset */
-#define VGSCPU_OP_JNZ_2 0xe8 /* jump when zero flag reset */
-#define VGSCPU_OP_JE 0xe9    /* jump when equal flag = 0 */
-#define VGSCPU_OP_JE_1 0xea  /* jump when equal flag = 0 */
-#define VGSCPU_OP_JE_2 0xeb  /* jump when equal flag = 0 */
-#define VGSCPU_OP_JNE 0xec   /* jump when equal flag != 0 */
-#define VGSCPU_OP_JNE_1 0xed /* jump when equal flag != 0 */
-#define VGSCPU_OP_JNE_2 0xee /* jump when equal flag != 0 */
-#define VGSCPU_OP_JN 0xef    /* jump when equal flag = -1 */
-#define VGSCPU_OP_JN_1 0xf0  /* jump when equal flag = -1 */
-#define VGSCPU_OP_JN_2 0xf1  /* jump when equal flag = -1 */
-#define VGSCPU_OP_JNN 0xf2   /* jump when equal flag != -1 */
-#define VGSCPU_OP_JNN_1 0xf3 /* jump when equal flag != -1 */
-#define VGSCPU_OP_JNN_2 0xf4 /* jump when equal flag != -1 */
-#define VGSCPU_OP_JP 0xf5    /* jump when equal flag = 1 */
-#define VGSCPU_OP_JP_1 0xf6  /* jump when equal flag = 1 */
-#define VGSCPU_OP_JP_2 0xf7  /* jump when equal flag = 1 */
-#define VGSCPU_OP_JNP 0xf8   /* jump when equal flag != 1 */
-#define VGSCPU_OP_JNP_1 0xf9 /* jump when equal flag != 1 */
-#define VGSCPU_OP_JNP_2 0xfa /* jump when equal flag != 1 */
-#define VGSCPU_OP_CAL 0xfb   /* call to specific address */
-#define VGSCPU_OP_CAL_1 0xfc /* call to current address + literal(1byte) */
-#define VGSCPU_OP_CAL_2 0xfd /* call to current address + literal(2byte) */
-#define VGSCPU_OP_RET 0xfe   /* return to called */
-#define VGSCPU_OP_VGS 0xff   /* execute VGS-API */
+#define VGSCPU_OP_JMP 0xf4 /* jump to specific address */
+#define VGSCPU_OP_JZ 0xf5  /* jump when zero flag set */
+#define VGSCPU_OP_JNZ 0xf6 /* jump when zero flag reset */
+#define VGSCPU_OP_JE 0xf7  /* jump when equal flag = 0 */
+#define VGSCPU_OP_JNE 0xf8 /* jump when equal flag != 0 */
+#define VGSCPU_OP_JN 0xf9  /* jump when equal flag = -1 */
+#define VGSCPU_OP_JNN 0xfa /* jump when equal flag != -1 */
+#define VGSCPU_OP_JP 0xfb  /* jump when equal flag = 1 */
+#define VGSCPU_OP_JNP 0xfc /* jump when equal flag != 1 */
+#define VGSCPU_OP_CAL 0xfd /* call to specific address */
+#define VGSCPU_OP_RET 0xfe /* return to called */
+#define VGSCPU_OP_VGS 0xff /* execute VGS-API */
