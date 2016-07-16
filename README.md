@@ -8,7 +8,7 @@ WIP外しの残todo:
 - [x] ACU-C の test case を全て追加
 - [x] ACU-D の test case を全て追加
 - [x] CAL operand の実装
-- [ ] branch operand の test case を全て追加
+- [x] branch operand の test case を全て追加
 - [ ] VGS operand の実装
 - [ ] VGS operand の test case を全て実装
 - [ ] ドキュメント整備
