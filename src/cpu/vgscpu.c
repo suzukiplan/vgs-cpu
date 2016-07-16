@@ -2637,7 +2637,6 @@ int vgscpu_run(void *ctx)
                 c->r.p = i;
                 break;
             case VGSCPU_OP_RET:
-                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(1);
                 ASSERT_IF_STACK_UNDERFLOW(4);
                 c->r.s -= 4;
                 memcpy(&i, &c->s[c->r.s], 4);
