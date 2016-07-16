@@ -15,6 +15,7 @@ tp_dec
 tp_not
 tp_jmp
 tp_jz_jnz
+tp_je_jne
 tp_sh
 tp_load_program
 tp_add_a

@@ -210,6 +210,7 @@ void vgscpu_release_context(void *ctx);
 - 戻り値は必ず __レジスタD__ に格納される
 
 ## VGS API
+### operands
 |命令番号|API名|呼び出し規約|戻り値|意味|
 |---:|:---|:---|:---:|:---|
 |0|NOOP|n/a|0|何も実行せずに 0 を返す|

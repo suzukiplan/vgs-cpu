@@ -13,6 +13,7 @@ TESTCASE=\
 	tp_not\
 	tp_jmp\
 	tp_jz_jnz\
+	tp_je_jne\
 	tp_sh\
 	tp_add_a\
 	tp_sub_a\
