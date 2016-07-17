@@ -143,7 +143,7 @@ static struct line_data* parse_lines(char* buf, int* line)
             if ('\r' == buf[j]) {
                 buf[j] = '\0';
                 break;
-            } else if ('\t' == buf[j]) {
+            } else if ('\t' == buf[j] || ',' == buf[j]) {
                 buf[j] = ' ';
             }
         }
@@ -233,13 +233,15 @@ static void parse_token(struct line_data* line, int len)
         w = line[i].buffer;
         while (*w) {
             line[i].token[line[i].toknum++] = w;
-            while (*w && ' ' != *w && '\t' != *w)
+            while (*w && ' ' != *w && '\t' != *w) {
                 w++;
+            }
             if (' ' == *w || '\t' == *w) {
                 *w = '\0';
                 w++;
-                while (' ' == *w && '\t' == *w)
+                while (' ' == *w && '\t' == *w) {
                     w++;
+                }
             }
         }
     }
@@ -297,6 +299,27 @@ static int parse_push(struct line_data* line, int i)
     return 0;
 }
 
+static int parse_pop(struct line_data* line, int i)
+{
+    int r;
+    int op[12] = {VGSCPU_OP_POP_A1, VGSCPU_OP_POP_A2, VGSCPU_OP_POP_A4, VGSCPU_OP_POP_B1, VGSCPU_OP_POP_B2, VGSCPU_OP_POP_B4, VGSCPU_OP_POP_C1, VGSCPU_OP_POP_C2, VGSCPU_OP_POP_C4, VGSCPU_OP_POP_D1, VGSCPU_OP_POP_D2, VGSCPU_OP_POP_D4};
+    if (line[i].toknum < 2) {
+        sprintf(line[i].error, "syntax error: required argument was not specified");
+        return -1;
+    }
+    if (2 < line[i].toknum) {
+        sprintf(line[i].error, "syntax error: extra argument was specified: %s", line[i].token[2]);
+        return -1;
+    }
+    r = check_GR(line[i].token[1]);
+    if (-1 == r) {
+        sprintf(line[i].error, "syntax error: unknown register was specified: %s", line[i].token[1]);
+        return -1;
+    }
+    line[i].op = op[r];
+    return 0;
+}
+
 static int parse_operation(struct line_data* line, int len)
 {
     int error_count = 0;
@@ -305,6 +328,8 @@ static int parse_operation(struct line_data* line, int len)
     for (i = 0; i < len; i++) {
         if (0 == strcasecmp(line[i].token[0], "PUSH")) {
             if (parse_push(line, i)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "POP")) {
+            if (parse_pop(line, i)) error_count++;
         } else {
             sprintf(line[i].error, "syntax error: unknown operand was specified: %s", line[i].token[0]);
             error_count++;
