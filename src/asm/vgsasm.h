@@ -48,3 +48,4 @@ int parse_operation(struct line_data* line, int len);
 int parse_push(struct line_data* line, int i);
 int parse_pop(struct line_data* line, int i);
 int parse_ld(struct line_data* line, int i);
+int parse_st(struct line_data* line, int i);

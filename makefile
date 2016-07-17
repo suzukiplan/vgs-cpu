@@ -66,6 +66,7 @@ VGSASM_SRC=\
 	src/asm/vgsasm_parse_push.c\
 	src/asm/vgsasm_parse_pop.c\
 	src/asm/vgsasm_parse_ld.c\
+	src/asm/vgsasm_parse_st.c\
 	src/asm/vgsasm_util.c
 
 all:

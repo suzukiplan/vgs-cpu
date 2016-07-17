@@ -143,6 +143,8 @@ int parse_operation(struct line_data* line, int len)
             if (parse_pop(line, i)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "LD")) {
             if (parse_ld(line, i)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "ST")) {
+            if (parse_st(line, i)) error_count++;
         } else {
             sprintf(line[i].error, "syntax error: unknown operand was specified: %s", line[i].token[0]);
             error_count++;
