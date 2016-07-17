@@ -60,6 +60,23 @@ TESTCASE=\
 	tp_cmp2_d\
 	tp_vgs
 
+VGSASM_SRC=\
+	src/asm/vgsasm.c\
+	src/asm/vgsasm_parse.c\
+	src/asm/vgsasm_parse_push.c\
+	src/asm/vgsasm_parse_pop.c\
+	src/asm/vgsasm_parse_ld.c\
+	src/asm/vgsasm_parse_st.c\
+	src/asm/vgsasm_parse_inc.c\
+	src/asm/vgsasm_parse_dec.c\
+	src/asm/vgsasm_parse_not.c\
+	src/asm/vgsasm_parse_shift.c\
+	src/asm/vgsasm_parse_acu.c\
+	src/asm/vgsasm_parse_arl.c\
+	src/asm/vgsasm_parse_branch.c\
+	src/asm/vgsasm_parse_vgs.c\
+	src/asm/vgsasm_util.c
+
 all:
 	@echo usage:
 	@echo $$ make format : executes clang-format
@@ -74,6 +91,7 @@ clean:
 	-@rm -f $(TESTCASE)
 
 format:
+	sh tools/format.sh src/asm/vgsasm.h
 	sh tools/format.sh src/cpu/vgsapi.c
 	sh tools/format.sh src/cpu/vgscpu.c
 	sh tools/format.sh src/cpu/vgscpu.h
@@ -83,9 +101,13 @@ format:
 	sh tools/format.sh src/cpu/vgscpu_op_acu_c.h 
 	sh tools/format.sh src/cpu/vgscpu_op_acu_d.h 
 	sh tools/format.sh src/test/tp.h 
+	for AS in $(VGSASM_SRC); do make format-src SRC=$$AS; done
 	for TP in $(TESTCASE); do make format-test-src TP=$$TP; done
 
-build: vgscpu.a
+format-src:
+	@sh tools/format.sh $(SRC) 
+
+build: vgscpu.a vgsasm
 
 vgscpu.a: vgscpu.o vgsapi.o
 	ar ruv vgscpu.a vgscpu.o vgsapi.o
@@ -96,8 +118,12 @@ vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
 vgsapi.o: src/cpu/vgsapi.c src/cpu/vgscpu_internal.h
 	gcc -O2 -I./src/cpu src/cpu/vgsapi.c -c -o vgsapi.o
 
+vgsasm: src/asm/vgsasm.h src/cpu/vgscpu_internal.h $(VGSASM_SRC)
+	gcc -O2 -I./src/asm -I./src/cpu $(VGSASM_SRC) -o vgsasm
+
 test: build
 	for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
+	make asm-test
 
 format-test-src:
 	@sh tools/format.sh src/test/$(TP).c 
@@ -107,3 +133,10 @@ run-test-exec:
 	gcc -I./src/cpu src/test/$(TP).c -o $(TP) vgscpu.a
 	./$(TP)
 	@rm ./$(TP)
+
+asm-test:
+	@sh tools/format.sh src/test/asmtest.c 
+	gcc -I./src/cpu src/test/asmtest.c -o asmtest vgscpu.a
+	./asmtest src/test/asm_push_pop_a.asm
+	@rm asmtest
+	@rm tp.bin
