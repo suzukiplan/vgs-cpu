@@ -73,6 +73,7 @@ VGSASM_SRC=\
 	src/asm/vgsasm_parse_shift.c\
 	src/asm/vgsasm_parse_acu.c\
 	src/asm/vgsasm_parse_arl.c\
+	src/asm/vgsasm_parse_branch.c\
 	src/asm/vgsasm_util.c
 
 all:

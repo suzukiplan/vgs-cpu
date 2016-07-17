@@ -175,6 +175,42 @@ int parse_operation(struct line_data* line, int len)
             if (parse_acu(line, i, ACU_CMP)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "CMP2")) {
             if (parse_acu(line, i, ACU_CMP2)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JMP")) {
+            if (parse_branch(line, i, VGSCPU_OP_JMP)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JMP")) {
+            if (parse_branch(line, i, VGSCPU_OP_JMP)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JMP")) {
+            if (parse_branch(line, i, VGSCPU_OP_JMP)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JZ")) {
+            if (parse_branch(line, i, VGSCPU_OP_JZ)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JNZ")) {
+            if (parse_branch(line, i, VGSCPU_OP_JNZ)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JE")) {
+            if (parse_branch(line, i, VGSCPU_OP_JE)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JNE")) {
+            if (parse_branch(line, i, VGSCPU_OP_JNE)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JN")) {
+            if (parse_branch(line, i, VGSCPU_OP_JN)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "JNN")) {
+            if (parse_branch(line, i, VGSCPU_OP_JNN)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "CAL")) {
+            if (parse_branch(line, i, VGSCPU_OP_CAL)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "RET")) {
+            if (1 < line[i].toknum) {
+                sprintf(line[i].error, "syntax error: extra argument was specified: %s", line[i].token[1]);
+                error_count++;
+            } else {
+                line[i].op[0] = VGSCPU_OP_RET;
+                line[i].oplen = 1;
+            }
+        } else if (0 == strcasecmp(line[i].token[0], "BRK")) {
+            if (1 < line[i].toknum) {
+                sprintf(line[i].error, "syntax error: extra argument was specified: %s", line[i].token[1]);
+                error_count++;
+            } else {
+                line[i].op[0] = VGSCPU_OP_BRK;
+                line[i].oplen = 1;
+            }
         } else {
             sprintf(line[i].error, "syntax error: unknown operand was specified: %s", line[i].token[0]);
             error_count++;
