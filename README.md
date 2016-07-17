@@ -204,5 +204,5 @@ void vgscpu_release_context(void *ctx);
 
 _※VGS APIは実装途中で、今後拡張していきます_
 
-## vgsasm command
-todo: 後で書く
+## [WIP] vgsasm command
+_現時点ではビルドのみ完了している状態です（テストはまだしていません）_
