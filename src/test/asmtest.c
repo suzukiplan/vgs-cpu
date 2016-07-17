@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
     gettimeofday(&tvStart, NULL);
 #endif
     if (vgscpu_run(c)) {
-        puts("failed");
+        printf("failed: %s\n", vgscpu_get_last_error(c));
         return 4;
     }
 #ifndef _WIN32
