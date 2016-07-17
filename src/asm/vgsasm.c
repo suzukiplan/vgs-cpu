@@ -4,12 +4,26 @@
 #include "vgscpu_internal.h"
 
 #define LOGV printf
+#define A1 0
+#define A2 1
+#define A4 2
+#define B1 3
+#define B2 4
+#define B4 5
+#define C1 6
+#define C2 7
+#define C4 8
+#define D1 9
+#define D2 10
+#define D4 11
 
 struct line_data {
+    char error[1024];
     char* buffer;
     int number;
     char* token[8];
     int toknum;
+    int op;
 };
 
 struct program_table {
@@ -107,7 +121,7 @@ static struct line_data* parse_lines(char* buf, int* line)
     struct line_data* result = NULL;
     char* cp;
     char* work = buf;
-    int i;
+    int i, j;
 
     *line = 1;
     while (NULL != (cp = strchr(work, '\n'))) {
@@ -125,7 +139,14 @@ static struct line_data* parse_lines(char* buf, int* line)
     memset(result, 0, sizeof(struct line_data) * (*line));
     for (i = 0; i < *line; i++) {
         size_t len = strlen(buf);
-        if (0 < len && '\r' == buf[len - 1]) buf[len - 1] = '\0';
+        for (j = 0; buf[j]; j++) {
+            if ('\r' == buf[j]) {
+                buf[j] = '\0';
+                break;
+            } else if ('\t' == buf[j]) {
+                buf[j] = ' ';
+            }
+        }
         trimstring(buf);
         result[i].number = i + 1;
         result[i].buffer = buf;
@@ -224,6 +245,87 @@ static void parse_token(struct line_data* line, int len)
     }
 }
 
+static int check_GR(char* token)
+{
+    if (0 == strcasecmp(token, "A")) {
+        return A4;
+    } else if (0 == strcasecmp(token, "AH")) {
+        return A2;
+    } else if (0 == strcasecmp(token, "AO")) {
+        return A1;
+    } else if (0 == strcasecmp(token, "B")) {
+        return B4;
+    } else if (0 == strcasecmp(token, "BH")) {
+        return B2;
+    } else if (0 == strcasecmp(token, "BO")) {
+        return B1;
+    } else if (0 == strcasecmp(token, "C")) {
+        return C4;
+    } else if (0 == strcasecmp(token, "CH")) {
+        return C2;
+    } else if (0 == strcasecmp(token, "CO")) {
+        return C1;
+    } else if (0 == strcasecmp(token, "D")) {
+        return D4;
+    } else if (0 == strcasecmp(token, "DH")) {
+        return D2;
+    } else if (0 == strcasecmp(token, "DO")) {
+        return D1;
+    } else {
+        return -1;
+    }
+}
+
+static int parse_push(struct line_data* line, int i)
+{
+    int r;
+    int op[12] = {VGSCPU_OP_PUSH_A1, VGSCPU_OP_PUSH_A2, VGSCPU_OP_PUSH_A4, VGSCPU_OP_PUSH_B1, VGSCPU_OP_PUSH_B2, VGSCPU_OP_PUSH_B4, VGSCPU_OP_PUSH_C1, VGSCPU_OP_PUSH_C2, VGSCPU_OP_PUSH_C4, VGSCPU_OP_PUSH_D1, VGSCPU_OP_PUSH_D2, VGSCPU_OP_PUSH_D4};
+    if (line[i].toknum < 2) {
+        sprintf(line[i].error, "syntax error: required argument was not specified");
+        return -1;
+    }
+    if (2 < line[i].toknum) {
+        sprintf(line[i].error, "syntax error: extra argument was specified: %s", line[i].token[2]);
+        return -1;
+    }
+    r = check_GR(line[i].token[1]);
+    if (-1 == r) {
+        sprintf(line[i].error, "syntax error: unknown register was specified: %s", line[i].token[1]);
+        return -1;
+    }
+    line[i].op = op[r];
+    return 0;
+}
+
+static int parse_operation(struct line_data* line, int len)
+{
+    int error_count = 0;
+    int i;
+    int r;
+    for (i = 0; i < len; i++) {
+        if (0 == strcasecmp(line[i].token[0], "PUSH")) {
+            if (parse_push(line, i)) error_count++;
+        } else {
+            sprintf(line[i].error, "syntax error: unknown operand was specified: %s", line[i].token[0]);
+            error_count++;
+        }
+    }
+    return error_count;
+}
+
+static void show_errors(struct line_data* line, int len)
+{
+    int i;
+    int n = 0;
+    for (i = 0; i < len; i++) {
+        if (line[i].error[0]) {
+            fprintf(stderr, "%s (line=%d)\n", line[i].error, line[i].number);
+            n++;
+        }
+    }
+    fprintf(stderr, "detected %d error%s.\n", n, 1 < n ? "s" : "");
+}
+
 int main(int argc, char* argv[])
 {
     if (check_arguments(argc, argv)) {
@@ -250,6 +352,10 @@ int main(int argc, char* argv[])
     }
 
     parse_token(PT.line, PT.line_number);
+    if (parse_operation(PT.line, PT.line_number)) {
+        show_errors(PT.line, PT.line_number);
+        return 5;
+    }
 
     {
         int i, j;
