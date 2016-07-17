@@ -17,13 +17,18 @@
 #define D2 10
 #define D4 11
 
+#define M1 1
+#define M2 2
+#define M4 4
+
 struct line_data {
     char error[1024];
     char* buffer;
     int number;
     char* token[8];
     int toknum;
-    int op;
+    unsigned char op[16];
+    int oplen;
 };
 
 struct program_table {
@@ -278,6 +283,191 @@ static int check_GR(char* token)
     }
 }
 
+static int getHex(char c)
+{
+    switch (c) {
+        case '0':
+            return 0;
+        case '1':
+            return 1;
+        case '2':
+            return 2;
+        case '3':
+            return 3;
+        case '4':
+            return 4;
+        case '5':
+            return 5;
+        case '6':
+            return 6;
+        case '7':
+            return 7;
+        case '8':
+            return 8;
+        case '9':
+            return 9;
+        case 'a':
+        case 'A':
+            return 10;
+        case 'b':
+        case 'B':
+            return 11;
+        case 'c':
+        case 'C':
+            return 12;
+        case 'd':
+        case 'D':
+            return 13;
+        case 'e':
+        case 'E':
+            return 14;
+        case 'f':
+        case 'F':
+            return 15;
+    }
+    return -1;
+}
+
+static int getDec(char c)
+{
+    switch (c) {
+        case '0':
+            return 0;
+        case '1':
+            return 1;
+        case '2':
+            return 2;
+        case '3':
+            return 3;
+        case '4':
+            return 4;
+        case '5':
+            return 5;
+        case '6':
+            return 6;
+        case '7':
+            return 7;
+        case '8':
+            return 8;
+        case '9':
+            return 9;
+    }
+    return -1;
+}
+
+static int getOct(char c)
+{
+    switch (c) {
+        case '0':
+            return 0;
+        case '1':
+            return 1;
+        case '2':
+            return 2;
+        case '3':
+            return 3;
+        case '4':
+            return 4;
+        case '5':
+            return 5;
+        case '6':
+            return 6;
+        case '7':
+            return 7;
+    }
+    return -1;
+}
+
+static int getBin(char c)
+{
+    switch (c) {
+        case '0':
+            return 0;
+        case '1':
+            return 1;
+    }
+    return -1;
+}
+
+static int check_literal(char* token, unsigned int* result)
+{
+    int i, v;
+    if ('$' == token[0]) {
+        *result = 0;
+        for (i = 1; token[i]; i++) {
+            if (-1 == (v = getHex(token[i]))) {
+                return -1;
+            }
+            *result <<= 4;
+            *result |= v & 0xf;
+        }
+        return 0;
+    } else if ('0' == token[0]) {
+        *result = 0;
+        for (i = 1; token[i]; i++) {
+            if (-1 == (v = getOct(token[i]))) {
+                return -1;
+            }
+            *result <<= 3;
+            *result |= v & 0x7;
+        }
+        return 0;
+    } else if ('B' == token[0]) {
+        *result = 0;
+        for (i = 1; token[i]; i++) {
+            if (-1 == (v = getBin(token[i]))) {
+                return -1;
+            }
+            *result <<= 1;
+            *result |= v & 0x1;
+        }
+        return 0;
+    } else if ('-' == token[0]) {
+        *result = 0;
+        for (i = 1; token[i]; i++) {
+            if (-1 == (v = getDec(token[i]))) {
+                return -1;
+            }
+            *result *= 10;
+            *result += v % 10;
+        }
+        *result *= -1;
+        return 0;
+    } else if (-1 != getDec(token[0])) {
+        *result = 0;
+        for (i = 0; token[i]; i++) {
+            if (-1 == (v = getDec(token[i]))) {
+                return -1;
+            }
+            *result *= 10;
+            *result += v % 10;
+        }
+    }
+    return -1;
+}
+
+static int check_address(char* token, unsigned int* result, int* m)
+{
+    char buf[1024];
+    strcpy(buf, &token[1]);
+    size_t len = strlen(buf);
+    if (len < 3) return -1;
+    if ('[' == buf[0] && ']' == buf[len - 1]) {
+        buf[len - 1] = '\0';
+        *m = M4;
+        return check_literal(buf + 1, result);
+    } else if ('[' == buf[0] && ']' == buf[len - 2] && ('H' == buf[len - 1] || 'h' == buf[len - 1])) {
+        buf[len - 2] = '\0';
+        *m = M2;
+        return check_literal(buf + 1, result);
+    } else if ('[' == buf[0] && ']' == buf[len - 2] && ('O' == buf[len - 1] || 'o' == buf[len - 1])) {
+        buf[len - 2] = '\0';
+        *m = M1;
+        return check_literal(buf + 1, result);
+    }
+    return -1;
+}
+
 static int parse_push(struct line_data* line, int i)
 {
     int r;
@@ -295,7 +485,8 @@ static int parse_push(struct line_data* line, int i)
         sprintf(line[i].error, "syntax error: unknown register was specified: %s", line[i].token[1]);
         return -1;
     }
-    line[i].op = op[r];
+    line[i].op[0] = op[r];
+    line[i].oplen = 1;
     return 0;
 }
 
@@ -316,8 +507,265 @@ static int parse_pop(struct line_data* line, int i)
         sprintf(line[i].error, "syntax error: unknown register was specified: %s", line[i].token[1]);
         return -1;
     }
-    line[i].op = op[r];
+    line[i].op[0] = op[r];
+    line[i].oplen = 1;
     return 0;
+}
+
+static int parse_ld_a(struct line_data* line, int i)
+{
+    unsigned int v;
+    unsigned short s;
+    int m;
+    if (0 == check_literal(line[i].token[2], &v)) {
+        if (v < 0x100) {
+            line[i].op[0] = VGSCPU_OP_LD_A_1;
+            line[i].op[1] = v & 0xff;
+            line[i].oplen = 2;
+        } else if (v < 0x10000) {
+            s = v & 0xffff;
+            line[i].op[0] = VGSCPU_OP_LD_A_2;
+            memcpy(&line[i].op[1], &s, 2);
+            line[i].oplen = 3;
+        } else {
+            line[i].op[0] = VGSCPU_OP_LD_A_4;
+            memcpy(&line[i].op[1], &v, 4);
+            line[i].oplen = 5;
+        }
+        return 0;
+    } else if (0 == check_address(line[i].token[2], &v, &m)) {
+        memcpy(&line[i].op[1], &v, 4);
+        line[i].oplen = 5;
+        switch (m) {
+            case M1:
+                line[i].op[0] = VGSCPU_OP_LD_A_M1;
+                break;
+            case M2:
+                line[i].op[0] = VGSCPU_OP_LD_A_M2;
+                break;
+            case M4:
+                line[i].op[0] = VGSCPU_OP_LD_A_M4;
+                break;
+        }
+        return 0;
+    } else {
+        line[i].oplen = 1;
+        switch (check_GR(line[i].token[2])) {
+            case B4:
+                line[i].op[0] = VGSCPU_OP_LD_A_B;
+                break;
+            case C4:
+                line[i].op[0] = VGSCPU_OP_LD_A_C;
+                break;
+            case D4:
+                line[i].op[0] = VGSCPU_OP_LD_A_D;
+                break;
+            default:
+                sprintf(line[i].error, "syntax error: invalid register: %s", line[i].token[2]);
+                return -1;
+        }
+        return 0;
+    }
+    sprintf(line[i].error, "syntax error: invalid argument: %s", line[i].token[2]);
+    return -1;
+}
+
+static int parse_ld_b(struct line_data* line, int i)
+{
+    unsigned int v;
+    unsigned short s;
+    int m;
+    if (0 == check_literal(line[i].token[2], &v)) {
+        if (v < 0x100) {
+            line[i].op[0] = VGSCPU_OP_LD_B_1;
+            line[i].op[1] = v & 0xff;
+            line[i].oplen = 2;
+        } else if (v < 0x10000) {
+            s = v & 0xffff;
+            line[i].op[0] = VGSCPU_OP_LD_B_2;
+            memcpy(&line[i].op[1], &s, 2);
+            line[i].oplen = 3;
+        } else {
+            line[i].op[0] = VGSCPU_OP_LD_B_4;
+            memcpy(&line[i].op[1], &v, 4);
+            line[i].oplen = 5;
+        }
+        return 0;
+    } else if (0 == check_address(line[i].token[2], &v, &m)) {
+        memcpy(&line[i].op[1], &v, 4);
+        line[i].oplen = 5;
+        switch (m) {
+            case M1:
+                line[i].op[0] = VGSCPU_OP_LD_B_M1;
+                break;
+            case M2:
+                line[i].op[0] = VGSCPU_OP_LD_B_M2;
+                break;
+            case M4:
+                line[i].op[0] = VGSCPU_OP_LD_B_M4;
+                break;
+        }
+        return 0;
+    } else {
+        line[i].oplen = 1;
+        switch (check_GR(line[i].token[2])) {
+            case A4:
+                line[i].op[0] = VGSCPU_OP_LD_B_A;
+                break;
+            case C4:
+                line[i].op[0] = VGSCPU_OP_LD_B_C;
+                break;
+            case D4:
+                line[i].op[0] = VGSCPU_OP_LD_B_D;
+                break;
+            default:
+                sprintf(line[i].error, "syntax error: invalid register: %s", line[i].token[2]);
+                return -1;
+        }
+        return 0;
+    }
+    sprintf(line[i].error, "syntax error: invalid argument: %s", line[i].token[2]);
+    return -1;
+}
+
+static int parse_ld_c(struct line_data* line, int i)
+{
+    unsigned int v;
+    unsigned short s;
+    int m;
+    if (0 == check_literal(line[i].token[2], &v)) {
+        if (v < 0x100) {
+            line[i].op[0] = VGSCPU_OP_LD_C_1;
+            line[i].op[1] = v & 0xff;
+            line[i].oplen = 2;
+        } else if (v < 0x10000) {
+            s = v & 0xffff;
+            line[i].op[0] = VGSCPU_OP_LD_C_2;
+            memcpy(&line[i].op[1], &s, 2);
+            line[i].oplen = 3;
+        } else {
+            line[i].op[0] = VGSCPU_OP_LD_C_4;
+            memcpy(&line[i].op[1], &v, 4);
+            line[i].oplen = 5;
+        }
+        return 0;
+    } else if (0 == check_address(line[i].token[2], &v, &m)) {
+        memcpy(&line[i].op[1], &v, 4);
+        line[i].oplen = 5;
+        switch (m) {
+            case M1:
+                line[i].op[0] = VGSCPU_OP_LD_C_M1;
+                break;
+            case M2:
+                line[i].op[0] = VGSCPU_OP_LD_C_M2;
+                break;
+            case M4:
+                line[i].op[0] = VGSCPU_OP_LD_C_M4;
+                break;
+        }
+        return 0;
+    } else {
+        line[i].oplen = 1;
+        switch (check_GR(line[i].token[2])) {
+            case A4:
+                line[i].op[0] = VGSCPU_OP_LD_C_A;
+                break;
+            case B4:
+                line[i].op[0] = VGSCPU_OP_LD_C_B;
+                break;
+            case D4:
+                line[i].op[0] = VGSCPU_OP_LD_C_D;
+                break;
+            default:
+                sprintf(line[i].error, "syntax error: invalid register: %s", line[i].token[2]);
+                return -1;
+        }
+        return 0;
+    }
+    sprintf(line[i].error, "syntax error: invalid argument: %s", line[i].token[2]);
+    return -1;
+}
+
+static int parse_ld_d(struct line_data* line, int i)
+{
+    unsigned int v;
+    unsigned short s;
+    int m;
+    if (0 == check_literal(line[i].token[2], &v)) {
+        if (v < 0x100) {
+            line[i].op[0] = VGSCPU_OP_LD_D_1;
+            line[i].op[1] = v & 0xff;
+            line[i].oplen = 2;
+        } else if (v < 0x10000) {
+            s = v & 0xffff;
+            line[i].op[0] = VGSCPU_OP_LD_D_2;
+            memcpy(&line[i].op[1], &s, 2);
+            line[i].oplen = 3;
+        } else {
+            line[i].op[0] = VGSCPU_OP_LD_D_4;
+            memcpy(&line[i].op[1], &v, 4);
+            line[i].oplen = 5;
+        }
+        return 0;
+    } else if (0 == check_address(line[i].token[2], &v, &m)) {
+        memcpy(&line[i].op[1], &v, 4);
+        line[i].oplen = 5;
+        switch (m) {
+            case M1:
+                line[i].op[0] = VGSCPU_OP_LD_D_M1;
+                break;
+            case M2:
+                line[i].op[0] = VGSCPU_OP_LD_D_M2;
+                break;
+            case M4:
+                line[i].op[0] = VGSCPU_OP_LD_D_M4;
+                break;
+        }
+        return 0;
+    } else {
+        line[i].oplen = 1;
+        switch (check_GR(line[i].token[2])) {
+            case A4:
+                line[i].op[0] = VGSCPU_OP_LD_D_A;
+                break;
+            case B4:
+                line[i].op[0] = VGSCPU_OP_LD_D_B;
+                break;
+            case C4:
+                line[i].op[0] = VGSCPU_OP_LD_D_C;
+                break;
+            default:
+                sprintf(line[i].error, "syntax error: invalid register: %s", line[i].token[2]);
+                return -1;
+        }
+        return 0;
+    }
+    sprintf(line[i].error, "syntax error: invalid argument: %s", line[i].token[2]);
+    return -1;
+}
+
+static int parse_ld(struct line_data* line, int i)
+{
+    if (line[i].toknum < 3) {
+        sprintf(line[i].error, "syntax error: required argument was not specified");
+        return -1;
+    }
+    if (3 < line[i].toknum) {
+        sprintf(line[i].error, "syntax error: extra argument was specified: %s", line[i].token[3]);
+        return -1;
+    }
+    switch (check_GR(line[i].token[1])) {
+        case A4:
+            return parse_ld_a(line, i);
+        case B4:
+            return parse_ld_b(line, i);
+        case C4:
+            return parse_ld_c(line, i);
+        case D4:
+            return parse_ld_d(line, i);
+    }
+    sprintf(line[i].error, "syntax error: unknown register was specified: %s", line[i].token[1]);
+    return -1;
 }
 
 static int parse_operation(struct line_data* line, int len)
@@ -330,6 +778,8 @@ static int parse_operation(struct line_data* line, int len)
             if (parse_push(line, i)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "POP")) {
             if (parse_pop(line, i)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "LD")) {
+            if (parse_ld(line, i)) error_count++;
         } else {
             sprintf(line[i].error, "syntax error: unknown operand was specified: %s", line[i].token[0]);
             error_count++;
