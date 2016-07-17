@@ -123,6 +123,7 @@ vgsasm: src/asm/vgsasm.h src/cpu/vgscpu_internal.h $(VGSASM_SRC)
 
 test: build
 	for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done
+	make asm-test
 
 format-test-src:
 	@sh tools/format.sh src/test/$(TP).c 
@@ -132,3 +133,10 @@ run-test-exec:
 	gcc -I./src/cpu src/test/$(TP).c -o $(TP) vgscpu.a
 	./$(TP)
 	@rm ./$(TP)
+
+asm-test:
+	@sh tools/format.sh src/test/asmtest.c 
+	gcc -I./src/cpu src/test/asmtest.c -o asmtest vgscpu.a
+	./asmtest src/test/asm_push_pop_a.asm
+	@rm asmtest
+	@rm tp.bin
