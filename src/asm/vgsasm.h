@@ -60,5 +60,6 @@ int parse_push(struct line_data* line, int i);
 int parse_pop(struct line_data* line, int i);
 int parse_ld(struct line_data* line, int i);
 int parse_st(struct line_data* line, int i);
+int parse_inc(struct line_data* line, int i);
 int parse_acu(struct line_data* line, int i, int acu);
 int _parse_arl(struct line_data* line, int i, int r, int op);
