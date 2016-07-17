@@ -238,3 +238,41 @@ int parse_operation(struct line_data* line, int len)
     }
     return error_count;
 }
+
+int check_label(struct line_data* line, int len)
+{
+    int error_count = 0;
+    int i, j;
+    unsigned int addr = 0;
+    for (i = 0; i < len; i++) {
+        if (0 == line[i].oplen) {
+            for (j = 0; j < i; j++) {
+                if (0 == line[j].oplen) {
+                    // check duplicated label
+                    if (0 == strcasecmp(line[i].branch_label, line[j].branch_label)) {
+                        sprintf(line[i].error, "syntax error: label duplicated: %s", line[i].branch_label);
+                        error_count++;
+                    }
+                } else {
+                    // set branch address
+                    if (line[j].branch_label[0]) {
+                        if (0 == strcasecmp(line[i].branch_label, line[j].branch_label)) {
+                            memcpy(&line[j].op[1], &addr, 4);
+                            line[j].label_resolved = 1;
+                        }
+                    }
+                }
+            }
+        } else {
+            addr += line[i].oplen;
+        }
+    }
+    // check unresolved address
+    for (i = 0; i < len; i++) {
+        if (line[i].oplen && line[i].branch_label[0] && !line[i].label_resolved) {
+            sprintf(line[i].error, "syntax error: unknown label: %s", line[i].branch_label);
+            error_count++;
+        }
+    }
+    return error_count;
+}

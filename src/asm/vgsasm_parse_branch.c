@@ -20,5 +20,6 @@ int parse_branch(struct line_data* line, int i, unsigned char op)
     }
     strcpy(line[i].branch_label, line[i].token[1]);
     line[i].op[0] = op;
+    line[i].label_resolved = 0;
     return 0;
 }

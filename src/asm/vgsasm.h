@@ -44,6 +44,7 @@ struct line_data {
     unsigned char op[16];
     int oplen;
     char branch_label[256];
+    int label_resolved;
 };
 
 char* load_file(const char* path);
@@ -72,3 +73,4 @@ int parse_acu(struct line_data* line, int i, int acu);
 int _parse_arl(struct line_data* line, int i, int r, int op);
 int parse_branch(struct line_data* line, int i, unsigned char op);
 int parse_vgs(struct line_data* line, int i);
+int check_label(struct line_data* line, int len);

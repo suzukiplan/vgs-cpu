@@ -79,15 +79,9 @@ int main(int argc, char* argv[])
         return 5;
     }
 
-    {
-        int i, j;
-        for (i = 0; i < PT.line_number; i++) {
-            printf("%04d:", PT.line[i].number);
-            for (j = 0; j < PT.line[i].toknum; j++) {
-                printf(" <%s>", PT.line[i].token[j]);
-            }
-            printf("\n");
-        }
+    if (check_label(PT.line, PT.line_number)) {
+        show_errors(PT.line, PT.line_number);
+        return 6;
     }
 
     free(PT.line);
