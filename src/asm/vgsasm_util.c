@@ -245,6 +245,7 @@ int check_literal(char* token, unsigned int* result)
             *result *= 10;
             *result += v % 10;
         }
+        return 0;
     }
     return -1;
 }

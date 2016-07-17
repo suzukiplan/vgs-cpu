@@ -1,3 +1,6 @@
+#ifndef _WIN32
+#include <sys/time.h>
+#endif
 #include "vgsasm.h"
 
 struct program_table {
@@ -50,6 +53,17 @@ static void show_errors(struct line_data* line, int len)
 
 int main(int argc, char* argv[])
 {
+    FILE* fp;
+    int i;
+
+#ifndef _WIN32
+    long usec;
+    double sec;
+    struct timeval tvStart;
+    struct timeval tvEnd;
+    gettimeofday(&tvStart, NULL);
+#endif
+
     if (check_arguments(argc, argv)) {
         puts("usage: vgsasm [-o output.bin] input.asm");
         return 1;
@@ -84,7 +98,34 @@ int main(int argc, char* argv[])
         return 6;
     }
 
+    if (NULL == (fp = fopen(PT.output, "wb"))) {
+        fprintf(stderr, "file open error.\n");
+        return 7;
+    }
+
+    for (i = 0; i < PT.line_number; i++) {
+        if (PT.line[i].oplen) {
+            if (PT.line[i].oplen != fwrite(PT.line[i].op, 1, PT.line[i].oplen, fp)) {
+                fprintf(stderr, "file write error.\n");
+                return 8;
+            }
+        }
+    }
+    fclose(fp);
     free(PT.line);
     free(PT.buffer);
+
+#ifdef _WIN32
+    printf("success\n");
+#else
+    gettimeofday(&tvEnd, NULL);
+    usec = tvEnd.tv_sec - tvStart.tv_sec;
+    usec *= 1000000;
+    usec += tvEnd.tv_usec;
+    usec -= tvStart.tv_usec;
+    sec = usec / 1000000.0;
+    printf("success (%fsec)\n", sec);
+#endif
+
     return 0;
 }
