@@ -3,8 +3,6 @@
  */
 
 start:
-    LD      D, -1
-
     LD      A, $deadbeef
     PUSH    A
     PUSH    AH
@@ -26,4 +24,5 @@ start:
     BRK
 
 test-failed:
+    LD      D, -1
     BRK
