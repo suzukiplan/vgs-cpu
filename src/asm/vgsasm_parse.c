@@ -147,6 +147,10 @@ int parse_operation(struct line_data* line, int len)
             if (parse_st(line, i)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "INC")) {
             if (parse_inc(line, i)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "DEC")) {
+            if (parse_dec(line, i)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "NOT")) {
+            if (parse_not(line, i)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "ADD")) {
             if (parse_acu(line, i, ACU_ADD)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "SUB")) {

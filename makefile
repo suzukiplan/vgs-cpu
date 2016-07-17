@@ -68,6 +68,8 @@ VGSASM_SRC=\
 	src/asm/vgsasm_parse_ld.c\
 	src/asm/vgsasm_parse_st.c\
 	src/asm/vgsasm_parse_inc.c\
+	src/asm/vgsasm_parse_dec.c\
+	src/asm/vgsasm_parse_not.c\
 	src/asm/vgsasm_parse_acu.c\
 	src/asm/vgsasm_parse_arl.c\
 	src/asm/vgsasm_util.c
