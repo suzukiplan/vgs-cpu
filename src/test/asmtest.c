@@ -1,3 +1,6 @@
+#ifndef _WIN32
+#include <sys/time.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include "vgscpu.h"
@@ -47,6 +50,12 @@ int main(int argc, char* argv[])
     int size;
     struct vgscpu_context* c = (struct vgscpu_context*)vgscpu_create_context();
     int result;
+#ifndef _WIN32
+    long usec;
+    double sec;
+    struct timeval tvStart;
+    struct timeval tvEnd;
+#endif
 
     if (!c) return -1;
 
@@ -69,10 +78,22 @@ int main(int argc, char* argv[])
     free(bin);
 
     c->r.d = 0x1;
+#ifndef _WIN32
+    gettimeofday(&tvStart, NULL);
+#endif
     if (vgscpu_run(c)) {
         puts("failed");
         return 4;
     }
+#ifndef _WIN32
+    gettimeofday(&tvEnd, NULL);
+    usec = tvEnd.tv_sec - tvStart.tv_sec;
+    usec *= 1000000;
+    usec += tvEnd.tv_usec;
+    usec -= tvStart.tv_usec;
+    sec = usec / 1000000.0;
+    printf("executed: %fsec\n", sec);
+#endif
     result = (int)c->r.d;
 
     vgscpu_release_context(c);
