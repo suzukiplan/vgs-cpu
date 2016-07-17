@@ -101,6 +101,7 @@ format:
 	sh tools/format.sh src/cpu/vgscpu_op_acu_c.h 
 	sh tools/format.sh src/cpu/vgscpu_op_acu_d.h 
 	sh tools/format.sh src/test/tp.h 
+	sh tools/format.sh src/test/asmtest.c 
 	for AS in $(VGSASM_SRC); do make format-src SRC=$$AS; done
 	for TP in $(TESTCASE); do make format-test-src TP=$$TP; done
 
@@ -135,7 +136,6 @@ run-test-exec:
 	@rm ./$(TP)
 
 asm-test:
-	@sh tools/format.sh src/test/asmtest.c 
 	gcc -I./src/cpu src/test/asmtest.c -o asmtest vgscpu.a
 	./asmtest src/test/asm_push_pop_a.asm
 	@rm asmtest
