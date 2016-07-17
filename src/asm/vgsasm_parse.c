@@ -145,6 +145,26 @@ int parse_operation(struct line_data* line, int len)
             if (parse_ld(line, i)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "ST")) {
             if (parse_st(line, i)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "ADD")) {
+            if (parse_acu(line, i, ACU_ADD)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "SUB")) {
+            if (parse_acu(line, i, ACU_SUB)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "MUL")) {
+            if (parse_acu(line, i, ACU_MUL)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "DIV")) {
+            if (parse_acu(line, i, ACU_DIV)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "MOD")) {
+            if (parse_acu(line, i, ACU_MOD)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "AND")) {
+            if (parse_acu(line, i, ACU_AND)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "OR")) {
+            if (parse_acu(line, i, ACU_OR)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "XOR")) {
+            if (parse_acu(line, i, ACU_XOR)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "CMP")) {
+            if (parse_acu(line, i, ACU_CMP)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "CMP2")) {
+            if (parse_acu(line, i, ACU_CMP2)) error_count++;
         } else {
             sprintf(line[i].error, "syntax error: unknown operand was specified: %s", line[i].token[0]);
             error_count++;

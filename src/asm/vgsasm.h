@@ -21,6 +21,17 @@
 #define M2 2
 #define M4 4
 
+#define ACU_ADD 0
+#define ACU_SUB 1
+#define ACU_MUL 2
+#define ACU_DIV 3
+#define ACU_MOD 4
+#define ACU_AND 5
+#define ACU_OR 6
+#define ACU_XOR 7
+#define ACU_CMP 8
+#define ACU_CMP2 9
+
 struct line_data {
     char error[1024];
     char* buffer;
@@ -49,3 +60,5 @@ int parse_push(struct line_data* line, int i);
 int parse_pop(struct line_data* line, int i);
 int parse_ld(struct line_data* line, int i);
 int parse_st(struct line_data* line, int i);
+int parse_acu(struct line_data* line, int i, int acu);
+int _parse_arl(struct line_data* line, int i, int r, int op);
