@@ -32,6 +32,9 @@
 #define ACU_CMP 8
 #define ACU_CMP2 9
 
+#define SHIFT_LEFT 0
+#define SHIFT_RIGHT 1
+
 struct line_data {
     char error[1024];
     char* buffer;
@@ -63,5 +66,6 @@ int parse_st(struct line_data* line, int i);
 int parse_inc(struct line_data* line, int i);
 int parse_dec(struct line_data* line, int i);
 int parse_not(struct line_data* line, int i);
+int parse_shift(struct line_data* line, int i, int lr);
 int parse_acu(struct line_data* line, int i, int acu);
 int _parse_arl(struct line_data* line, int i, int r, int op);

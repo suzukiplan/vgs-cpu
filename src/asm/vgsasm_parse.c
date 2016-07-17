@@ -151,6 +151,10 @@ int parse_operation(struct line_data* line, int len)
             if (parse_dec(line, i)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "NOT")) {
             if (parse_not(line, i)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "SHL")) {
+            if (parse_shift(line, i, SHIFT_LEFT)) error_count++;
+        } else if (0 == strcasecmp(line[i].token[0], "SHR")) {
+            if (parse_shift(line, i, SHIFT_RIGHT)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "ADD")) {
             if (parse_acu(line, i, ACU_ADD)) error_count++;
         } else if (0 == strcasecmp(line[i].token[0], "SUB")) {
