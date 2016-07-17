@@ -117,13 +117,13 @@ void parse_token(struct line_data* line, int len)
         w = line[i].buffer;
         while (*w) {
             line[i].token[line[i].toknum++] = w;
-            while (*w && ' ' != *w && '\t' != *w) {
+            while (*w && ' ' != *w) {
                 w++;
             }
-            if (' ' == *w || '\t' == *w) {
+            if (' ' == *w) {
                 *w = '\0';
                 w++;
-                while (' ' == *w && '\t' == *w) {
+                while (' ' == *w) {
                     w++;
                 }
             }
