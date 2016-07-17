@@ -139,5 +139,6 @@ asm-test:
 	gcc -I./src/cpu src/test/asmtest.c -o asmtest vgscpu.a
 	./asmtest src/test/asm_push_pop_a.asm
 	./asmtest src/test/asm_push_pop_b.asm
+	./asmtest src/test/asm_push_pop_c.asm
 	@rm asmtest
 	@rm tp.bin
