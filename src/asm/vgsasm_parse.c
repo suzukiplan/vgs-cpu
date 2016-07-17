@@ -136,6 +136,7 @@ int parse_operation(struct line_data* line, int len)
     int error_count = 0;
     int i;
     int r;
+    size_t l;
     for (i = 0; i < len; i++) {
         if (0 == strcasecmp(line[i].token[0], "PUSH")) {
             if (parse_push(line, i)) error_count++;
@@ -214,8 +215,25 @@ int parse_operation(struct line_data* line, int len)
                 line[i].oplen = 1;
             }
         } else {
-            sprintf(line[i].error, "syntax error: unknown operand was specified: %s", line[i].token[0]);
-            error_count++;
+            l = strlen(line[i].token[0]);
+            if (2 < l && ':' == line[i].token[0][l - 1]) {
+                if (sizeof(line[i].branch_label) <= l - 1) {
+                    sprintf(line[i].error, "syntax error: too long label: %s", line[i].token[0]);
+                    error_count++;
+                } else {
+                    if (1 < line[i].toknum) {
+                        sprintf(line[i].error, "syntax error: extra argument was specified: %s", line[i].token[1]);
+                        error_count++;
+                    } else {
+                        memset(line[i].branch_label, 0, sizeof(line[i].branch_label));
+                        strncpy(line[i].branch_label, line[i].token[0], l - 1);
+                        line[i].oplen = 0;
+                    }
+                }
+            } else {
+                sprintf(line[i].error, "syntax error: unknown operand was specified: %s", line[i].token[0]);
+                error_count++;
+            }
         }
     }
     return error_count;
