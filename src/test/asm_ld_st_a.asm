@@ -72,5 +72,6 @@ start:
     BRK
 
 test-failed:
+    INT     $00
     LD      D, -1
     BRK

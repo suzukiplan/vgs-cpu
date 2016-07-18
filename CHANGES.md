@@ -1,6 +1,7 @@
 # Changes
 
 ## version 0.1.2
+- license の修正（不要文言削除のみ）
 - `vgsasm` のテストを追加
 
 ## Version 0.1.1
