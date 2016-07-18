@@ -205,9 +205,61 @@ void vgscpu_release_context(void *ctx);
 
 _※VGS APIは実装途中で、今後拡張していきます_
 
-## [WIP] VGS ASM
+## VGS ASM
 ### vgsasm command
 ```
 $ vgsasm [-o output-binary] input-source
 ```
-_現時点ではビルドのみ完了している状態です（テストはまだしていません）_
+
+### syntax
+#### comment syntax
+C/C++言語形式 の コメント に 対応
+```asm
+    PUSH A  /* C形式コメント (複数行可能) */
+    POP  A  // C++形式コメント
+```
+
+#### literal syntax
+- 定数の表記方法は 2進数, 8進数, 10進数, 16進数 の 4種類 を サポート
+- 負数表記 は 10進数 の 場合 にのみできる
+```asm
+    LD A, B10101110   // 2進数 (頭に B を付ける)
+    LD B, 0765        // 8進数 (頭に 0 を付ける)
+    LD C, 12345678    // 10進数 (頭に - または 1〜9 を付ける)
+    LD D, $deadbeef   // 16進数 (頭に $ を付ける)
+```
+
+主記憶のアドレス表記には `[literal]` を用いる
+```asm
+    ST A, [$123]      // アドレス $123 から 4byte (32bit) の内容を参照
+    ST B, [$123]H     // アドレス $123 から 2byte (16bit) の内容を参照
+    ST C, [$123]O     // アドレス $123 から 1byte (8bit) の内容を参照
+```
+
+#### label syntax
+- サフィックス `:` を付けたものがラベルとなる
+- ラベルは 1バイト以上 255バイト以下 の 1トークン文字列 とする
+- ブランチ命令の飛び先には必ずラベルを用いる (アドレス値の直指定はできない)
+```asm
+    ST  A, [$123]
+    LD  B, 100
+    CMP A, B
+    JE  equal       // A = B
+    JP  positive    // A > B
+    JN  negative    // A < B
+
+equal:
+    LD  C, 0
+    BRK
+
+positive:
+    LD  C, 1
+    BRK
+
+negative:
+    LD  C, -1
+    BRK
+```
+
+#### operand syntax
+[Operands](https://github.com/suzukiplan/vgs-cpu#operands) を 参照
