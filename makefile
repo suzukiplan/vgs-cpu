@@ -140,5 +140,7 @@ asm-test:
 	./asmtest src/test/asm_push_pop_d.asm
 	./asmtest src/test/asm_ld_st_a.asm
 	./asmtest src/test/asm_ld_st_b.asm
+	./asmtest src/test/asm_ld_st_c.asm
+	./asmtest src/test/asm_ld_st_d.asm
 	@rm asmtest
 	@rm tp.bin
