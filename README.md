@@ -262,4 +262,4 @@ negative:
 ```
 
 #### operand syntax
-[Operands](https://github.com/suzukiplan/vgs-cpu#operands) を 参照
+[Operands](#operands) を 参照
