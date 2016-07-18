@@ -1,6 +1,6 @@
 #include "vgsasm.h"
 
-int parse_vgs(struct line_data* line, int i)
+int parse_int(struct line_data* line, int i)
 {
     unsigned int v;
     if (line[i].toknum < 2) {
@@ -15,7 +15,7 @@ int parse_vgs(struct line_data* line, int i)
         sprintf(line[i].error, "syntax error: invalid argument was specified: %s", line[i].token[1]);
         return -1;
     }
-    line[i].op[0] = VGSCPU_OP_VGS;
+    line[i].op[0] = VGSCPU_OP_INT;
     line[i].op[1] = v & 0xff;
     line[i].oplen = 2;
     return 0;
