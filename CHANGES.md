@@ -3,6 +3,7 @@
 ## version 0.1.2
 - license の修正（不要文言削除のみ）
 - `vgsasm` のテストを追加
+- bugfix: SHL, SHR の結果が ゼロフラグ に反映されない
 
 ## Version 0.1.1
 - `vgsasm` のテストを追加: LD, ST
