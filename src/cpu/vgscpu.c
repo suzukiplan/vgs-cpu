@@ -754,48 +754,56 @@ int vgscpu_run(void *ctx)
                 c->r.p++;
                 b = c->p[c->r.p++];
                 c->r.a <<= b;
+                c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
             case VGSCPU_OP_SHL_B:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 c->r.p++;
                 b = c->p[c->r.p++];
                 c->r.b <<= b;
+                c->f.z = (0 == c->r.b) ? 1 : 0;
                 break;
             case VGSCPU_OP_SHL_C:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 c->r.p++;
                 b = c->p[c->r.p++];
                 c->r.c <<= b;
+                c->f.z = (0 == c->r.c) ? 1 : 0;
                 break;
             case VGSCPU_OP_SHL_D:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 c->r.p++;
                 b = c->p[c->r.p++];
                 c->r.d <<= b;
+                c->f.z = (0 == c->r.d) ? 1 : 0;
                 break;
             case VGSCPU_OP_SHR_A:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 c->r.p++;
                 b = c->p[c->r.p++];
                 c->r.a >>= b;
+                c->f.z = (0 == c->r.a) ? 1 : 0;
                 break;
             case VGSCPU_OP_SHR_B:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 c->r.p++;
                 b = c->p[c->r.p++];
                 c->r.b >>= b;
+                c->f.z = (0 == c->r.b) ? 1 : 0;
                 break;
             case VGSCPU_OP_SHR_C:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 c->r.p++;
                 b = c->p[c->r.p++];
                 c->r.c >>= b;
+                c->f.z = (0 == c->r.c) ? 1 : 0;
                 break;
             case VGSCPU_OP_SHR_D:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 c->r.p++;
                 b = c->p[c->r.p++];
                 c->r.d >>= b;
+                c->f.z = (0 == c->r.d) ? 1 : 0;
                 break;
             /*
              *----------------------------------------------------------------
