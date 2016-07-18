@@ -72,5 +72,5 @@ int parse_shift(struct line_data* line, int i, int lr);
 int parse_acu(struct line_data* line, int i, int acu);
 int _parse_arl(struct line_data* line, int i, int r, int op);
 int parse_branch(struct line_data* line, int i, unsigned char op);
-int parse_vgs(struct line_data* line, int i);
+int parse_int(struct line_data* line, int i);
 int check_label(struct line_data* line, int len);

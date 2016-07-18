@@ -20,6 +20,29 @@ void *vgscpu_create_specific_context(unsigned int ps, unsigned int ss, unsigned 
 - `ss` : スタックサイズの上限（byte）
 - `ms` : メモリサイズの上限（byte）
 
+### vgscpu_regist_interrupt
+```c
+void vgscpu_regist_interrupt(void *ctx, unsigned char n, int (*interrupt)(struct vgscpu_context *));
+```
+- `INT` 命令で実行される 割り込み番号n の 関数を登録する
+- 割り込み関数 VGS-CPU を利用するコンピュータシステム上 で コンテキスト毎 に 最大256個 登録することができる
+- Windows で利用する場合, 割り込み関数 の 呼び出し規約 が `__cdecl` (C規約) である点に注意すること
+
+_例: `HELLO, VGS-CPU` と標準出力する割り込み (番号0) を登録_
+```c
+int hello_world(struct vgscpu_context *c)
+{
+    printf("HELLO, VGS-CPU");
+    return 0;
+}
+
+int main()
+{
+    struct vgscpu_context *c = (struct vgscpu_context *)vgscpu_create_context();
+    vgscpu_regist_interrupt(c, 0, hello_world);
+    :
+```
+
 ### vgscpu_load_program
 ```c
 int vgscpu_load_program(void *ctx, void *pg, size_t size);
@@ -47,14 +70,6 @@ const char* vgscpu_get_last_error(void *ctx);
 void vgscpu_release_context(void *ctx);
 ```
 - CPUコンテキストを開放
-
-## Specification & Plans (WIP)
-- VGS 本体の SLOT に PSLOT (Program Slot) を追加する
-- VGS アプリ起動時に PSLOT000 が 1回だけ実行される
-- 以降, フレーム間隔毎に PSLOT001 が実行される
-- PSLOT は (001 ~ 254 の範囲で) 動的にスイッチできる
-- VGS アプリ終了時に PSLOT255 が (あれば) 1回だけ実行される
-- todo: アセンブラも後で作る（それまではハンドアセンブルでテストする）
 
 ## Architecture
 ### context
@@ -182,30 +197,19 @@ void vgscpu_release_context(void *ctx);
 |`CAL n`|-|-|アドレスn を呼び出す|
 |`RET`|-|-|`CAL` の呼び出し元へ復帰|
 |`BRK`|-|-|プログラムの実行状態を解除|
+|`INT n`|`?`|`?`|割り込み番号n を実行|
 
 - `CAL` を実行すると, スタック領域に 戻りアドレス(4byte) を PUSH して アドレスn へジャンプする
 - `RET` を実行すると, スタック領域から 戻りアドレス(4byte) を POP して 戻りアドレス へジャンプする
 - _アプリケーションにより, 誤って 戻りアドレス が `POP` されると stack underflow または 不正アドレス へジャンプする恐れがある_
+- `INT` で 呼び出す割り込み は `vgscpu_regist_interrupt` で予め登録してなければならない
+- `INT` で 登録した割り込み関数 の 戻り値 (int型) は __レジスタD__ にセットされる
+- `INT` の 戻り値以外 の 呼び出し規約の取り決め は 割り込みの実装者 に委ねられるが, 原則以下の割当を推奨する
+  - レジスタA: 算術演算の類のパラメタ (accumulater)
+  - レジスタB: 主記憶アドレスの起点 (base)
+  - レジスタC: 個数 (counter)
 
-### VGS API
-|operand|z|q|outline|
-|---|:---:|:---:|---|
-|`VGS n`|-|-|命令番号n の VGS API を呼び出す|
-
-- VGS の API を呼び出すための特別な命令
-- 全てのデバイスアクセスは VGS API が実行するため, VGS-CPU には 通常のコンピュータの `OUT` や `IN` に相当する命令は存在しない 
-- 呼び出し規約（引数として利用される項目）は 命令番号 によって異なる
-- 戻り値は必ず __レジスタD__ に格納される
-
-## VGS API
-### operands
-|命令番号|API名|呼び出し規約|戻り値|意味|
-|---:|:---|:---|:---:|:---|
-|0|NOOP|n/a|0|何も実行せずに 0 を返す|
-
-_※VGS APIは実装途中で、今後拡張していきます_
-
-## VGS ASM
+## Assembler
 ### vgsasm command
 ```
 $ vgsasm [-o output-binary] input-source

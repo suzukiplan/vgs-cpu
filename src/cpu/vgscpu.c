@@ -65,8 +65,6 @@
         c->r.s += 4;                  \
     }
 
-static int (*vgsapi[1])(struct vgscpu_context *) = {vgsapi_noop};
-
 void *vgscpu_create_context()
 {
     return vgscpu_create_specific_context(VGSCPU_PROGRAM_SIZE_DEFAULT, VGSCPU_STACK_SIZE_DEFAULT, VGSCPU_MEMORY_SIZE_DEFAULT);
@@ -101,6 +99,12 @@ void vgscpu_release_context(void *ctx)
         memset(c, 0x42, sizeof(struct vgscpu_context));
         free(c);
     }
+}
+
+void vgscpu_regist_interrupt(void *ctx, unsigned char n, int (*interrupt)(struct vgscpu_context *))
+{
+    struct vgscpu_context *c = (struct vgscpu_context *)ctx;
+    c->interrupt[n] = interrupt;
 }
 
 int vgscpu_load_program(void *ctx, void *pg, size_t size)
@@ -2645,14 +2649,20 @@ int vgscpu_run(void *ctx)
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY_SPECIFIC(i);
                 c->r.p = i;
                 break;
-            case VGSCPU_OP_VGS:
+            case VGSCPU_OP_INT:
                 ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
                 c->r.p++;
-                c->r.d = vgsapi[c->p[c->r.p]](c);
+                if (!c->interrupt[c->p[c->r.p]]) {
+                    sprintf(c->error, "INTERRUPT NOT REGISTERED: $%02X", (int)c->p[c->r.p]);
+                    loop_flag = 0;
+                    ret = -1;
+                    break;
+                }
+                c->r.d = c->interrupt[c->p[c->r.p]](c);
                 c->r.p++;
                 break;
             default:
-                sprintf(c->error, "UNKNOWN INSTRUCTION(%02X)", (int)c->p[c->r.p]);
+                sprintf(c->error, "UNKNOWN INSTRUCTION: $%02X", (int)c->p[c->r.p]);
                 loop_flag = 0;
                 ret = -1;
         }

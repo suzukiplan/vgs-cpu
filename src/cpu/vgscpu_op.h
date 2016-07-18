@@ -229,4 +229,4 @@
 #define VGSCPU_OP_JNP 0xfc /* jump when equal flag != 1 */
 #define VGSCPU_OP_CAL 0xfd /* call to specific address */
 #define VGSCPU_OP_RET 0xfe /* return to called */
-#define VGSCPU_OP_VGS 0xff /* execute VGS-API */
+#define VGSCPU_OP_INT 0xff /* execute interrupt */

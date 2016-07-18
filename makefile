@@ -58,7 +58,7 @@ TESTCASE=\
 	tp_xor_d\
 	tp_cmp_d\
 	tp_cmp2_d\
-	tp_vgs
+	tp_int
 
 VGSASM_SRC=\
 	src/asm/vgsasm.c\
@@ -74,7 +74,7 @@ VGSASM_SRC=\
 	src/asm/vgsasm_parse_acu.c\
 	src/asm/vgsasm_parse_arl.c\
 	src/asm/vgsasm_parse_branch.c\
-	src/asm/vgsasm_parse_vgs.c\
+	src/asm/vgsasm_parse_int.c\
 	src/asm/vgsasm_util.c
 
 all:
@@ -110,14 +110,11 @@ format-src:
 
 build: vgscpu.a vgsasm
 
-vgscpu.a: vgscpu.o vgsapi.o
-	ar ruv vgscpu.a vgscpu.o vgsapi.o
+vgscpu.a: vgscpu.o
+	ar ruv vgscpu.a vgscpu.o
 
 vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
 	gcc -O2 -I./src/cpu src/cpu/vgscpu.c -c -o vgscpu.o
-
-vgsapi.o: src/cpu/vgsapi.c src/cpu/vgscpu_internal.h
-	gcc -O2 -I./src/cpu src/cpu/vgsapi.c -c -o vgsapi.o
 
 vgsasm: src/asm/vgsasm.h src/cpu/vgscpu_internal.h $(VGSASM_SRC)
 	gcc -O2 -I./src/asm -I./src/cpu $(VGSASM_SRC) -o vgsasm
