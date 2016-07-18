@@ -43,6 +43,13 @@ char* load_bin(const char* path, int* size)
     return data;
 }
 
+int print_registers(struct vgscpu_context* c)
+{
+    printf("c->r.a = %08X, c->r.b = %08X, c->r.c = %08X, c->r.d = %08X\n", c->r.a, c->r.b, c->r.c, c->r.d);
+    printf("c->r.p = %08X, c->r.s = %08X, c->f.z = %08X, c->f.q = %08X\n", c->r.p, c->r.s, c->f.z, c->f.z);
+    return 0;
+}
+
 int main(int argc, char* argv[])
 {
     char cmd[4096];
@@ -76,6 +83,8 @@ int main(int argc, char* argv[])
     }
     vgscpu_load_program(c, bin, size);
     free(bin);
+
+    vgscpu_regist_interrupt(c, 0, print_registers);
 
     c->r.d = 0x1;
 #ifndef _WIN32
