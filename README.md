@@ -3,6 +3,9 @@
 - VGS-CPU is a 32bit cpu that spacialized for creating games of VGS.
 - This repository also provides assember for VGS-CPU.
 
+## License
+[2-clause BSD](https://github.com/suzukiplan/vgs-cpu/blob/master/LICENSE.txt)
+
 ## How to use
 - UNIX系OS全般(mac/Linuxを含む) の ターミナル で `make` を実行すれば, できることが書いてあります
 - `make build` を実行すればアセンブラ (vgsasmコマンド) をビルドできます
