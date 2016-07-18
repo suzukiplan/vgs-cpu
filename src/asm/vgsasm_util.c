@@ -253,7 +253,7 @@ int check_literal(char* token, unsigned int* result)
 int check_address(char* token, unsigned int* result, int* m)
 {
     char buf[1024];
-    strcpy(buf, &token[1]);
+    strcpy(buf, token);
     size_t len = strlen(buf);
     if (len < 3) return -1;
     if ('[' == buf[0] && ']' == buf[len - 1]) {
