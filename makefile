@@ -140,5 +140,6 @@ asm-test:
 	./asmtest src/test/asm_push_pop_a.asm
 	./asmtest src/test/asm_push_pop_b.asm
 	./asmtest src/test/asm_push_pop_c.asm
+	./asmtest src/test/asm_push_pop_d.asm
 	@rm asmtest
 	@rm tp.bin
