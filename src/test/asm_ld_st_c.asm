@@ -1,71 +1,71 @@
 /*
-    LD/ST A の テストプログラム
+    LD/ST C の テストプログラム
  */
 
 start:
     // 4バイト store したものを 1, 2, 4 バイト load するテスト
-    LD      A, $deadbeef
-    ST      A, [0]
+    LD      C, $deadbeef
+    ST      C, [0]
 
-    LD      A, [0]O
-    CMP     A, $ef
+    LD      C, [0]O
+    CMP     C, $ef
     JNE     test-failed
 
-    LD      A, [0]H
-    CMP     A, $beef
+    LD      C, [0]H
+    CMP     C, $beef
     JNE     test-failed
 
-    LD      A, [0]
-    CMP     A, $deadbeef
+    LD      C, [0]
+    CMP     C, $deadbeef
     JNE     test-failed
 
     // 2バイト store したものを 1, 2, 4 バイト load するテスト
-    LD      A, $abcd
-    ST      A, [0]H
+    LD      C, $abcd
+    ST      C, [0]H
 
-    LD      A, [0]O
-    CMP     A, $cd
+    LD      C, [0]O
+    CMP     C, $cd
     JNE     test-failed
 
-    LD      A, [0]H
-    CMP     A, $abcd
+    LD      C, [0]H
+    CMP     C, $abcd
     JNE     test-failed
 
-    LD      A, [0]
-    CMP     A, $deadabcd
+    LD      C, [0]
+    CMP     C, $deadabcd
     JNE     test-failed
 
     // 1バイト store したものを 1, 2, 4 バイト load するテスト
-    LD      A, $10
-    ST      A, [0]O
+    LD      C, $10
+    ST      C, [0]O
 
-    LD      A, [0]O
-    CMP     A, $10
+    LD      C, [0]O
+    CMP     C, $10
     JNE     test-failed
 
-    LD      A, [0]H
-    CMP     A, $ab10
+    LD      C, [0]H
+    CMP     C, $ab10
     JNE     test-failed
 
-    LD      A, [0]
-    CMP     A, $deadab10
+    LD      C, [0]
+    CMP     C, $deadab10
     JNE     test-failed
 
     // レジスタからのload
+    LD      A, $A001
     LD      B, $B001
-    LD      C, $C001
     LD      D, $D001
 
-    LD      A, B
-    CMP     A, $B001
+    LD      C, A
+    CMP     C, $A001
     JNE     test-failed
 
-    LD      A, C
-    CMP     A, $C001
+    LD      C, B
+    CMP     C, $B001
     JNE     test-failed
 
-    LD      A, D
-    CMP     A, $D001
+    LD      C, D
+    CMP     C, $D001
     JNE     test-failed
 
     LD      D, 1
