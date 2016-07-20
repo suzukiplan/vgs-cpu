@@ -119,6 +119,11 @@ void vgscpu_release_context(void *ctx);
   - `[n]H` : 通常, アドレスが指す 16bit の領域を意味する
   - `[n]O` : 通常, アドレスが指す 8bit の領域を意味する
   - 例外的にアドレスの先頭を単純に指し示す場合は単に `[n]` と表記
+- `[GR]` : general register address
+  - `[GR]` : 通常, アドレス (GR値) が指す 32bit の領域を意味する
+  - `[GR]H` : 通常, アドレス (GR値) が指す 16bit の領域を意味する
+  - `[GR]O` : 通常, アドレス (GR値) が指す 8bit の領域を意味する
+  - 例外的にアドレスの先頭を単純に指し示す場合は単に `[n]` と表記
 
 ### memory operations
 |operand|z|q|outline|
@@ -128,7 +133,9 @@ void vgscpu_release_context(void *ctx);
 |`LD GR, n`|-|-|汎用レジスタ `<-` 定数|
 |`LD GR, [n]`|-|-|汎用レジスタ `<-` 主記憶のn番地の内容|
 |`LD GR1, GR2`|-|-|汎用レジスタ1 に 汎用レジスタ2 の内容をロード|
+|`LD GR1, [GR2]`|-|-|汎用レジスタ1 に 主記憶の 汎用レジスタ2 が指す番地の内容をロード|
 |`ST GR, [n]`|-|-|汎用レジスタ の 値 `->` 主記憶のn番地|
+|`ST GR, [GR2]`|-|-|汎用レジスタ の 値 `->` 主記憶の　汎用レジスタ2 が指す番地|
 
 ### arithmetic calculation
 |operand|z|q|outline|
