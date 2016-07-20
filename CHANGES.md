@@ -1,5 +1,8 @@
 # Changes
 
+## version 0.2.0
+- レジスタが指すアドレス値からの load/store に対応
+
 ## version 0.1.2
 - license の修正（不要文言削除のみ）
 - `vgsasm` のテストを追加
