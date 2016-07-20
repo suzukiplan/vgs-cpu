@@ -1,10 +1,14 @@
 # VGS CPU [![Build Status](https://travis-ci.org/suzukiplan/vgs-cpu.svg?branch=master)](https://travis-ci.org/suzukiplan/vgs-cpu)
 - SUZUKI PLAN - Video Game System - Central Processing Unit
-- VGS-CPU is a 32bit cpu that spacialized for creating games of VGS.
+- VGS-CPU is a 32bit CPU that spacialized for creating games of VGS.
 - This repository also provides assember for VGS-CPU.
 
 ## License
 [2-clause BSD](https://github.com/suzukiplan/vgs-cpu/blob/master/LICENSE.txt)
+
+## Support environment
+- `make test` を実行して全ての項目が success になる環境であれば動作できます
+- big-endian の環境には対応していません
 
 ## How to use
 - UNIX系OS全般(mac/Linuxを含む) の ターミナル で `make` を実行すれば, できることが書いてあります
