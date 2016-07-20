@@ -11,6 +11,24 @@ int test_program_memory(struct vgscpu_context *c)
     unsigned char op7[] = {VGSCPU_OP_ST_D_M1, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op8[] = {VGSCPU_OP_ST_D_M2, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
     unsigned char op9[] = {VGSCPU_OP_ST_D_M4, 0x08, 0x00, 0x00, 0x00, VGSCPU_OP_BRK};
+    unsigned char op10[] = {VGSCPU_OP_LD_D_RM, VGSCPU_OP_BRK};
+    unsigned char op11[] = {VGSCPU_OP_LD_D_RM, 0x00, VGSCPU_OP_BRK};
+    unsigned char op12[] = {VGSCPU_OP_LD_D_RM, 0x01, VGSCPU_OP_BRK};
+    unsigned char op13[] = {VGSCPU_OP_LD_D_RM, 0x02, VGSCPU_OP_BRK};
+    unsigned char op14[] = {VGSCPU_OP_LD_D_RM, 0x03, VGSCPU_OP_BRK};
+    unsigned char op15[] = {VGSCPU_OP_LD_D_RM, 0x04, VGSCPU_OP_BRK};
+    unsigned char op16[] = {VGSCPU_OP_LD_D_RM, 0x11, VGSCPU_OP_BRK};
+    unsigned char op17[] = {VGSCPU_OP_LD_D_RM, 0x12, VGSCPU_OP_BRK};
+    unsigned char op18[] = {VGSCPU_OP_LD_D_RM, 0x13, VGSCPU_OP_BRK};
+    unsigned char op19[] = {VGSCPU_OP_LD_D_RM, 0x14, VGSCPU_OP_BRK};
+    unsigned char op20[] = {VGSCPU_OP_LD_D_RM, 0x21, VGSCPU_OP_BRK};
+    unsigned char op21[] = {VGSCPU_OP_LD_D_RM, 0x22, VGSCPU_OP_BRK};
+    unsigned char op22[] = {VGSCPU_OP_LD_D_RM, 0x23, VGSCPU_OP_BRK};
+    unsigned char op23[] = {VGSCPU_OP_LD_D_RM, 0x24, VGSCPU_OP_BRK};
+    unsigned char op24[] = {VGSCPU_OP_LD_D_RM, 0x31, VGSCPU_OP_BRK};
+    unsigned char op25[] = {VGSCPU_OP_LD_D_RM, 0x32, VGSCPU_OP_BRK};
+    unsigned char op26[] = {VGSCPU_OP_LD_D_RM, 0x33, VGSCPU_OP_BRK};
+    unsigned char op27[] = {VGSCPU_OP_LD_D_RM, 0x34, VGSCPU_OP_BRK};
 
     vgscpu_load_program(c, op1, sizeof(op1));
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
@@ -65,6 +83,74 @@ int test_program_memory(struct vgscpu_context *c)
     vgscpu_load_program(c, op9, sizeof(op9) - 1);
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY: $00000005"), 0);
+
+    c->r.a = 0;
+    c->r.b = 0;
+    c->r.c = 0;
+    c->r.d = 0;
+
+    vgscpu_load_program(c, op10, sizeof(op10));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "OUT OF PROGRAM MEMORY: $00000002"), 0);
+
+    vgscpu_load_program(c, op11, sizeof(op11));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($00)"), 0);
+
+    vgscpu_load_program(c, op12, sizeof(op12));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op13, sizeof(op13));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op14, sizeof(op14));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($03)"), 0);
+
+    vgscpu_load_program(c, op15, sizeof(op15));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op16, sizeof(op16));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op17, sizeof(op17));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op18, sizeof(op18));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($13)"), 0);
+
+    vgscpu_load_program(c, op19, sizeof(op19));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op20, sizeof(op20));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op21, sizeof(op21));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op22, sizeof(op22));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($23)"), 0);
+
+    vgscpu_load_program(c, op23, sizeof(op23));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
+
+    vgscpu_load_program(c, op24, sizeof(op24));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($31)"), 0);
+
+    vgscpu_load_program(c, op25, sizeof(op25));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($32)"), 0);
+
+    vgscpu_load_program(c, op26, sizeof(op26));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($33)"), 0);
+
+    vgscpu_load_program(c, op27, sizeof(op27));
+    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
+    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($34)"), 0);
     return 0;
 }
 
