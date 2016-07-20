@@ -123,7 +123,7 @@ void vgscpu_release_context(void *ctx);
   - `[GR]` : 通常, アドレス (GR値) が指す 32bit の領域を意味する
   - `[GR]H` : 通常, アドレス (GR値) が指す 16bit の領域を意味する
   - `[GR]O` : 通常, アドレス (GR値) が指す 8bit の領域を意味する
-  - 例外的にアドレスの先頭を単純に指し示す場合は単に `[n]` と表記
+  - 例外的にアドレスの先頭を単純に指し示す場合は単に `[GR]` と表記
 
 ### memory operations
 |operand|z|q|outline|
