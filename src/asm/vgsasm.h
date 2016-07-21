@@ -21,6 +21,19 @@
 #define M2 2
 #define M4 4
 
+#define RA1 0x01
+#define RA2 0x02
+#define RA4 0x04
+#define RB1 0x11
+#define RB2 0x12
+#define RB4 0x14
+#define RC1 0x21
+#define RC2 0x22
+#define RC4 0x24
+#define RD1 0x31
+#define RD2 0x32
+#define RD4 0x34
+
 #define ACU_ADD 0
 #define ACU_SUB 1
 #define ACU_MUL 2
@@ -57,6 +70,7 @@ int getOct(char c);
 int getBin(char c);
 int check_literal(char* token, unsigned int* result);
 int check_address(char* token, unsigned int* result, int* m);
+int check_register_address(char* token, int* r);
 
 struct line_data* parse_lines(char* buf, int* line);
 void remove_empty_line(struct line_data* line, int* len);

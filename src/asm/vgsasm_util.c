@@ -280,3 +280,67 @@ int check_address(char* token, unsigned int* result, int* m)
     }
     return -1;
 }
+
+int check_register_address(char* token, int* r)
+{
+    char buf[1024];
+    strcpy(buf, token);
+    size_t len = strlen(buf);
+    if (len < 3) return -1;
+    if ('[' == buf[0] && ']' == buf[len - 1]) {
+        buf[len - 1] = '\0';
+        switch (check_GR(buf + 1)) {
+            case A4:
+                *r = RA4;
+                return 0;
+            case B4:
+                *r = RB4;
+                return 0;
+            case C4:
+                *r = RC4;
+                return 0;
+            case D4:
+                *r = RD4;
+                return 0;
+            default:
+                return -1;
+        }
+    } else if ('[' == buf[0] && ']' == buf[len - 2] && ('H' == buf[len - 1] || 'h' == buf[len - 1])) {
+        buf[len - 2] = '\0';
+        switch (check_GR(buf + 1)) {
+            case A4:
+                *r = RA2;
+                return 0;
+            case B4:
+                *r = RB2;
+                return 0;
+            case C4:
+                *r = RC2;
+                return 0;
+            case D4:
+                *r = RD2;
+                return 0;
+            default:
+                return -1;
+        }
+    } else if ('[' == buf[0] && ']' == buf[len - 2] && ('O' == buf[len - 1] || 'o' == buf[len - 1])) {
+        buf[len - 2] = '\0';
+        switch (check_GR(buf + 1)) {
+            case A4:
+                *r = RA1;
+                return 0;
+            case B4:
+                *r = RB1;
+                return 0;
+            case C4:
+                *r = RC1;
+                return 0;
+            case D4:
+                *r = RD1;
+                return 0;
+            default:
+                return -1;
+        }
+    }
+    return -1;
+}
