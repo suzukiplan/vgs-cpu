@@ -137,20 +137,17 @@ int test_program_memory(struct vgscpu_context *c)
     TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
 
     vgscpu_load_program(c, op24, sizeof(op24));
-    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($31)"), 0);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
 
     vgscpu_load_program(c, op25, sizeof(op25));
-    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($32)"), 0);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
 
     vgscpu_load_program(c, op26, sizeof(op26));
     TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
     TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($33)"), 0);
 
     vgscpu_load_program(c, op27, sizeof(op27));
-    TEST(__FILE__, __LINE__, vgscpu_run(c), -1);
-    TEST(__FILE__, __LINE__, strcmp(c->error, "INVALID ARGUMENT($34)"), 0);
+    TEST(__FILE__, __LINE__, vgscpu_run(c), 0);
     return 0;
 }
 
