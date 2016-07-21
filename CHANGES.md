@@ -1,7 +1,11 @@
 # Changes
 
 ## Version 0.2.0
-- レジスタが指すアドレス値からの load/store に対応
+- cpu 
+  - レジスタが指すアドレス値からの load/store に対応
+- `vgsasm`
+  - ブラケット `[` に対応する `]` が無い場合を syntax error にする
+  - エラー時のコマンド戻り値の仕様を変更
 
 ## Version 0.1.2
 - license の修正（不要文言削除のみ）

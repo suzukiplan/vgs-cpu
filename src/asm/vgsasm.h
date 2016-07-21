@@ -49,6 +49,7 @@ struct line_data {
 
 char* load_file(const char* path);
 void trimstring(char* src);
+void back_space(char* ln);
 int check_GR(char* token);
 int getHex(char c);
 int getDec(char c);
@@ -59,7 +60,7 @@ int check_address(char* token, unsigned int* result, int* m);
 
 struct line_data* parse_lines(char* buf, int* line);
 void remove_empty_line(struct line_data* line, int* len);
-void parse_token(struct line_data* line, int len);
+int parse_token(struct line_data* line, int len);
 int parse_operation(struct line_data* line, int len);
 int parse_push(struct line_data* line, int i);
 int parse_pop(struct line_data* line, int i);

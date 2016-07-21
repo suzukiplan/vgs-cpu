@@ -55,6 +55,15 @@ void trimstring(char* src)
     }
 }
 
+void back_space(char* ln)
+{
+    if (!*ln) return;
+    do {
+        *ln = *(ln + 1);
+        ln++;
+    } while (*(ln - 1));
+}
+
 int check_GR(char* token)
 {
     if (0 == strcasecmp(token, "A")) {
