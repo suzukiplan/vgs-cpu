@@ -1,16 +1,16 @@
 # Changes
 
-## version 0.2.0
+## Version 0.2.0
 - レジスタが指すアドレス値からの load/store に対応
 
-## version 0.1.2
+## Version 0.1.2
 - license の修正（不要文言削除のみ）
 - `vgsasm` のテストを追加
 - bugfix: SHL, SHR の結果が ゼロフラグ に反映されない
 
 ## Version 0.1.1
 - `vgsasm` のテストを追加: LD, ST
-- bugfix: 引数またはレジスタが指定できる第2オペランドにレジスタBを指定する2進数の0が指定されてしまう
+- bugfix: 引数またはレジスタが指定できる第2オペランドにレジスタBを指定すると2進数の0が指定されたものとみなされる
 
 ## Version 0.1.0 (破壊的変更)
 - `VGS` 命令を廃止
