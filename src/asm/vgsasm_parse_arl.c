@@ -91,14 +91,29 @@ int _parse_arl(struct line_data* line, int i, int r, int op)
         return 0;
     } else if (0 == check_register_address(line[i].token[2], &m)) {
         switch (op) {
-            case VGSCPU_OP_LD_A_RM:
-            case VGSCPU_OP_LD_B_RM:
-            case VGSCPU_OP_LD_C_RM:
-            case VGSCPU_OP_LD_D_RM:
-            case VGSCPU_OP_ST_A_RM:
-            case VGSCPU_OP_ST_B_RM:
-            case VGSCPU_OP_ST_C_RM:
-            case VGSCPU_OP_ST_D_RM:
+            case VGSCPU_OP_LD_A_1:
+                op = VGSCPU_OP_LD_A_RM;
+                break;
+            case VGSCPU_OP_LD_B_1:
+                op = VGSCPU_OP_LD_B_RM;
+                break;
+            case VGSCPU_OP_LD_C_1:
+                op = VGSCPU_OP_LD_C_RM;
+                break;
+            case VGSCPU_OP_LD_D_1:
+                op = VGSCPU_OP_LD_D_RM;
+                break;
+            case VGSCPU_OP_ST_A_M1:
+                op = VGSCPU_OP_ST_A_RM;
+                break;
+            case VGSCPU_OP_ST_B_M1:
+                op = VGSCPU_OP_ST_B_RM;
+                break;
+            case VGSCPU_OP_ST_C_M1:
+                op = VGSCPU_OP_ST_C_RM;
+                break;
+            case VGSCPU_OP_ST_D_M1:
+                op = VGSCPU_OP_ST_D_RM;
                 break;
             default:
                 sprintf(line[i].error, "syntax error: cannot specify register address argument to the %s operand", line[i].token[1]);
@@ -107,6 +122,7 @@ int _parse_arl(struct line_data* line, int i, int r, int op)
         line[i].op[0] = op;
         line[i].op[1] = m & 0xff;
         line[i].oplen = 2;
+        return 0;
     } else if (0 == check_address(line[i].token[2], &v, &m)) {
         memcpy(&line[i].op[1], &v, 4);
         line[i].oplen = 5;
