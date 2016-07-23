@@ -28,7 +28,7 @@ char* load_bin(const char* path, int* size)
         fclose(fp);
         return NULL;
     }
-    data = malloc(*size);
+    data = malloc(1 + *size);
     if (NULL == data) {
         fclose(fp);
         return NULL;
