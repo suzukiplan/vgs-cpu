@@ -149,4 +149,4 @@ asm-test:
 	./asmtest src/test/asm_shift.asm
 	./asmtest src/test/asm_sub.asm
 	./asmtest src/test/asm_mul.asm
-
+	./asmtest src/test/asm_div.asm
