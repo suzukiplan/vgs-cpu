@@ -3,6 +3,12 @@
 #endif
 #include "vgsasm.h"
 
+#define NO_ERROR 0
+#define PARAM_ERROR 1
+#define FILE_READ_ERROR 2
+#define FILE_WRITE_ERROR 3
+#define SYNTAX_ERROR 4
+
 struct program_table {
     char input[1024];
     char output[1024];
@@ -66,48 +72,52 @@ int main(int argc, char* argv[])
 
     if (check_arguments(argc, argv)) {
         puts("usage: vgsasm [-o output.bin] input.asm");
-        return 1;
+        return PARAM_ERROR;
     }
     LOGV("assembling: %s -> %s\n", PT.input, PT.output);
 
     PT.buffer = load_file(PT.input);
     if (NULL == PT.buffer) {
         fprintf(stderr, "file load error.\n");
-        return 2;
+        return FILE_READ_ERROR;
     }
 
     PT.line = parse_lines(PT.buffer, &PT.line_number);
     if (NULL == PT.line) {
-        return 3;
+        return SYNTAX_ERROR;
     }
 
     remove_empty_line(PT.line, &PT.line_number);
     if (0 == PT.line_number) {
         fprintf(stderr, "empty source file.\n");
-        return 4;
+        return SYNTAX_ERROR;
     }
 
-    parse_token(PT.line, PT.line_number);
+    if (parse_token(PT.line, PT.line_number)) {
+        show_errors(PT.line, PT.line_number);
+        return SYNTAX_ERROR;
+    }
+
     if (parse_operation(PT.line, PT.line_number)) {
         show_errors(PT.line, PT.line_number);
-        return 5;
+        return SYNTAX_ERROR;
     }
 
     if (check_label(PT.line, PT.line_number)) {
         show_errors(PT.line, PT.line_number);
-        return 6;
+        return SYNTAX_ERROR;
     }
 
     if (NULL == (fp = fopen(PT.output, "wb"))) {
         fprintf(stderr, "file open error.\n");
-        return 7;
+        return FILE_WRITE_ERROR;
     }
 
     for (i = 0; i < PT.line_number; i++) {
         if (PT.line[i].oplen) {
             if (PT.line[i].oplen != fwrite(PT.line[i].op, 1, PT.line[i].oplen, fp)) {
                 fprintf(stderr, "file write error.\n");
-                return 8;
+                return FILE_WRITE_ERROR;
             }
         }
     }
@@ -127,5 +137,5 @@ int main(int argc, char* argv[])
     printf("success (%fsec)\n", sec);
 #endif
 
-    return 0;
+    return NO_ERROR;
 }

@@ -29,7 +29,7 @@ start:
 
     // アドレス格納領域の加算テスト
     LD      A, $12345678
-    ST      A, [0]
+    ST      A, [ 0 ]
     LD      A, 0
     ADD     A, [0]O             // A = A + $78(120) (1byte)
     CMP     A, $78
@@ -37,7 +37,7 @@ start:
     JZ      test-failed
     ADD     A, -120             // A = A - 120 (4byte)
     JNZ     test-failed
-    ADD     A, [0]H             // A = A + $5678(22136) (2byte)
+    ADD     A, [ 0   ]H         // A = A + $5678(22136) (2byte)
     CMP     A, $5678
     JNE     test-failed
     JZ      test-failed
