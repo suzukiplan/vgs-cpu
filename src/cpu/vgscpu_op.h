@@ -212,6 +212,16 @@
 #define VGSCPU_OP_CMP2_A_M2 0xb5 /* cmp: a and &memory[ptr](2byte) */
 #define VGSCPU_OP_CMP2_A_M4 0xb6 /* cmp: a and &memory[ptr](4byte) */
 
+/* load/store from register memory */
+#define VGSCPU_OP_LD_A_RM 0xb7
+#define VGSCPU_OP_LD_B_RM 0xb8
+#define VGSCPU_OP_LD_C_RM 0xb9
+#define VGSCPU_OP_LD_D_RM 0xba
+#define VGSCPU_OP_ST_A_RM 0xbb
+#define VGSCPU_OP_ST_B_RM 0xbc
+#define VGSCPU_OP_ST_C_RM 0xbd
+#define VGSCPU_OP_ST_D_RM 0xbe
+
 /* accumulator (exclude A) */
 #define VGSCPU_OP_ACU_B 0xdd
 #define VGSCPU_OP_ACU_C 0xde

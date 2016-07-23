@@ -68,6 +68,140 @@ start:
     CMP     C, $D001
     JNE     test-failed
 
+    // レジスタ指定アドレスからのload
+    LD      A, $12345678
+    ST      A, [0]
+    LD      A, $90abcdef
+    ST      A, [4]
+
+    LD      A, 4
+    LD      C, [A]O
+    CMP     C, $ef
+    JNE     test-failed
+    LD      C, [A]H
+    CMP     C, $cdef
+    JNE     test-failed
+    LD      C, [A]
+    CMP     C, $90abcdef
+    JNE     test-failed
+
+    LD      B, 4
+    LD      C, [B]O
+    CMP     C, $ef
+    JNE     test-failed
+    LD      C, [B]H
+    CMP     C, $cdef
+    JNE     test-failed
+    LD      C, [B]
+    CMP     C, $90abcdef
+    JNE     test-failed
+
+    LD      C, 4
+    LD      C, [C]O
+    CMP     C, $ef
+    JNE     test-failed
+    LD      C, 4
+    LD      C, [C]H
+    CMP     C, $cdef
+    JNE     test-failed
+    LD      C, 4
+    LD      C, [C]
+    CMP     C, $90abcdef
+    JNE     test-failed
+
+    LD      D, 4
+    LD      C, [D]O
+    CMP     C, $ef
+    JNE     test-failed
+    LD      C, [D]H
+    CMP     C, $cdef
+    JNE     test-failed
+    LD      C, [D]
+    CMP     C, $90abcdef
+    JNE     test-failed
+
+    // レジスタ指定アドレスへのstore
+    LD      C, $55555555
+    ST      C, [16]
+    LD      C, 16
+    LD      A, 16
+    ST      C, [A]o
+    LD      C, [16]
+    CMP     C, $55555510
+    JNE     test-failed
+    LD      C, 16
+    LD      A, 16
+    ST      C, [A]h
+    LD      C, [16]
+    CMP     C, $55550010
+    JNE     test-failed
+    LD      C, 16
+    LD      A, 16
+    ST      C, [A]
+    LD      C, [16]
+    CMP     C, $00000010
+    JNE     test-failed
+
+    LD      C, $55555555
+    ST      C, [16]
+    LD      C, 16
+    LD      B, 16
+    ST      C, [B]o
+    LD      C, [16]
+    CMP     C, $55555510
+    JNE     test-failed
+    LD      C, 16
+    LD      B, 16
+    ST      C, [B]h
+    LD      C, [16]
+    CMP     C, $55550010
+    JNE     test-failed
+    LD      C, 16
+    LD      B, 16
+    ST      C, [B]
+    LD      C, [16]
+    CMP     C, $00000010
+    JNE     test-failed
+
+    LD      C, $55555555
+    ST      C, [16]
+    LD      C, 16
+    ST      C, [C]o
+    LD      C, [16]
+    CMP     C, $55555510
+    JNE     test-failed
+    LD      C, 16
+    ST      C, [C]h
+    LD      C, [16]
+    CMP     C, $55550010
+    JNE     test-failed
+    LD      C, 16
+    ST      C, [C]
+    LD      C, [16]
+    CMP     C, $00000010
+    JNE     test-failed
+
+    LD      C, $55555555
+    ST      C, [16]
+    LD      C, 16
+    LD      D, 16
+    ST      C, [D]o
+    LD      C, [16]
+    CMP     C, $55555510
+    JNE     test-failed
+    LD      C, 16
+    LD      D, 16
+    ST      C, [D]h
+    LD      C, [16]
+    CMP     C, $55550010
+    JNE     test-failed
+    LD      C, 16
+    LD      D, 16
+    ST      C, [D]
+    LD      C, [16]
+    CMP     C, $00000010
+    JNE     test-failed
+
     LD      D, 1
     BRK
 

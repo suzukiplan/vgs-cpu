@@ -109,14 +109,31 @@ void remove_empty_line(struct line_data* line, int* len)
     }
 }
 
-void parse_token(struct line_data* line, int len)
+int parse_token(struct line_data* line, int len)
 {
+    int error_count = 0;
     int i;
     char* w;
+    char* bs;
     for (i = 0; i < len; i++) {
         w = line[i].buffer;
         while (*w) {
             line[i].token[line[i].toknum++] = w;
+            if ('[' == *w) {
+                bs = w;
+                while (*w && ']' != *w) {
+                    if (' ' == *w)
+                        back_space(w);
+                    else
+                        w++;
+                }
+                if (']' != *w) {
+                    sprintf(line[i].error, "syntax error: there is no corresponding bracket: %s", bs);
+                    error_count++;
+                } else {
+                    w++;
+                }
+            }
             while (*w && ' ' != *w) {
                 w++;
             }
@@ -129,6 +146,7 @@ void parse_token(struct line_data* line, int len)
             }
         }
     }
+    return error_count;
 }
 
 int parse_operation(struct line_data* line, int len)

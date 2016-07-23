@@ -5,6 +5,26 @@ static int parse_st_internal(struct line_data* line, int i, int op)
     unsigned int v;
     unsigned short s;
     int m;
+    if (0 == check_register_address(line[i].token[2], &m)) {
+        switch (op) {
+            case VGSCPU_OP_ST_A_M1:
+                op = VGSCPU_OP_ST_A_RM;
+                break;
+            case VGSCPU_OP_ST_B_M1:
+                op = VGSCPU_OP_ST_B_RM;
+                break;
+            case VGSCPU_OP_ST_C_M1:
+                op = VGSCPU_OP_ST_C_RM;
+                break;
+            case VGSCPU_OP_ST_D_M1:
+                op = VGSCPU_OP_ST_D_RM;
+                break;
+        }
+        line[i].op[0] = op;
+        line[i].op[1] = m & 0xff;
+        line[i].oplen = 2;
+        return 0;
+    }
     if (0 == check_address(line[i].token[2], &v, &m)) {
         memcpy(&line[i].op[1], &v, 4);
         line[i].oplen = 5;

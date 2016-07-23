@@ -746,6 +746,507 @@ int vgscpu_run(void *ctx)
                 break;
             /*
              *----------------------------------------------------------------
+             * load/store from register specified address
+             *----------------------------------------------------------------
+             */
+            case VGSCPU_OP_LD_A_RM:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                switch (c->p[c->r.p++]) {
+                    case 0x01: /* A1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 1);
+                        c->r.a = c->m[c->r.a];
+                        break;
+                    case 0x02: /* A2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 2);
+                        memcpy(&s, &c->m[c->r.a], 2);
+                        c->r.a = s;
+                        break;
+                    case 0x04: /* A4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 4);
+                        memcpy(&c->r.a, &c->m[c->r.a], 4);
+                        break;
+                    case 0x11: /* B1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 1);
+                        c->r.a = c->m[c->r.b];
+                        break;
+                    case 0x12: /* B2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 2);
+                        memcpy(&s, &c->m[c->r.b], 2);
+                        c->r.a = s;
+                        break;
+                    case 0x14: /* B4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 4);
+                        memcpy(&c->r.a, &c->m[c->r.b], 4);
+                        break;
+                    case 0x21: /* C1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 1);
+                        c->r.a = c->m[c->r.c];
+                        break;
+                    case 0x22: /* C2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 2);
+                        memcpy(&s, &c->m[c->r.c], 2);
+                        c->r.a = s;
+                        break;
+                    case 0x24: /* C4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 4);
+                        memcpy(&c->r.a, &c->m[c->r.c], 4);
+                        break;
+                    case 0x31: /* D1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 1);
+                        c->r.a = c->m[c->r.d];
+                        break;
+                    case 0x32: /* D2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 2);
+                        memcpy(&s, &c->m[c->r.d], 2);
+                        c->r.a = s;
+                        break;
+                    case 0x34: /* D4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
+                        memcpy(&c->r.a, &c->m[c->r.d], 4);
+                        break;
+                    default:
+                        sprintf(c->error, "INVALID ARGUMENT($%02X)", (int)c->p[c->r.p - 1]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            case VGSCPU_OP_LD_B_RM:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                switch (c->p[c->r.p++]) {
+                    case 0x01: /* A1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 1);
+                        c->r.b = c->m[c->r.a];
+                        break;
+                    case 0x02: /* A2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 2);
+                        memcpy(&s, &c->m[c->r.a], 2);
+                        c->r.b = s;
+                        break;
+                    case 0x04: /* A4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 4);
+                        memcpy(&c->r.b, &c->m[c->r.a], 4);
+                        break;
+                    case 0x11: /* B1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 1);
+                        c->r.b = c->m[c->r.b];
+                        break;
+                    case 0x12: /* B2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 2);
+                        memcpy(&s, &c->m[c->r.b], 2);
+                        c->r.b = s;
+                        break;
+                    case 0x14: /* B4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 4);
+                        memcpy(&c->r.b, &c->m[c->r.b], 4);
+                        break;
+                    case 0x21: /* C1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 1);
+                        c->r.b = c->m[c->r.c];
+                        break;
+                    case 0x22: /* C2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 2);
+                        memcpy(&s, &c->m[c->r.c], 2);
+                        c->r.b = s;
+                        break;
+                    case 0x24: /* C4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 4);
+                        memcpy(&c->r.b, &c->m[c->r.c], 4);
+                        break;
+                    case 0x31: /* D1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 1);
+                        c->r.b = c->m[c->r.d];
+                        break;
+                    case 0x32: /* D2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 2);
+                        memcpy(&s, &c->m[c->r.d], 2);
+                        c->r.b = s;
+                        break;
+                    case 0x34: /* D4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
+                        memcpy(&c->r.b, &c->m[c->r.d], 4);
+                        break;
+                    default:
+                        sprintf(c->error, "INVALID ARGUMENT($%02X)", (int)c->p[c->r.p - 1]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            case VGSCPU_OP_LD_C_RM:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                switch (c->p[c->r.p++]) {
+                    case 0x01: /* A1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 1);
+                        c->r.c = c->m[c->r.a];
+                        break;
+                    case 0x02: /* A2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 2);
+                        memcpy(&s, &c->m[c->r.a], 2);
+                        c->r.c = s;
+                        break;
+                    case 0x04: /* A4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 4);
+                        memcpy(&c->r.c, &c->m[c->r.a], 4);
+                        break;
+                    case 0x11: /* B1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 1);
+                        c->r.c = c->m[c->r.b];
+                        break;
+                    case 0x12: /* B2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 2);
+                        memcpy(&s, &c->m[c->r.b], 2);
+                        c->r.c = s;
+                        break;
+                    case 0x14: /* B4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 4);
+                        memcpy(&c->r.c, &c->m[c->r.b], 4);
+                        break;
+                    case 0x21: /* C1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 1);
+                        c->r.c = c->m[c->r.c];
+                        break;
+                    case 0x22: /* C2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 2);
+                        memcpy(&s, &c->m[c->r.c], 2);
+                        c->r.c = s;
+                        break;
+                    case 0x24: /* C4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 4);
+                        memcpy(&c->r.c, &c->m[c->r.c], 4);
+                        break;
+                    case 0x31: /* D1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 1);
+                        c->r.c = c->m[c->r.d];
+                        break;
+                    case 0x32: /* D2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 2);
+                        memcpy(&s, &c->m[c->r.d], 2);
+                        c->r.c = s;
+                        break;
+                    case 0x34: /* D4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
+                        memcpy(&c->r.c, &c->m[c->r.d], 4);
+                        break;
+                    default:
+                        sprintf(c->error, "INVALID ARGUMENT($%02X)", (int)c->p[c->r.p - 1]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            case VGSCPU_OP_LD_D_RM:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                switch (c->p[c->r.p++]) {
+                    case 0x01: /* A1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 1);
+                        c->r.d = c->m[c->r.a];
+                        break;
+                    case 0x02: /* A2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 2);
+                        memcpy(&s, &c->m[c->r.a], 2);
+                        c->r.d = s;
+                        break;
+                    case 0x04: /* A4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 4);
+                        memcpy(&c->r.d, &c->m[c->r.a], 4);
+                        break;
+                    case 0x11: /* B1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 1);
+                        c->r.d = c->m[c->r.b];
+                        break;
+                    case 0x12: /* B2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 2);
+                        memcpy(&s, &c->m[c->r.b], 2);
+                        c->r.d = s;
+                        break;
+                    case 0x14: /* B4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 4);
+                        memcpy(&c->r.d, &c->m[c->r.b], 4);
+                        break;
+                    case 0x21: /* C1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 1);
+                        c->r.d = c->m[c->r.c];
+                        break;
+                    case 0x22: /* C2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 2);
+                        memcpy(&s, &c->m[c->r.c], 2);
+                        c->r.d = s;
+                        break;
+                    case 0x24: /* C4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 4);
+                        memcpy(&c->r.d, &c->m[c->r.c], 4);
+                        break;
+                    case 0x31: /* D1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 1);
+                        c->r.d = c->m[c->r.d];
+                        break;
+                    case 0x32: /* D2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 2);
+                        memcpy(&s, &c->m[c->r.d], 2);
+                        c->r.d = s;
+                        break;
+                    case 0x34: /* D4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
+                        memcpy(&c->r.d, &c->m[c->r.d], 4);
+                        break;
+                    default:
+                        sprintf(c->error, "INVALID ARGUMENT($%02X)", (int)c->p[c->r.p - 1]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            case VGSCPU_OP_ST_A_RM:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                switch (c->p[c->r.p++]) {
+                    case 0x01: /* A1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 1);
+                        c->m[c->r.a] = c->r.a & 0xff;
+                        break;
+                    case 0x02: /* A2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 2);
+                        s = c->r.a & 0xffff;
+                        memcpy(&c->m[c->r.a], &s, 2);
+                        break;
+                    case 0x04: /* A4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 4);
+                        memcpy(&c->m[c->r.a], &c->r.a, 4);
+                        break;
+                    case 0x11: /* B1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 1);
+                        c->m[c->r.b] = c->r.a & 0xff;
+                        break;
+                    case 0x12: /* B2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 2);
+                        s = c->r.a & 0xffff;
+                        memcpy(&c->m[c->r.b], &s, 2);
+                        break;
+                    case 0x14: /* B4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 4);
+                        memcpy(&c->m[c->r.b], &c->r.a, 4);
+                        break;
+                    case 0x21: /* C1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 1);
+                        c->m[c->r.c] = c->r.a & 0xff;
+                        break;
+                    case 0x22: /* C2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 2);
+                        s = c->r.a & 0xffff;
+                        memcpy(&c->m[c->r.c], &s, 2);
+                        break;
+                    case 0x24: /* C4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 4);
+                        memcpy(&c->m[c->r.c], &c->r.a, 4);
+                        break;
+                    case 0x31: /* D1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 1);
+                        c->m[c->r.d] = c->r.a & 0xff;
+                        break;
+                    case 0x32: /* D2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 2);
+                        s = c->r.a & 0xffff;
+                        memcpy(&c->m[c->r.d], &s, 2);
+                        break;
+                    case 0x34: /* D4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
+                        memcpy(&c->m[c->r.d], &c->r.a, 4);
+                        break;
+                    default:
+                        sprintf(c->error, "INVALID ARGUMENT($%02X)", (int)c->p[c->r.p - 1]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            case VGSCPU_OP_ST_B_RM:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                switch (c->p[c->r.p++]) {
+                    case 0x01: /* A1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 1);
+                        c->m[c->r.a] = c->r.b & 0xff;
+                        break;
+                    case 0x02: /* A2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 2);
+                        s = c->r.b & 0xffff;
+                        memcpy(&c->m[c->r.a], &s, 2);
+                        break;
+                    case 0x04: /* A4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 4);
+                        memcpy(&c->m[c->r.a], &c->r.b, 4);
+                        break;
+                    case 0x11: /* B1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 1);
+                        c->m[c->r.b] = c->r.b & 0xff;
+                        break;
+                    case 0x12: /* B2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 2);
+                        s = c->r.b & 0xffff;
+                        memcpy(&c->m[c->r.b], &s, 2);
+                        break;
+                    case 0x14: /* B4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 4);
+                        memcpy(&c->m[c->r.b], &c->r.b, 4);
+                        break;
+                    case 0x21: /* C1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 1);
+                        c->m[c->r.c] = c->r.b & 0xff;
+                        break;
+                    case 0x22: /* C2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 2);
+                        s = c->r.b & 0xffff;
+                        memcpy(&c->m[c->r.c], &s, 2);
+                        break;
+                    case 0x24: /* C4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 4);
+                        memcpy(&c->m[c->r.c], &c->r.b, 4);
+                        break;
+                    case 0x31: /* D1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 1);
+                        c->m[c->r.d] = c->r.b & 0xff;
+                        break;
+                    case 0x32: /* D2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 2);
+                        s = c->r.b & 0xffff;
+                        memcpy(&c->m[c->r.d], &s, 2);
+                        break;
+                    case 0x34: /* D4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
+                        memcpy(&c->m[c->r.d], &c->r.b, 4);
+                        break;
+                    default:
+                        sprintf(c->error, "INVALID ARGUMENT($%02X)", (int)c->p[c->r.p - 1]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            case VGSCPU_OP_ST_C_RM:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                switch (c->p[c->r.p++]) {
+                    case 0x01: /* A1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 1);
+                        c->m[c->r.a] = c->r.c & 0xff;
+                        break;
+                    case 0x02: /* A2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 2);
+                        s = c->r.c & 0xffff;
+                        memcpy(&c->m[c->r.a], &s, 2);
+                        break;
+                    case 0x04: /* A4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 4);
+                        memcpy(&c->m[c->r.a], &c->r.c, 4);
+                        break;
+                    case 0x11: /* B1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 1);
+                        c->m[c->r.b] = c->r.c & 0xff;
+                        break;
+                    case 0x12: /* B2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 2);
+                        s = c->r.c & 0xffff;
+                        memcpy(&c->m[c->r.b], &s, 2);
+                        break;
+                    case 0x14: /* B4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 4);
+                        memcpy(&c->m[c->r.b], &c->r.c, 4);
+                        break;
+                    case 0x21: /* C1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 1);
+                        c->m[c->r.c] = c->r.c & 0xff;
+                        break;
+                    case 0x22: /* C2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 2);
+                        s = c->r.c & 0xffff;
+                        memcpy(&c->m[c->r.c], &s, 2);
+                        break;
+                    case 0x24: /* C4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 4);
+                        memcpy(&c->m[c->r.c], &c->r.c, 4);
+                        break;
+                    case 0x31: /* D1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 1);
+                        c->m[c->r.d] = c->r.c & 0xff;
+                        break;
+                    case 0x32: /* D2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 2);
+                        s = c->r.c & 0xffff;
+                        memcpy(&c->m[c->r.d], &s, 2);
+                        break;
+                    case 0x34: /* D4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
+                        memcpy(&c->m[c->r.d], &c->r.c, 4);
+                        break;
+                    default:
+                        sprintf(c->error, "INVALID ARGUMENT($%02X)", (int)c->p[c->r.p - 1]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            case VGSCPU_OP_ST_D_RM:
+                ASSERT_IF_OUT_OF_PROGRAM_MEMORY(2);
+                c->r.p++;
+                switch (c->p[c->r.p++]) {
+                    case 0x01: /* A1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 1);
+                        c->m[c->r.a] = c->r.d & 0xff;
+                        break;
+                    case 0x02: /* A2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 2);
+                        s = c->r.d & 0xffff;
+                        memcpy(&c->m[c->r.a], &s, 2);
+                        break;
+                    case 0x04: /* A4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.a, 4);
+                        memcpy(&c->m[c->r.a], &c->r.d, 4);
+                        break;
+                    case 0x11: /* B1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 1);
+                        c->m[c->r.b] = c->r.d & 0xff;
+                        break;
+                    case 0x12: /* B2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 2);
+                        s = c->r.d & 0xffff;
+                        memcpy(&c->m[c->r.b], &s, 2);
+                        break;
+                    case 0x14: /* B4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.b, 4);
+                        memcpy(&c->m[c->r.b], &c->r.d, 4);
+                        break;
+                    case 0x21: /* C1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 1);
+                        c->m[c->r.c] = c->r.d & 0xff;
+                        break;
+                    case 0x22: /* C2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 2);
+                        s = c->r.d & 0xffff;
+                        memcpy(&c->m[c->r.c], &s, 2);
+                        break;
+                    case 0x24: /* C4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.c, 4);
+                        memcpy(&c->m[c->r.c], &c->r.d, 4);
+                        break;
+                    case 0x31: /* D1 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 1);
+                        c->m[c->r.d] = c->r.d & 0xff;
+                        break;
+                    case 0x32: /* D2 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 2);
+                        s = c->r.d & 0xffff;
+                        memcpy(&c->m[c->r.d], &s, 2);
+                        break;
+                    case 0x34: /* D4 */
+                        ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
+                        memcpy(&c->m[c->r.d], &c->r.d, 4);
+                        break;
+                    default:
+                        sprintf(c->error, "INVALID ARGUMENT($%02X)", (int)c->p[c->r.p - 1]);
+                        loop_flag = 0;
+                        ret = -1;
+                }
+                break;
+            /*
+             *----------------------------------------------------------------
              * shift
              *----------------------------------------------------------------
              */
