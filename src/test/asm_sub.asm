@@ -2,7 +2,7 @@
     SUB の テストプログラム
  */
 start-a:
-    // リテラルの減算テスト
+    // リテラルのテスト
     LD      A, 1000
     SUB     A, 100              // A = A - 100 (1byte)
     CMP     A, 900
@@ -29,7 +29,7 @@ start-a:
     SUB     A, -131071          // A = A - (-131071) (4byte)
     JNZ     test-failed
 
-    // アドレス格納領域の加算テスト
+    // アドレス格納領域のテスト
     LD      A, $12345678
     ST      A, [0]
     LD      A, 0
@@ -52,7 +52,7 @@ start-a:
     SUB     A, -305419896       // A = A - (-305419896) (4byte)
     JNZ     test-failed
 
-    // レジスタ加算テスト
+    // レジスタテスト
     LD      A, $22222222
     LD      B, $11110000
     LD      C, $00001111
@@ -69,7 +69,7 @@ start-a:
     JNZ     test-failed
 
 start-b:
-    // リテラルの減算テスト
+    // リテラルのテスト
     LD      B, 1000
     SUB     B, 100              // B = B - 100 (1byte)
     CMP     B, 900
@@ -96,7 +96,7 @@ start-b:
     SUB     B, -131071          // B = B - (-131071) (4byte)
     JNZ     test-failed
 
-    // アドレス格納領域の加算テスト
+    // アドレス格納領域のテスト
     LD      B, $12345678
     ST      B, [0]
     LD      B, 0
@@ -119,7 +119,7 @@ start-b:
     SUB     B, -305419896       // B = B - (-305419896) (4byte)
     JNZ     test-failed
 
-    // レジスタ加算テスト
+    // レジスタテスト
     LD      B, $22222222
     LD      A, $11110000
     LD      C, $00001111
@@ -136,7 +136,7 @@ start-b:
     JNZ     test-failed
 
 start-c:
-    // リテラルの減算テスト
+    // リテラルのテスト
     LD      C, 1000
     SUB     C, 100              // C = C - 100 (1byte)
     CMP     C, 900
@@ -163,7 +163,7 @@ start-c:
     SUB     C, -131071          // C = C - (-131071) (4byte)
     JNZ     test-failed
 
-    // アドレス格納領域の加算テスト
+    // アドレス格納領域のテスト
     LD      C, $12345678
     ST      C, [0]
     LD      C, 0
@@ -186,7 +186,7 @@ start-c:
     SUB     C, -305419896       // C = C - (-305419896) (4byte)
     JNZ     test-failed
 
-    // レジスタ加算テスト
+    // レジスタテスト
     LD      C, $22222222
     LD      A, $11110000
     LD      B, $00001111
@@ -203,7 +203,7 @@ start-c:
     JNZ     test-failed
 
 start-d:
-    // リテラルの減算テスト
+    // リテラルのテスト
     LD      D, 1000
     SUB     D, 100              // D = D - 100 (1byte)
     CMP     D, 900
@@ -230,7 +230,7 @@ start-d:
     SUB     D, -131071          // D = D - (-131071) (4byte)
     JNZ     test-failed
 
-    // アドレス格納領域の加算テスト
+    // アドレス格納領域のテスト
     LD      D, $12345678
     ST      D, [0]
     LD      D, 0
@@ -253,7 +253,7 @@ start-d:
     SUB     D, -305419896       // D = D - (-305419896) (4byte)
     JNZ     test-failed
 
-    // レジスタ加算テスト
+    // レジスタテスト
     LD      D, $22222222
     LD      A, $11110000
     LD      B, $00001111
