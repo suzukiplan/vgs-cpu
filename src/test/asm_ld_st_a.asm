@@ -175,6 +175,27 @@ start:
     CMP     A, $55550010
     JNE     test-failed
     LD      A, 16
+    LD      C, 16
+    ST      A, [C]
+    LD      A, [16]
+    CMP     A, $00000010
+    JNE     test-failed
+
+    LD      A, $55555555
+    ST      A, [16]
+    LD      A, 16
+    LD      D, 16
+    ST      A, [D]o
+    LD      A, [16]
+    CMP     A, $55555510
+    JNE     test-failed
+    LD      A, 16
+    LD      D, 16
+    ST      A, [D]h
+    LD      A, [16]
+    CMP     A, $55550010
+    JNE     test-failed
+    LD      A, 16
     LD      D, 16
     ST      A, [D]
     LD      A, [16]
