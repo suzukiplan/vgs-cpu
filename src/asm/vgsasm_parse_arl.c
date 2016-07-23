@@ -103,18 +103,6 @@ int _parse_arl(struct line_data* line, int i, int r, int op)
             case VGSCPU_OP_LD_D_1:
                 op = VGSCPU_OP_LD_D_RM;
                 break;
-            case VGSCPU_OP_ST_A_M1:
-                op = VGSCPU_OP_ST_A_RM;
-                break;
-            case VGSCPU_OP_ST_B_M1:
-                op = VGSCPU_OP_ST_B_RM;
-                break;
-            case VGSCPU_OP_ST_C_M1:
-                op = VGSCPU_OP_ST_C_RM;
-                break;
-            case VGSCPU_OP_ST_D_M1:
-                op = VGSCPU_OP_ST_D_RM;
-                break;
             default:
                 sprintf(line[i].error, "syntax error: cannot specify register address argument to the %s operand", line[i].token[1]);
                 return -1;
