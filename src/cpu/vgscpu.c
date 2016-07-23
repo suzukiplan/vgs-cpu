@@ -1049,7 +1049,7 @@ int vgscpu_run(void *ctx)
                         s = c->r.a & 0xffff;
                         memcpy(&c->m[c->r.d], &s, 2);
                         break;
-                    case 0x44: /* D4 */
+                    case 0x34: /* D4 */
                         ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
                         memcpy(&c->m[c->r.d], &c->r.a, 4);
                         break;
@@ -1111,7 +1111,7 @@ int vgscpu_run(void *ctx)
                         s = c->r.b & 0xffff;
                         memcpy(&c->m[c->r.d], &s, 2);
                         break;
-                    case 0x44: /* D4 */
+                    case 0x34: /* D4 */
                         ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
                         memcpy(&c->m[c->r.d], &c->r.b, 4);
                         break;
@@ -1173,7 +1173,7 @@ int vgscpu_run(void *ctx)
                         s = c->r.c & 0xffff;
                         memcpy(&c->m[c->r.d], &s, 2);
                         break;
-                    case 0x44: /* D4 */
+                    case 0x34: /* D4 */
                         ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
                         memcpy(&c->m[c->r.d], &c->r.c, 4);
                         break;
@@ -1235,7 +1235,7 @@ int vgscpu_run(void *ctx)
                         s = c->r.d & 0xffff;
                         memcpy(&c->m[c->r.d], &s, 2);
                         break;
-                    case 0x44: /* D4 */
+                    case 0x34: /* D4 */
                         ASSERT_IF_OUT_OF_MAIN_MEMORY(c->r.d, 4);
                         memcpy(&c->m[c->r.d], &c->r.d, 4);
                         break;
