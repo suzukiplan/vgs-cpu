@@ -120,6 +120,88 @@ start:
     CMP     D, $90abcdef
     JNE     test-failed
 
+    // レジスタ指定アドレスへのstore
+    LD      D, $55555555
+    ST      D, [16]
+    LD      D, 16
+    LD      A, 16
+    ST      D, [A]o
+    LD      D, [16]
+    CMP     D, $55555510
+    JNE     test-failed
+    LD      D, 16
+    LD      A, 16
+    ST      D, [A]h
+    LD      D, [16]
+    CMP     D, $55550010
+    JNE     test-failed
+    LD      D, 16
+    LD      A, 16
+    ST      D, [A]
+    LD      D, [16]
+    CMP     D, $00000010
+    JNE     test-failed
+
+    LD      D, $55555555
+    ST      D, [16]
+    LD      D, 16
+    LD      B, 16
+    ST      D, [B]o
+    LD      D, [16]
+    CMP     D, $55555510
+    JNE     test-failed
+    LD      D, 16
+    LD      B, 16
+    ST      D, [B]h
+    LD      D, [16]
+    CMP     D, $55550010
+    JNE     test-failed
+    LD      D, 16
+    LD      B, 16
+    ST      D, [B]
+    LD      D, [16]
+    CMP     D, $00000010
+    JNE     test-failed
+
+    LD      D, $55555555
+    ST      D, [16]
+    LD      D, 16
+    LD      C, 16
+    ST      D, [C]o
+    LD      D, [16]
+    CMP     D, $55555510
+    JNE     test-failed
+    LD      D, 16
+    LD      C, 16
+    ST      D, [C]h
+    LD      D, [16]
+    CMP     D, $55550010
+    JNE     test-failed
+    LD      D, 16
+    LD      D, 16
+    ST      D, [D]
+    LD      D, [16]
+    CMP     D, $00000010
+    JNE     test-failed
+
+    LD      D, $55555555
+    ST      D, [16]
+    LD      D, 16
+    ST      D, [D]o
+    LD      D, [16]
+    CMP     D, $55555510
+    JNE     test-failed
+    LD      D, 16
+    ST      D, [D]h
+    LD      D, [16]
+    CMP     D, $55550010
+    JNE     test-failed
+    LD      D, 16
+    ST      D, [D]
+    LD      D, [16]
+    CMP     D, $00000010
+    JNE     test-failed
+
     LD      D, 1
     BRK
 
