@@ -24,3 +24,7 @@ int vgsdrun(struct program_table* pt)
 
     return 0;
 }
+
+void vgsdrun_callback(struct vgscpu_context* c) {
+    puts("cb");
+}

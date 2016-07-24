@@ -65,6 +65,10 @@
         c->r.s += 4;                  \
     }
 
+#ifdef VGSDRUN
+void vgsdrun_callback(struct vgscpu_context* c);
+#endif
+
 void *vgscpu_create_context()
 {
     return vgscpu_create_specific_context(VGSCPU_PROGRAM_SIZE_DEFAULT, VGSCPU_STACK_SIZE_DEFAULT, VGSCPU_MEMORY_SIZE_DEFAULT);
@@ -132,6 +136,9 @@ int vgscpu_run(void *ctx)
     c->r.p = 0;
     c->r.s = 0;
     do {
+#ifdef VGSDRUN
+        vgsdrun_callback(c);
+#endif
         switch (c->p[c->r.p]) {
             case VGSCPU_OP_BRK:
                 loop_flag = 0;

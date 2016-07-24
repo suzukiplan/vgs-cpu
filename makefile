@@ -79,6 +79,7 @@ VGSASM_SRC=\
 
 VGSDRUN_SRC=\
 	$(VGSASM_SRC)\
+	src/cpu/vgscpu.c\
 	src/asm/vgsdrun.c
 
 all:
@@ -97,7 +98,6 @@ clean:
 format:
 	sh tools/format.sh src/asm/vgsasm.h
 	sh tools/format.sh src/asm/vgsdrun.c
-	sh tools/format.sh src/cpu/vgsapi.c
 	sh tools/format.sh src/cpu/vgscpu.c
 	sh tools/format.sh src/cpu/vgscpu.h
 	sh tools/format.sh src/cpu/vgscpu_internal.h 
@@ -124,7 +124,7 @@ vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
 vgsasm: src/asm/vgsasm.h src/cpu/vgscpu_internal.h $(VGSASM_SRC)
 	gcc -O2 -I./src/asm -I./src/cpu $(VGSASM_SRC) -o vgsasm
 
-vgsdrun: src/asm/vgsasm.h src/cpu/vgscpu_internal.h $(VGSDRUN_SRC)
+vgsdrun: src/asm/vgsasm.h src/cpu/vgscpu_internal.h src/cpu/vgscpu.h $(VGSDRUN_SRC)
 	gcc -O2 -DVGSDRUN -I./src/asm -I./src/cpu $(VGSDRUN_SRC) -o vgsdrun
 
 test: build
