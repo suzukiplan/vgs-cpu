@@ -3,7 +3,6 @@
 #include <string.h>
 #include "vgscpu_internal.h"
 
-#define LOGV printf
 #define A1 0
 #define A2 1
 #define A4 2

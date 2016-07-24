@@ -5,7 +5,7 @@ static struct program_table PT;
 
 static int show_op(unsigned int rp)
 {
-    int i, j;
+    int i, j, l;
     unsigned int addr;
 
     for (addr = 0, i = 0; i < PT.line_number; i++) {
@@ -22,7 +22,15 @@ static int show_op(unsigned int rp)
                 for (j = 0; j < PT.line[i].toknum; j++) {
                     switch (j) {
                         case 0:
-                            printf(" %4s", PT.line[i].token[j]);
+                            printf(" line#%05d > %-4s", PT.line[i].number, PT.line[i].token[j]);
+                            break;
+                        case 1:
+                            if (PT.line[i].branch_label[0]) {
+                                memcpy(&l, &PT.line[i].op[1], 4);
+                                printf(" $%x", l);
+                            } else {
+                                printf(" %s", PT.line[i].token[j]);
+                            }
                             break;
                         case 2:
                             printf(", %s", PT.line[i].token[j]);

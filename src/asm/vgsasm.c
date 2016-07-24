@@ -71,15 +71,19 @@ int main(int argc, char* argv[])
 #endif
 #endif
 
-    if (check_arguments(argc, argv)) {
 #ifdef VGSDRUN
+    if (check_arguments(argc, argv)) {
         puts("usage: vgsdrun input.asm");
-#else
-        puts("usage: vgsasm [-o output.bin] input.asm");
-#endif
         return PARAM_ERROR;
     }
-    LOGV("assembling: %s -> %s\n", PT.input, PT.output);
+    printf("assembling: %s on memory\n", PT.input);
+#else
+    if (check_arguments(argc, argv)) {
+        puts("usage: vgsasm [-o output.bin] input.asm");
+        return PARAM_ERROR;
+    }
+    printf("assembling: %s -> %s\n", PT.input, PT.output);
+#endif
 
     PT.buffer = load_file(PT.input);
     if (NULL == PT.buffer) {
