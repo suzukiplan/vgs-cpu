@@ -3,19 +3,11 @@
 #endif
 #include "vgsasm.h"
 
-#define NO_ERROR 0
-#define PARAM_ERROR 1
-#define FILE_READ_ERROR 2
-#define FILE_WRITE_ERROR 3
-#define SYNTAX_ERROR 4
+static struct program_table PT;
 
-struct program_table {
-    char input[1024];
-    char output[1024];
-    char* buffer;
-    struct line_data* line;
-    int line_number;
-} PT;
+#ifdef VGSDRUN
+int vgsdrun(struct program_table* pt);
+#endif
 
 static int check_arguments(int argc, char* argv[])
 {
@@ -41,6 +33,11 @@ static int check_arguments(int argc, char* argv[])
         if (sizeof(PT.output) <= strlen(PT.output) + 4) return -1;
         strcat(PT.output, ".bin");
     }
+#ifdef VGSDRUN
+    else {
+        return -1;
+    }
+#endif
     return 0;
 }
 
@@ -59,22 +56,34 @@ static void show_errors(struct line_data* line, int len)
 
 int main(int argc, char* argv[])
 {
+#ifndef VGSDRUN
     FILE* fp;
+#endif
     int i;
 
 #ifndef _WIN32
+#ifndef VGSDRUN
     long usec;
     double sec;
     struct timeval tvStart;
     struct timeval tvEnd;
     gettimeofday(&tvStart, NULL);
 #endif
+#endif
 
+#ifdef VGSDRUN
+    if (check_arguments(argc, argv)) {
+        puts("usage: vgsdrun input.asm");
+        return PARAM_ERROR;
+    }
+    printf("assembling: %s on memory\n", PT.input);
+#else
     if (check_arguments(argc, argv)) {
         puts("usage: vgsasm [-o output.bin] input.asm");
         return PARAM_ERROR;
     }
-    LOGV("assembling: %s -> %s\n", PT.input, PT.output);
+    printf("assembling: %s -> %s\n", PT.input, PT.output);
+#endif
 
     PT.buffer = load_file(PT.input);
     if (NULL == PT.buffer) {
@@ -108,6 +117,13 @@ int main(int argc, char* argv[])
         return SYNTAX_ERROR;
     }
 
+#ifdef VGSDRUN
+    puts("starting debug run.");
+    i = vgsdrun(&PT);
+    free(PT.line);
+    free(PT.buffer);
+    return i;
+#else
     if (NULL == (fp = fopen(PT.output, "wb"))) {
         fprintf(stderr, "file open error.\n");
         return FILE_WRITE_ERROR;
@@ -138,4 +154,5 @@ int main(int argc, char* argv[])
 #endif
 
     return NO_ERROR;
+#endif
 }
