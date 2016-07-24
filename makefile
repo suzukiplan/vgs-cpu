@@ -77,6 +77,11 @@ VGSASM_SRC=\
 	src/asm/vgsasm_parse_int.c\
 	src/asm/vgsasm_util.c
 
+VGSDRUN_SRC=\
+	$(VGSASM_SRC)\
+	src/cpu/vgscpu.c\
+	src/asm/vgsdrun.c
+
 all:
 	@echo usage:
 	@echo $$ make format : executes clang-format
@@ -92,7 +97,7 @@ clean:
 
 format:
 	sh tools/format.sh src/asm/vgsasm.h
-	sh tools/format.sh src/cpu/vgsapi.c
+	sh tools/format.sh src/asm/vgsdrun.c
 	sh tools/format.sh src/cpu/vgscpu.c
 	sh tools/format.sh src/cpu/vgscpu.h
 	sh tools/format.sh src/cpu/vgscpu_internal.h 
@@ -108,7 +113,7 @@ format:
 format-src:
 	@sh tools/format.sh $(SRC) 
 
-build: vgscpu.a vgsasm
+build: vgscpu.a vgsasm vgsdrun
 
 vgscpu.a: vgscpu.o
 	ar ruv vgscpu.a vgscpu.o
@@ -118,6 +123,9 @@ vgscpu.o: src/cpu/vgscpu.c src/cpu/vgscpu.h src/cpu/vgscpu_internal.h
 
 vgsasm: src/asm/vgsasm.h src/cpu/vgscpu_internal.h $(VGSASM_SRC)
 	gcc -O2 -I./src/asm -I./src/cpu $(VGSASM_SRC) -o vgsasm
+
+vgsdrun: src/asm/vgsasm.h src/cpu/vgscpu_internal.h src/cpu/vgscpu.h $(VGSDRUN_SRC)
+	gcc -O2 -DVGSDRUN -I./src/asm -I./src/cpu $(VGSDRUN_SRC) -o vgsdrun
 
 test: build
 	for TP in $(TESTCASE); do make run-test-exec TP=$$TP; done

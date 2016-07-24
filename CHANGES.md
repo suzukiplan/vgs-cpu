@@ -1,5 +1,8 @@
 # Changes
 
+## Version 0.3.0
+- `vgsdrun` コマンドを追加
+
 ## Version 0.2.0
 - cpu 
   - レジスタが指すアドレス値からの load/store に対応
