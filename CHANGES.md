@@ -1,5 +1,9 @@
 # Changes
 
+## Version 0.3.1
+- `vgsdrun` の出力結果にラベル情報を表示するように変更
+- `vgsasm` のテストを追加
+
 ## Version 0.3.0
 - `vgsdrun` コマンドを追加
 

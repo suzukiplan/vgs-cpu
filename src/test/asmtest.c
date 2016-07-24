@@ -59,7 +59,6 @@ int main(int argc, char* argv[])
     int result;
 #ifndef _WIN32
     long usec;
-    double sec;
     struct timeval tvStart;
     struct timeval tvEnd;
 #endif
@@ -100,8 +99,7 @@ int main(int argc, char* argv[])
     usec *= 1000000;
     usec += tvEnd.tv_usec;
     usec -= tvStart.tv_usec;
-    sec = usec / 1000000.0;
-    printf("executed: %fsec\n", sec);
+    printf("executed: %ldusec\n", usec);
 #endif
     result = (int)c->r.d;
 

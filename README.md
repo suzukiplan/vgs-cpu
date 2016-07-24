@@ -297,65 +297,66 @@ $ vgsdrun input-source
 $ ./vgsdrun src/test/asm_add_a.asm 
 assembling: src/test/asm_add_a.asm on memory
 starting debug run.
+00000000: ----- start -----
 00000000: 08 E8 03               : line#00006 > LD   A, 1000
 00000003: 5D 00                  : line#00007 > ADD  A, 0
 00000005: A6 E8 03               : line#00008 > CMP  A, 1000
-00000008: F8 02 01 00 00         : line#00009 > JNE  $102
-0000000d: F5 02 01 00 00         : line#00010 > JZ   $102
+00000008: F8 02 01 00 00         : line#00009 > JNE  $102 (test-failed)
+0000000d: F5 02 01 00 00         : line#00010 > JZ   $102 (test-failed)
 00000012: 5D FF                  : line#00011 > ADD  A, 255
 00000014: A6 E7 04               : line#00012 > CMP  A, 1255
-00000017: F8 02 01 00 00         : line#00013 > JNE  $102
-0000001c: F5 02 01 00 00         : line#00014 > JZ   $102
+00000017: F8 02 01 00 00         : line#00013 > JNE  $102 (test-failed)
+0000001c: F5 02 01 00 00         : line#00014 > JZ   $102 (test-failed)
 00000021: 5E 00 01               : line#00015 > ADD  A, 256
 00000024: A6 E7 05               : line#00016 > CMP  A, 1511
-00000027: F8 02 01 00 00         : line#00017 > JNE  $102
-0000002c: F5 02 01 00 00         : line#00018 > JZ   $102
+00000027: F8 02 01 00 00         : line#00017 > JNE  $102 (test-failed)
+0000002c: F5 02 01 00 00         : line#00018 > JZ   $102 (test-failed)
 00000031: 5E FF FF               : line#00019 > ADD  A, 65535
 00000034: A7 E6 05 01 00         : line#00020 > CMP  A, 67046
-00000039: F8 02 01 00 00         : line#00021 > JNE  $102
-0000003e: F5 02 01 00 00         : line#00022 > JZ   $102
+00000039: F8 02 01 00 00         : line#00021 > JNE  $102 (test-failed)
+0000003e: F5 02 01 00 00         : line#00022 > JZ   $102 (test-failed)
 00000043: 5F 00 00 01 00         : line#00023 > ADD  A, 65536
 00000048: A7 E6 05 02 00         : line#00024 > CMP  A, 132582
-0000004d: F8 02 01 00 00         : line#00025 > JNE  $102
-00000052: F5 02 01 00 00         : line#00026 > JZ   $102
+0000004d: F8 02 01 00 00         : line#00025 > JNE  $102 (test-failed)
+00000052: F5 02 01 00 00         : line#00026 > JZ   $102 (test-failed)
 00000057: 5F 1A FA FD FF         : line#00027 > ADD  A, -132582
-0000005c: F6 02 01 00 00         : line#00028 > JNZ  $102
+0000005c: F6 02 01 00 00         : line#00028 > JNZ  $102 (test-failed)
 00000061: 09 78 56 34 12         : line#00031 > LD   A, $12345678
 00000066: 12 00 00 00 00         : line#00032 > ST   A, [0]
 0000006b: 07 00                  : line#00033 > LD   A, 0
 0000006d: 63 00 00 00 00         : line#00034 > ADD  A, [0]O
 00000072: A5 78                  : line#00035 > CMP  A, $78
-00000074: F8 02 01 00 00         : line#00036 > JNE  $102
-00000079: F5 02 01 00 00         : line#00037 > JZ   $102
+00000074: F8 02 01 00 00         : line#00036 > JNE  $102 (test-failed)
+00000079: F5 02 01 00 00         : line#00037 > JZ   $102 (test-failed)
 0000007e: 5F 88 FF FF FF         : line#00038 > ADD  A, -120
-00000083: F6 02 01 00 00         : line#00039 > JNZ  $102
+00000083: F6 02 01 00 00         : line#00039 > JNZ  $102 (test-failed)
 00000088: 64 00 00 00 00         : line#00040 > ADD  A, [0]H
 0000008d: A6 78 56               : line#00041 > CMP  A, $5678
-00000090: F8 02 01 00 00         : line#00042 > JNE  $102
-00000095: F5 02 01 00 00         : line#00043 > JZ   $102
+00000090: F8 02 01 00 00         : line#00042 > JNE  $102 (test-failed)
+00000095: F5 02 01 00 00         : line#00043 > JZ   $102 (test-failed)
 0000009a: 5F 88 A9 FF FF         : line#00044 > ADD  A, -22136
-0000009f: F6 02 01 00 00         : line#00045 > JNZ  $102
+0000009f: F6 02 01 00 00         : line#00045 > JNZ  $102 (test-failed)
 000000a4: 65 00 00 00 00         : line#00046 > ADD  A, [0]
 000000a9: A7 78 56 34 12         : line#00047 > CMP  A, $12345678
-000000ae: F8 02 01 00 00         : line#00048 > JNE  $102
-000000b3: F5 02 01 00 00         : line#00049 > JZ   $102
+000000ae: F8 02 01 00 00         : line#00048 > JNE  $102 (test-failed)
+000000b3: F5 02 01 00 00         : line#00049 > JZ   $102 (test-failed)
 000000b8: 5F 88 A9 CB ED         : line#00050 > ADD  A, -305419896
-000000bd: F6 02 01 00 00         : line#00051 > JNZ  $102
+000000bd: F6 02 01 00 00         : line#00051 > JNZ  $102 (test-failed)
 000000c2: 1E 00 00 11 11         : line#00054 > LD   B, $11110000
 000000c7: 32 11 11               : line#00055 > LD   C, $00001111
 000000ca: 48 11 11 11 11         : line#00056 > LD   D, $11111111
 000000cf: 60                     : line#00057 > ADD  A, B
 000000d0: A7 00 00 11 11         : line#00058 > CMP  A, $11110000
-000000d5: F8 02 01 00 00         : line#00059 > JNE  $102
-000000da: F5 02 01 00 00         : line#00060 > JZ   $102
+000000d5: F8 02 01 00 00         : line#00059 > JNE  $102 (test-failed)
+000000da: F5 02 01 00 00         : line#00060 > JZ   $102 (test-failed)
 000000df: 61                     : line#00061 > ADD  A, C
 000000e0: A7 11 11 11 11         : line#00062 > CMP  A, $11111111
-000000e5: F8 02 01 00 00         : line#00063 > JNE  $102
-000000ea: F5 02 01 00 00         : line#00064 > JZ   $102
+000000e5: F8 02 01 00 00         : line#00063 > JNE  $102 (test-failed)
+000000ea: F5 02 01 00 00         : line#00064 > JZ   $102 (test-failed)
 000000ef: 62                     : line#00065 > ADD  A, D
 000000f0: A7 22 22 22 22         : line#00066 > CMP  A, $22222222
-000000f5: F8 02 01 00 00         : line#00067 > JNE  $102
-000000fa: F5 02 01 00 00         : line#00068 > JZ   $102
+000000f5: F8 02 01 00 00         : line#00067 > JNE  $102 (test-failed)
+000000fa: F5 02 01 00 00         : line#00068 > JZ   $102 (test-failed)
 000000ff: 46 01                  : line#00070 > LD   D, 1
 00000101: 00                     : line#00071 > BRK 
 
