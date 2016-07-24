@@ -66,7 +66,7 @@
     }
 
 #ifdef VGSDRUN
-void vgsdrun_callback(struct vgscpu_context* c);
+void vgsdrun_callback(struct vgscpu_context *c);
 #endif
 
 void *vgscpu_create_context()
