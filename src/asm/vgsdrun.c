@@ -5,12 +5,21 @@ static struct program_table PT;
 
 static int show_op(unsigned int rp)
 {
-    int i, j, l;
+    int i, j, l, bl;
     unsigned int addr;
 
     for (addr = 0, i = 0; i < PT.line_number; i++) {
         if (PT.line[i].oplen) {
             if (addr == rp) {
+                /* print label line if exist */
+                for (bl = i - 1; 0 <= bl; bl--) {
+                    if (!PT.line[bl].oplen && PT.line[bl].branch_label[0]) {
+                        printf("%08x: ----- %s -----\n", addr, PT.line[bl].branch_label);
+                    } else {
+                        break;
+                    }
+                }
+                /* print exec line */
                 printf("%08x:", addr);
                 for (j = 0; j < PT.line[i].oplen; j++) {
                     printf(" %02X", (int)PT.line[i].op[j]);
@@ -27,7 +36,7 @@ static int show_op(unsigned int rp)
                         case 1:
                             if (PT.line[i].branch_label[0]) {
                                 memcpy(&l, &PT.line[i].op[1], 4);
-                                printf(" $%x", l);
+                                printf(" $%x (%s)", l, PT.line[i].branch_label);
                             } else {
                                 printf(" %s", PT.line[i].token[j]);
                             }
