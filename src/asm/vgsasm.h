@@ -48,6 +48,12 @@
 #define SHIFT_LEFT 0
 #define SHIFT_RIGHT 1
 
+#define NO_ERROR 0
+#define PARAM_ERROR 1
+#define FILE_READ_ERROR 2
+#define FILE_WRITE_ERROR 3
+#define SYNTAX_ERROR 4
+
 struct line_data {
     char error[1024];
     char* buffer;
@@ -58,6 +64,14 @@ struct line_data {
     int oplen;
     char branch_label[256];
     int label_resolved;
+};
+
+struct program_table {
+    char input[1024];
+    char output[1024];
+    char* buffer;
+    struct line_data* line;
+    int line_number;
 };
 
 char* load_file(const char* path);
