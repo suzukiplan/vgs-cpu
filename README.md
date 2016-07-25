@@ -282,17 +282,18 @@ negative:
 
 ## Debugger
 ### vgsdrun command
-アセンブリ言語ソース (.asm) ファイルを実際に vgs-cpu で実行した時の流れを表示
 ```
-$ vgsdrun input-source
+$ vgsdrun [-s] input-source
 ```
+- アセンブリ言語ソース (.asm) ファイルを実際に vgs-cpu で実行した時の流れを表示
+- `-s` オプションを指定すればステップ実行
 
 #### record format
 ```
 <address>: opcodes : line#<number> > assembly-source
 ```
 
-#### example
+#### example: run all
 ```
 $ ./vgsdrun src/test/asm_add_a.asm 
 assembling: src/test/asm_add_a.asm on memory
@@ -360,8 +361,32 @@ starting debug run.
 000000ff: 46 01                  : line#00070 > LD   D, 1
 00000101: 00                     : line#00071 > BRK 
 
-[registers]
+registers:
 c->r.a = 22222222, c->r.b = 11110000, c->r.c = 00001111, c->r.d = 00000001
 c->r.p = 00000101, c->r.s = 00000000, c->f.z = 00000000, c->f.q = 00000000
+$
+```
+
+#### example: step execution
+```
+$ ./vgsdrun src/test/asm_mul.asm  -s
+assembling: src/test/asm_mul.asm on memory
+starting debug run.
+00000000: ----- start-a -----
+00000000: 08 E8 03               : line#00006 > LD   A, 1000
+00000003: 6F 64                  : line#00007 > MUL  A, 100
+00000005: A7 A0 86 01 00         : line#00008 > CMP  A, 100000
+0000000a: F8 08 03 00 00         : line#00009 > JNE  $308 (test-failed)
+> h
+command usage:
+- h     ... help
+- r     ... show registers
+- q     ... quit
+- other ... execute next line
+> r
+registers:
+c->r.a = 000186A0, c->r.b = 00000000, c->r.c = 00000000, c->r.d = 00000000
+c->r.p = 0000000A, c->r.s = 00000000, c->f.z = 00000000, c->f.q = 00000000
+> q
 $
 ```

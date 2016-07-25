@@ -71,6 +71,7 @@ struct program_table {
     char* buffer;
     struct line_data* line;
     int line_number;
+    int step_exec;
 };
 
 char* load_file(const char* path);
