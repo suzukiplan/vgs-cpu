@@ -19,6 +19,11 @@ static int check_arguments(int argc, char* argv[])
             if (argc <= ++i) return -1;
             if (sizeof(PT.output) <= strlen(argv[i])) return -1;
             strcpy(PT.output, argv[i]);
+#ifdef VGSDRUN
+        } else if (0 == strcmp("-s", argv[i])) {
+            if (PT.step_exec) return -1;
+            PT.step_exec = 1;
+#endif
         } else {
             if (PT.input[0]) return -1;
             if (sizeof(PT.input) <= strlen(argv[i])) return -1;

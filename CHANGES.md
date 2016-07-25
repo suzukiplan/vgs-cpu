@@ -1,5 +1,8 @@
 # Changes
 
+## Version 0.3.2
+- `vgsdrun` にステップ実行機能 ( `-s` オプション ) を追加
+
 ## Version 0.3.1
 - `vgsdrun` の出力結果にラベル情報を表示するように変更
 - `vgsasm` のテストを追加

@@ -115,13 +115,40 @@ int vgsdrun(struct program_table* pt)
     return 0;
 }
 
+static void put_registers(struct vgscpu_context* c)
+{
+    printf("registers:\n");
+    printf("c->r.a = %08X, c->r.b = %08X, c->r.c = %08X, c->r.d = %08X\n", c->r.a, c->r.b, c->r.c, c->r.d);
+    printf("c->r.p = %08X, c->r.s = %08X, c->f.z = %08X, c->f.q = %08X\n", c->r.p, c->r.s, c->f.z, c->f.z);
+}
+
 void vgsdrun_callback(struct vgscpu_context* c)
 {
     if (show_op(c->r.p)) {
         printf("invalid address: $%x\n", c->r.p);
     } else if (0x00 == c->p[c->r.p]) {
-        printf("\n[registers]\n");
-        printf("c->r.a = %08X, c->r.b = %08X, c->r.c = %08X, c->r.d = %08X\n", c->r.a, c->r.b, c->r.c, c->r.d);
-        printf("c->r.p = %08X, c->r.s = %08X, c->f.z = %08X, c->f.q = %08X\n", c->r.p, c->r.s, c->f.z, c->f.z);
+        puts("");
+        put_registers(c);
+    } else if (PT.step_exec) {
+        while (1) {
+            char buf[1024];
+            printf("> ");
+            buf[sizeof(buf) - 1] = '\0';
+            if (!fgets(buf, sizeof(buf) - 1, stdin)) return;
+            if (0 == strncmp(buf, "h", 1)) {
+                puts("command usage:");
+                puts("- h     ... help");
+                puts("- r     ... show registers");
+                puts("- q     ... quit");
+                puts("- other ... execute next line");
+            } else if (0 == strncmp(buf, "r", 1)) {
+                put_registers(c);
+            } else if (0 == strncmp(buf, "q", 1)) {
+                exit(0);
+            } else {
+                printf("\033[1A");
+                break;
+            }
+        }
     }
 }
