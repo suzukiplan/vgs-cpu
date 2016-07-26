@@ -22,9 +22,9 @@ make build
 
 |フィアル名|概要|
 |:---|:---|
-|`vgscpu.a`|VGS-CPU のアーカイブライブラリ|
-|`vgsasm`|アセンブラ|
-|`vgsdrun`|デバッガ|
+|`vgscpu.a`|[VGS-CPU API](#api-specification) のアーカイブライブラリ|
+|`vgsasm`|[アセンブラ](#assembler) (実行モジュール)|
+|`vgsdrun`|[デバッガ](#debugger) (実行モジュール)|
 
 _※Windowsでも使えますがWindowsの場合はmakefileの内容を解析して自力で何とかしてください_
 
