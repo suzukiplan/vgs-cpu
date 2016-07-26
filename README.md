@@ -10,12 +10,35 @@
 - `make test` を実行して全ての項目が success になる環境であれば動作できます
 - big-endian の環境には対応していません
 
+## How to install
+UNIX系OS全般(mac/Linuxを含む) の ターミナル で 以下のコマンドを実行してください
+```
+git clone https://github.com/suzukiplan/vgs-cpu.git
+cd vgs-cpu
+make build
+```
+
+上記を実行すればカレントディレクトリに以下のファイルが生成されます
+
+|フィアル名|概要|
+|:---|:---|
+|`vgscpu.a`|VGS-CPU のアーカイブライブラリ|
+|`vgsasm`|アセンブラ|
+|`vgsdrun`|デバッガ|
+
+_※Windowsでも使えますがWindowsの場合はmakefileの内容を解析して自力で何とかしてください_
+
 ## How to use
 - UNIX系OS全般(mac/Linuxを含む) の ターミナル で `make` を実行すれば, できることが書いてあります
 - `make build` を実行すればアセンブラ (vgsasmコマンド) をビルドできます
-- 利用したいプログラムに `git subversion add` して利用する想定
+- 利用したいプログラムに `git subversion add` して利用する想定です
+- 利用したいプロジェクトの makefile で適宜ビルドしてご利用ください
 
 ## API specification
+- コンパイル時に必要なヘッダファイル: [vgscpu.h](https://github.com/suzukiplan/vgs-cpu/blob/master/src/cpu/vgscpu.h)
+- リンク時に必要なアーカイブ: `vgscpu.a`
+- 依存ライブラリ: 標準Cランタイムのみ
+
 ### vgscpu_create_context
 ```c
 void *vgscpu_create_context();
